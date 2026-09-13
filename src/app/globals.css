@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  @apply selection:bg-red-500/40;
+}
+
+@keyframes review-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.review-marquee-track {
+  animation: review-marquee 42s linear infinite;
+}
+
+.review-marquee-frame:hover .review-marquee-track,
+.review-marquee-frame:focus-within .review-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-marquee-track {
+    animation: none;
+  }
+}
