@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # NEM Motors Website
 
 Professionele Next.js website voor NEM Motors, met aanbodpagina's, voertuigdetails, FAQ, reviews en contactformulieren.
@@ -80,3 +81,7 @@ Veelvoorkomende wijzigingen:
 Dit project gebruikt momenteel vaste gegevens en e-mailformulieren. Er is geen adminportaal, Prisma-database of apart afsprakenbeheer. Diensten worden op de homepage getoond. Nieuwe functies krijgen pas bestanden wanneer ze worden gebouwd.
 
 Configuratiebestanden blijven in de projectroot. `node_modules`, `.next` en `.next-dev` worden automatisch gegenereerd en staan buiten Git.
+=======
+# NemMotors-website
+Website voor auto garage Nem Motors
+>>>>>>> 247133e8843cf3ad0f4e740b02b65808238e354d
