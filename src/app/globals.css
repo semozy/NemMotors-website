@@ -13,6 +13,10 @@ body {
   @apply selection:bg-red-500/40;
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 @keyframes review-marquee {
   from {
     transform: translateX(0);
