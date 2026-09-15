@@ -1,5 +1,5 @@
 import ServicesSection from "@/components/home/ServicesSection";
-import { ShieldCheck, Car, Fuel, Truck, Users, Zap, Clock, Mail, MapPin, Phone, Quote, User } from "lucide-react";
+import { ShieldCheck, Car, Fuel, Users, Zap, Clock, Mail, MapPin, Phone, Quote, User } from "lucide-react";
 import { siteGegevens } from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 const sterkePunten = [
@@ -27,7 +27,7 @@ export default function HomePage() {
           <div className="grid overflow-hidden rounded-lg bg-neutral-100 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="min-h-[420px] bg-[url('https://images.unsplash.com/photo-1562141961-b5d92de784a3?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center"/>
             <div className="p-8 md:p-12">
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-yellow-700">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-950">
                 Over NEM Motors
               </p>
               <h2 className="mt-4 text-4xl font-black text-neutral-950 md:text-5xl">
@@ -51,7 +51,7 @@ export default function HomePage() {
               </p>
               <div className="mt-8 grid gap-4">
                 {sterkePunten.map((highlight) => (<div key={highlight} className="flex gap-3 text-sm font-semibold text-neutral-800">
-                    <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-yellow-600"/>
+                    <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-neutral-950"/>
                     <span>{highlight}</span>
                   </div>))}
               </div>
@@ -76,7 +76,7 @@ const autoCategorieen = [
     },
     {
         slug: "hoge-instap",
-        label: "Hoge instap",
+        label: "SUV",
         description: "Comfortabel instappen en goed overzicht op de weg.",
     },
     {
@@ -86,13 +86,8 @@ const autoCategorieen = [
     },
     {
         slug: "gezinsauto",
-        label: "Gezinsauto",
+        label: "Gezinswagens",
         description: "Ruimte, comfort en veiligheid voor dagelijks gebruik.",
-    },
-    {
-        slug: "bedrijfswagen",
-        label: "Bedrijfswagen",
-        description: "Praktische wagens voor zelfstandigen en bedrijven.",
     },
 ];
 
@@ -102,7 +97,6 @@ const icons = {
     "hoge-instap": Car,
     compact: Car,
     gezinsauto: Users,
-    bedrijfswagen: Truck,
 };
 function CarCategories() {
     return (<Container className="py-5 pb-10">
@@ -110,11 +104,11 @@ function CarCategories() {
         <p className="text-xs font-bold uppercase text-neutral-400">
           Voor elk type wagen
         </p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className="mx-auto mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-5xl xl:grid-cols-5">
           {autoCategorieen.map((type) => {
             const Icon = icons[type.slug];
-            return (<div key={type.slug} className="group min-h-28 rounded-sm border border-white/10 bg-[linear-gradient(180deg,#202020_0%,#111111_100%)] p-4 text-center shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-[#ffc20e] hover:bg-neutral-900">
-                <Icon className="mx-auto h-7 w-7 text-neutral-200 transition group-hover:text-[#ffc20e]"/>
+            return (<div key={type.slug} className="group min-h-28 rounded-sm border border-white/10 bg-[linear-gradient(180deg,#202020_0%,#111111_100%)] p-4 text-center shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-white hover:bg-neutral-900">
+              <Icon className="mx-auto h-7 w-7 text-neutral-200 transition group-hover:text-white"/>
                 <h3 className="mt-3 text-sm font-black text-white">
                   {type.label}
                 </h3>
@@ -183,7 +177,7 @@ function GarageInfo() {
       <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm md:p-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_420px]">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-yellow-700">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-950">
               Persoonlijk contact
             </p>
             <h2 className="mt-4 text-4xl font-black text-neutral-950 md:text-5xl">
@@ -217,11 +211,11 @@ function GarageInfo() {
               </div>
             </div>
             <div className="mt-7 grid gap-4 text-sm font-semibold text-neutral-700">
-              <a href={`tel:${siteGegevens.phoneNumber}`} className="flex items-center gap-3 hover:text-yellow-700">
+              <a href={`tel:${siteGegevens.phoneNumber}`} className="flex items-center gap-3 hover:text-neutral-950">
                 <Phone className="h-5 w-5 text-neutral-500"/>{" "}
                 {siteGegevens.phoneNumber}
               </a>
-              <a href={`mailto:${siteGegevens.email}`} className="flex items-center gap-3 hover:text-yellow-700">
+              <a href={`mailto:${siteGegevens.email}`} className="flex items-center gap-3 hover:text-neutral-950">
                 <Mail className="h-5 w-5 text-neutral-500"/>{" "}
                 {siteGegevens.email}
               </a>
@@ -234,7 +228,7 @@ function GarageInfo() {
                 {siteGegevens.openingHours}
               </p>
             </div>
-            <a href={`mailto:${siteGegevens.email}`} className="mt-8 inline-flex w-full items-center justify-center rounded-md bg-yellow-400 px-5 py-3 text-sm font-black text-neutral-950 transition hover:bg-yellow-300">
+            <a href={`mailto:${siteGegevens.email}`} className="mt-8 inline-flex w-full items-center justify-center rounded-md bg-neutral-950 px-5 py-3 text-sm font-black text-white transition hover:bg-neutral-700">
               Contact opnemen
             </a>
           </aside>
@@ -245,7 +239,7 @@ function GarageInfo() {
         <div className="review-marquee-track flex w-max">
           {reviewGroups.map((group, groupIndex) => (<div key={groupIndex} className="flex shrink-0 gap-4 pr-4" aria-hidden={groupIndex === 1}>
               {group.map((review) => (<article key={`${groupIndex}-${review.name}-${review.date}`} className="min-w-[300px] rounded-lg border border-neutral-200 bg-neutral-50 p-5 shadow-sm sm:min-w-[360px]">
-                  <Quote className="h-5 w-5 text-yellow-700" aria-hidden="true"/>
+                  <Quote className="h-5 w-5 text-neutral-950" aria-hidden="true"/>
                   <p className="mt-3 text-sm leading-6 text-neutral-700">
                     &quot;{review.text}&quot;
                   </p>
@@ -260,12 +254,21 @@ function GarageInfo() {
         </div>
       </div>
 
-      <a href={`https://maps.google.com/?q=${mapsQuery}`} target="_blank" rel="noreferrer" className="mt-6 flex items-start gap-3 rounded-lg border border-neutral-200 bg-white p-5 text-sm text-neutral-700 shadow-sm transition hover:border-yellow-400">
-        <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-yellow-700"/>
+      <a href={`https://maps.google.com/?q=${mapsQuery}`} target="_blank" rel="noreferrer" className="mt-6 flex items-start gap-3 rounded-lg border border-neutral-200 bg-white p-5 text-sm text-neutral-700 shadow-sm transition hover:border-neutral-950">
+        <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-neutral-950"/>
         <div>
           <p className="font-black text-neutral-950">Onze locatie</p>
           <p className="mt-1">{siteGegevens.address} · Open in Google Maps</p>
         </div>
       </a>
+      <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 shadow-sm">
+        <iframe
+          title={`Locatie van ${siteGegevens.name}`}
+          src={`https://www.google.com/maps?q=${mapsQuery}&output=embed`}
+          className="h-80 w-full border-0 sm:h-96"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </Container>);
 }

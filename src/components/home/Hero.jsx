@@ -20,7 +20,7 @@ export default function Hero() {
             <br />
             Sterke service.
           </motion.h1>
-          <motion.p initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.35 }} className="mt-5 text-sm font-black uppercase text-[#ffc20e] md:text-base">
+          <motion.p initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.35 }} className="mt-5 text-sm font-black uppercase text-white md:text-base">
             Uw vertrouwen is onze motor.
           </motion.p>
           <motion.p initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.45 }} className="mt-4 max-w-xl text-sm font-medium leading-7 text-neutral-300 md:text-base">
@@ -29,11 +29,11 @@ export default function Hero() {
             garantievoorwaarden en persoonlijke service.
           </motion.p>
           <motion.div initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.55 }} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/#contact" className="inline-flex h-11 items-center justify-center rounded-sm bg-[#ffc20e] px-5 text-sm font-black text-neutral-950 shadow-[0_12px_30px_rgba(255,194,14,0.2)] transition hover:-translate-y-0.5 hover:bg-yellow-300">
-              Neem contact op
+            <Link href="/aanbod" className="inline-flex h-14 items-center justify-center rounded-sm bg-white px-7 text-base font-black text-neutral-950 shadow-[0_12px_30px_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5 hover:bg-neutral-200 sm:px-9">
+              Bekijk het aanbod
             </Link>
-            <Link href="/#diensten" className="inline-flex h-11 items-center justify-center rounded-sm border border-white/35 bg-black/20 px-5 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-[#ffc20e] hover:text-[#ffc20e]">
-              Onze diensten
+            <Link href="/#contact" className="inline-flex h-14 items-center justify-center rounded-sm border border-white/35 bg-black/20 px-7 text-base font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white hover:text-white sm:px-9">
+              Neem contact op
             </Link>
           </motion.div>
         </div>

@@ -51,10 +51,10 @@ export default function Footer() {
               {siteGegevens.openingHours}
             </p>
             {(siteGegevens.facebookUrl || siteGegevens.instagramUrl) && (<div className="mt-5 flex gap-3">
-                {siteGegevens.facebookUrl && (<a href={siteGegevens.facebookUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-[#ffc20e]">
+                {siteGegevens.facebookUrl && (<a href={siteGegevens.facebookUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
                     Facebook
                   </a>)}
-                {siteGegevens.instagramUrl && (<a href={siteGegevens.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-[#ffc20e]">
+                {siteGegevens.instagramUrl && (<a href={siteGegevens.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
                     Instagram
                   </a>)}
               </div>)}

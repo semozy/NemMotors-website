@@ -10,11 +10,12 @@ export function getCarById(id) {
 
 export function filterCars(cars, filters, query = "", sort = "relevant") {
   return cars.filter((car) => {
-    const text = `${car.brand} ${car.model} ${car.trim || ""} ${car.description || ""}`.toLocaleLowerCase("nl-BE");
+    const text = `${car.brand} ${car.model} ${car.trim || ""} ${car.body || ""} ${car.vehicleType || ""} ${car.fuel || ""} ${car.transmission || ""} ${car.color || ""} ${car.price || ""} ${car.description || ""}`.toLocaleLowerCase("nl-BE");
     return query.toLocaleLowerCase("nl-BE").split(/\s+/).every((word) => text.includes(word))
       && (!filters.brand || car.brand === filters.brand)
       && (!filters.model || car.model === filters.model)
-      && (!filters.price || (car.price > 0 && car.price <= Number(filters.price)))
+      && (!filters.price || (filters.price.endsWith("+") ? car.price >= Number(filters.price.slice(0, -1)) : car.price > 0 && car.price <= Number(filters.price)))
+      && (!filters.body || (car.body || car.vehicleType) === filters.body)
       && (!filters.yearFrom || car.year >= Number(filters.yearFrom))
       && (!filters.yearTo || car.year <= Number(filters.yearTo))
       && (!filters.kmFrom || (car.mileage != null && car.mileage >= Number(filters.kmFrom)))
