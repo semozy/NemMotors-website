@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowUpRight, CalendarDays, CarFront, Fuel, Gauge, Settings2 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
 export default function CarCard({ car }) {
-  const router = useRouter();
   const name = `${car.brand} ${car.model}`;
   const specs = [
     [CalendarDays, car.year, "Bouwjaar"],
@@ -16,7 +14,7 @@ export default function CarCard({ car }) {
   ];
 
   return (
-    <article onClick={() => router.push(`/aanbod/${car.id}`)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); router.push(`/aanbod/${car.id}`); } }} tabIndex={0} role="link" aria-label={`Bekijk ${name}`} className="group cursor-pointer overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-neutral-950/60 hover:shadow-xl hover:shadow-black/5 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2">
+    <article className="group overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-neutral-950/60 hover:shadow-xl hover:shadow-black/5">
       <Link href={`/aanbod/${car.id}`} className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-[#eeefec]" aria-label={`Bekijk ${name}`}>
         <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_30%,rgba(0,0,0,0.025)_30%,rgba(0,0,0,0.025)_60%,transparent_60%)]" />
         <div className="absolute left-4 top-4 rounded-sm bg-neutral-950 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white">{car.status === "gereserveerd" ? "Gereserveerd" : "Beschikbaar"}</div>

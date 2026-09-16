@@ -1,5 +1,7 @@
 import ServicesSection from "@/components/home/ServicesSection";
-import { ShieldCheck, Car, Fuel, Users, Zap, Clock, Mail, MapPin, Phone, Quote, User } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { ShieldCheck, ArrowRight, Clock, Mail, MapPin, Phone, Quote, Star, User } from "lucide-react";
 import { siteGegevens } from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 const sterkePunten = [
@@ -17,7 +19,7 @@ import CarFilter from "@/components/cars/CarFilter";
 export default function HomePage() {
     return (<>
       <Hero />
-      <div className="bg-neutral-950 text-white">
+      <div className="bg-white text-neutral-950">
         <CarFilter />
         <CarCategories />
       </div>
@@ -67,108 +69,141 @@ const autoCategorieen = [
     {
         slug: "elektrisch",
         label: "Elektrisch",
-        description: "Stil, zuinig en klaar voor lage-emissiezones.",
+        description: "Duurzaam op weg",
+        image: "/images/home/category-electric-transparent.png",
     },
     {
         slug: "hybride",
         label: "Hybride",
-        description: "Flexibel rijden met verbrandingsmotor en elektrische steun.",
+        description: "Het beste van twee werelden",
+        image: "/images/home/category-hybrid-transparent.png",
     },
     {
         slug: "hoge-instap",
         label: "SUV",
-        description: "Comfortabel instappen en goed overzicht op de weg.",
+        description: "Ruimte voor meer",
+        image: "/images/home/category-suv-transparent.png",
     },
     {
         slug: "compact",
         label: "Compact",
-        description: "Handige stadswagens en praktische hatchbacks.",
+        description: "Wendbaar en efficiënt",
+        image: "/images/home/category-compact-transparent.png",
     },
     {
         slug: "gezinsauto",
         label: "Gezinswagens",
-        description: "Ruimte, comfort en veiligheid voor dagelijks gebruik.",
+        description: "Comfort voor iedereen",
+        image: "/images/home/category-family-transparent.png",
     },
 ];
 
-const icons = {
-    elektrisch: Zap,
-    hybride: Fuel,
-    "hoge-instap": Car,
-    compact: Car,
-    gezinsauto: Users,
-};
 function CarCategories() {
-    return (<Container className="py-5 pb-10">
+    return (<Container className="pb-14 pt-12 lg:pb-16 lg:pt-14">
       <div>
-        <p className="text-xs font-bold uppercase text-neutral-400">
-          Voor elk type wagen
-        </p>
-        <div className="mx-auto mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-5xl xl:grid-cols-5">
+        <div className="flex items-end justify-between gap-6">
+          <h2 className="text-3xl font-black tracking-[-0.035em] text-neutral-950 md:text-4xl">Welke wagen past bij u?</h2>
+          <Link href="/aanbod" className="hidden items-center gap-3 text-xs font-medium text-neutral-600 transition hover:text-black sm:flex">Bekijk alle categorieën <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {autoCategorieen.map((type) => {
-            const Icon = icons[type.slug];
-            return (<div key={type.slug} className="group min-h-28 rounded-sm border border-white/10 bg-[linear-gradient(180deg,#202020_0%,#111111_100%)] p-4 text-center shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-white hover:bg-neutral-900">
-              <Icon className="mx-auto h-7 w-7 text-neutral-200 transition group-hover:text-white"/>
-                <h3 className="mt-3 text-sm font-black text-white">
+            return (<Link href={`/aanbod?body=${encodeURIComponent(type.label)}`} key={type.slug} className="group overflow-hidden rounded-lg bg-[#f5f5f3] pb-5 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div className="h-32 overflow-hidden">
+                  <Image
+                    src={type.image}
+                    alt={`${type.label} wagen`}
+                    width={720}
+                    height={420}
+                    className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <h3 className="text-sm font-black text-neutral-950">
                   {type.label}
                 </h3>
-                <p className="mt-1 text-[11px] font-semibold text-neutral-400">
+                <p className="mt-1 text-xs font-medium text-neutral-500">
                   {type.description}
                 </p>
-              </div>);
+              </Link>);
         })}
         </div>
+        <Link href="/aanbod" className="mt-5 flex items-center justify-center gap-3 text-xs font-medium text-neutral-600 sm:hidden">Bekijk alle categorieën <ArrowRight className="h-4 w-4" /></Link>
       </div>
     </Container>);
 }
 
 const reviews = [
-    {
-        name: "S. K.",
-        text: "Zeer correcte service, duidelijke uitleg en snelle afhandeling.",
-        date: "2026",
-    },
-    {
-        name: "M. D.",
-        text: "Betrouwbare verkoper met mooie wagens en eerlijke communicatie.",
-        date: "2026",
-    },
-    {
-        name: "A. V.",
-        text: "Alles verliep professioneel van eerste contact tot aflevering.",
-        date: "2026",
-    },
-    {
-        name: "Y. B.",
-        text: "Vriendelijke ontvangst en alles werd rustig uitgelegd. Heel tevreden met mijn aankoop.",
-        date: "2026",
-    },
-    {
-        name: "R. T.",
-        text: "Snelle reactie via WhatsApp en correcte afspraken voor de proefrit.",
-        date: "2026",
-    },
-    {
-        name: "N. C.",
-        text: "De wagen was zoals beschreven en de afhandeling verliep zonder zorgen.",
-        date: "2026",
-    },
-    {
-        name: "K. P.",
-        text: "Eerlijke uitleg over de auto en geen opdringerige verkoop. Aanrader.",
-        date: "2026",
-    },
-    {
-        name: "L. M.",
-        text: "Goede service, duidelijke communicatie en een nette aflevering van de wagen.",
-        date: "2026",
-    },
-    {
-        name: "F. D.",
-        text: "Professionele aanpak van begin tot einde. Ik kom zeker terug.",
-        date: "2026",
-    },
+{
+    name: "Oceane",
+    text: "Je recommande vivement ce garage ! J’ai acheté ma voiture ici et je suis vraiment très satisfait de mon expérience. Du premier contact jusqu’au jour où je suis allé récupérer le véhicule, tout s’est parfaitement bien passé. Le vendeur est une personne très sérieuse, honnête, professionnelle et vraiment agréable. Il est très joignable, toujours disponible pour répondre aux questions et prend le temps de bien expliquer les choses. On sent qu’il fait son travail avec sérieux et qu’il tient réellement à satisfaire ses clients. La voiture correspond parfaitement à ce qui avait été annoncé, aucune mauvaise surprise. Tout était clair, transparent et conforme à mes attentes. C’est vraiment rassurant de pouvoir faire confiance à quelqu’un lorsqu’on achète une voiture. Je ne regrette absolument pas mon achat et je suis très content d’être passé par ce garage. Une personne de confiance, professionnelle et sympathique, que je recommande sans hésiter. Je reviendrai avec plaisir si j’ai besoin d’un autre véhicule à l’avenir. Encore merci pour votre sérieux et votre professionnalisme !",
+    date: "2026",
+    rating: 4,
+},
+{
+    name: "Kaan Bozcu",
+    text: "Ik ben zeer tevreden over de service en de professionele aanpak. Alles werd duidelijk uitgelegd en verliep vlot en zonder problemen. Een vriendelijke en betrouwbare autodealer die echt met de klant meedenkt. Zeker een aanrader!",
+    date: "2026",
+},
+{
+    name: "Saskia",
+    text: "Na het maken van een testrit was een deal en inruil huidige auto snel gemaakt. Eigenaar communiceert snel en lost zaken snel op. Al met al heb ik een hele goede indruk van deze garage!",
+    date: "2026",
+},
+{
+    name: "Gelukkige chauffeur",
+    text: "Vriendelijk, duidelijk contact, vlotte testrit. Enige verwarring over navigatie was meteen uitgeklaard. Aanrader!",
+    date: "2026",
+},
+{
+    name: "Eef Peeters",
+    text: "Top service! Zeer vriendelijke verkoper die heel veel info gaf en eerlijk is. Hij was stipt op de afspraak aanwezig en handelde het administratief gedeelte zeer en snel correct af. Ik voelde me enorm gerustgesteld door zijn advies. Zeker een aanrader!",
+    date: "2026",
+},
+{
+    name: "Merle Houben",
+    text: "De verkoper was zeer vriendelijk. We hadden direct een goed gevoel & waren zeer content van hoe deze verkoop is verlopen!",
+    date: "2026",
+},
+{
+    name: "Germaine",
+    text: "Zeer vriendelijke verkoper die je bijstaat in het gehele proces.",
+    date: "2026",
+},
+{
+    name: "Vanzonhoven robby",
+    text: "Toffe en goede verkoper. Vlot in omgang weet waar hij mee bezig is. Toffe zaak.",
+    date: "2026",
+},
+{
+    name: "AV",
+    text: "Super tevreden over de verkoper.",
+    date: "2025",
+},
+{
+    name: "Steven",
+    text: "Perfecte service",
+    date: "2025",
+},
+{
+    name: "Erwin",
+    text: "Als ging goed",
+    date: "2025",
+},
+{
+    name: "Andrei B",
+    text: "Absoluutd een aanrader! De service van Volkan bij Auto's NEM was uitstekend. Hij heeft de aankoop van mijn auto ongelooflijk snel en soepel afgehandeld – alles was binnen een dag geregeld, inclusief alle documenten en de overname van mijn oude wagen. Zeer correct, vriendelijk en professioneel.",
+    date: "2025",
+},
 ];
+
+function verkortReview(text, maximumWoorden = 10) {
+    const woorden = text.trim().split(/\s+/);
+
+    if (woorden.length <= maximumWoorden) {
+        return text;
+    }
+
+    return `${woorden.slice(0, maximumWoorden).join(" ")}…`;
+}
 
 function GarageInfo() {
     const mapsQuery = encodeURIComponent(siteGegevens.address);
@@ -239,14 +274,23 @@ function GarageInfo() {
         <div className="review-marquee-track flex w-max">
           {reviewGroups.map((group, groupIndex) => (<div key={groupIndex} className="flex shrink-0 gap-4 pr-4" aria-hidden={groupIndex === 1}>
               {group.map((review) => (<article key={`${groupIndex}-${review.name}-${review.date}`} className="min-w-[300px] rounded-lg border border-neutral-200 bg-neutral-50 p-5 shadow-sm sm:min-w-[360px]">
-                  <Quote className="h-5 w-5 text-neutral-950" aria-hidden="true"/>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700">
-                    &quot;{review.text}&quot;
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex gap-1" aria-label={`${review.rating ?? 5} van de 5 sterren`}>
+                      {Array.from({ length: 5 }, (_, index) => (<Star
+                        key={index}
+                        className={`h-5 w-5 ${index < (review.rating ?? 5) ? "fill-amber-400 text-amber-400" : "fill-neutral-200 text-neutral-200"}`}
+                        aria-hidden="true"
+                      />))}
+                    </div>
+                    <Quote className="h-5 w-5 text-neutral-300" aria-hidden="true"/>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-neutral-700" title={review.text}>
+                    &quot;{verkortReview(review.text)}&quot;
                   </p>
-                  <div className="mt-4 border-t border-neutral-200 pt-3">
+                  <div className="mt-4 flex items-end justify-between gap-4 border-t border-neutral-200 pt-3">
                     <p className="font-black text-neutral-950">{review.name}</p>
-                    <p className="text-xs font-semibold text-neutral-500">
-                      Klant sinds {review.date}
+                    <p className="text-right text-xs font-semibold text-neutral-500">
+                      Geschreven op {review.date}
                     </p>
                   </div>
                 </article>))}

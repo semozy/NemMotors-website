@@ -35,7 +35,14 @@ export default function Navbar({ isOpen, onClose, nav, }) {
               </button>
             </div>
             <div className="grid gap-3">
-              {nav.map((item) => (<Link key={item.name} href={item.href} onClick={onClose} className={`rounded-2xl border px-4 py-4 text-left transition ${pathname === item.href
+              {nav.map((item) => (<Link key={item.name} href={item.href} prefetch={item.href === "/aanbod" ? false : undefined} onClick={(event) => {
+                    if (item.href === "/aanbod") {
+                        event.preventDefault();
+                        window.location.assign(item.href);
+                        return;
+                    }
+                    onClose();
+                }} className={`rounded-2xl border px-4 py-4 text-left transition ${pathname === item.href
                     ? "border-red-500/60 bg-red-500/10 text-red-400"
                     : "border-white/10 text-neutral-100 hover:border-red-500/60 hover:bg-red-500/10"}`}>
                   {item.name}

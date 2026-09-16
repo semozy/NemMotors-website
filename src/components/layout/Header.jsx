@@ -1,49 +1,58 @@
 "use client";
+
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import Navbar from "./Navbar";
-import { navigation as nav } from "@/constants/navigation";
+import { navigation } from "@/constants/navigation";
+
 export default function Header() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const pathname = usePathname();
-    return (<>
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8">
-          <Link href="/" className="group flex items-center gap-3" aria-label="NEM Motors home">
-            <div className="text-left">
-              <p className="text-2xl font-black leading-none text-white">NEM</p>
-              <p className="-mt-0.5 text-[10px] font-black uppercase text-white">
-                Motors
-              </p>
-            </div>
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  return (
+    <>
+      <header className="sticky top-0 z-50 border-b border-black/5 bg-white/95 text-neutral-950 backdrop-blur-xl">
+        <nav className="mx-auto flex h-[70px] max-w-[1320px] items-center justify-between px-5 lg:px-8">
+          <Link
+            href="/"
+            aria-label="NEM Motors home"
+            className="shrink-0 text-xl font-black tracking-[-0.04em] text-neutral-950 sm:text-2xl"
+          >
+            NEM Motors
           </Link>
-
-          <div className="hidden items-center gap-10 lg:flex">
-            {nav.map((item) => (<Link key={item.name} href={item.href} className={`text-xs font-bold transition hover:text-white ${pathname === item.href ? "text-white" : "text-neutral-300"}`}>
-                {item.name}
-              </Link>))}
+          <div className="hidden h-full items-center gap-11 lg:flex">
+            {navigation.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  prefetch={item.href === "/aanbod" ? false : undefined}
+                  onClick={(event) => {
+                    if (item.href === "/aanbod") {
+                      event.preventDefault();
+                      window.location.assign(item.href);
+                    }
+                  }}
+                  className={`relative flex h-full items-center text-[13px] font-medium transition-colors hover:text-black ${active ? "text-black" : "text-neutral-600"}`}
+                >
+                  {item.name}
+                  {active && <span className="absolute inset-x-0 bottom-0 h-0.5 bg-black" />}
+                </Link>
+              );
+            })}
           </div>
-
-          <div className="hidden items-center gap-3 lg:flex">
-            <Link href="/" className="inline-flex h-11 items-center rounded-sm border border-white/10 bg-black px-3 py-1.5 shadow-[0_10px_24px_rgba(255,255,255,0.10)] transition hover:border-white" aria-label="NEM Motors home">
-              <Image src="/images/logo/nemmotors.png" alt="NEM Motors" width={112} height={56} className="h-8 w-auto object-contain" priority/>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-3 lg:hidden">
-            <Link href="/aanbod" className="inline-flex min-h-11 items-center rounded-sm bg-white px-4 text-sm font-bold text-neutral-950 hover:bg-neutral-200">
-              Aanbod
-            </Link>
-          <button className="rounded-sm border border-white/10 p-2 text-white" onClick={() => setMenuOpen(true)} aria-label="Menu openen" aria-expanded={menuOpen} aria-controls="mobile-navigation">
-            <Menu />
+          <Link href="/contact" className="hidden h-11 items-center gap-4 rounded-md bg-neutral-950 px-6 text-[13px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-neutral-800 lg:inline-flex">
+            Contact opnemen <ArrowRight className="h-4 w-4" />
+          </Link>
+          <button type="button" className="rounded-md border border-neutral-200 p-2.5 lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Menu openen" aria-expanded={menuOpen} aria-controls="mobile-navigation">
+            <Menu className="h-5 w-5" />
           </button>
-          </div>
         </nav>
       </header>
-
-      <Navbar isOpen={menuOpen} onClose={() => setMenuOpen(false)} nav={nav}/>
-    </>);
+      <Navbar isOpen={menuOpen} onClose={() => setMenuOpen(false)} nav={navigation} />
+    </>
+  );
 }

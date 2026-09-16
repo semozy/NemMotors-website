@@ -1,42 +1,41 @@
 "use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
-export default function Hero() {
-    return (<section className="relative min-h-[560px] overflow-hidden bg-neutral-950 lg:min-h-[650px]">
-      <motion.div initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 1.2 }} className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=85')] bg-cover bg-[center_top]"/>
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#070707_0%,rgba(7,7,7,0.96)_26%,rgba(7,7,7,0.68)_56%,rgba(7,7,7,0.28)_100%)]"/>
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:46px_46px] opacity-40"/>
-      <div className="absolute left-0 top-24 hidden h-72 w-40 border-y border-r border-white/10 text-[10px] uppercase text-white/35 lg:block">
-        <span className="absolute left-5 top-6">est.</span>
-        <span className="absolute left-5 top-10">2024</span>
-        <span className="absolute right-4 top-1/2 h-px w-20 bg-white/15"/>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-neutral-950 to-transparent"/>
 
-      <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center px-5 pb-24 pt-24 lg:min-h-[650px] lg:px-8 lg:pt-28">
-        <div className="max-w-2xl">
-          <motion.h1 initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.25 }} className="font-mono text-4xl font-black uppercase leading-[0.98] text-white md:text-6xl">
-            Sterke wagens.
-            <br />
-            Sterke service.
+import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const reveal = (delay) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] },
+  });
+
+  return (
+    <section className="relative isolate min-h-[550px] overflow-hidden bg-[#111312] text-white sm:min-h-[575px] lg:min-h-[590px]">
+      <motion.div initial={reduceMotion ? false : { scale: 1.035 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0 bg-[url('/images/home/hero-station-wagon.png')] bg-cover bg-[66%_center] sm:bg-[62%_center] lg:bg-center" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,9,9,.94)_0%,rgba(7,9,9,.86)_35%,rgba(7,9,9,.3)_61%,rgba(7,9,9,.04)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05)_55%,rgba(0,0,0,.48)_100%)]" />
+      <div className="relative mx-auto flex min-h-[550px] max-w-[1320px] items-center px-5 pb-28 pt-16 sm:min-h-[575px] lg:min-h-[590px] lg:px-8 lg:pb-32">
+        <div className="max-w-[570px]">
+          <motion.div {...reveal(0.05)} className="mb-7 flex items-center gap-5">
+            <span className="h-px w-9 bg-white/80" />
+            <span className="text-[10px] font-medium uppercase tracking-[0.38em] text-white/55">Premium occasions</span>
+          </motion.div>
+          <motion.h1 {...reveal(0.12)} className="text-[44px] font-black leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[64px]">
+            Sterke wagens.<br />Sterke service.
           </motion.h1>
-          <motion.p initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.35 }} className="mt-5 text-sm font-black uppercase text-white md:text-base">
-            Uw vertrouwen is onze motor.
+          <motion.p {...reveal(0.2)} className="mt-4 text-lg font-semibold sm:text-xl">Uw vertrouwen is onze motor.</motion.p>
+          <motion.p {...reveal(0.27)} className="mt-2 max-w-[500px] text-sm leading-6 text-white/80 sm:text-base">
+            Ontdek zorgvuldig geselecteerde tweedehandswagens<br className="hidden sm:block" /> met persoonlijke service.
           </motion.p>
-          <motion.p initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.45 }} className="mt-4 max-w-xl text-sm font-medium leading-7 text-neutral-300 md:text-base">
-            Bij NEM Motors vindt u zorgvuldig geselecteerde tweedehandswagens
-            met duidelijke informatie over de technische staat,
-            garantievoorwaarden en persoonlijke service.
-          </motion.p>
-          <motion.div initial={{ y: 35, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.55 }} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/aanbod" className="inline-flex h-14 items-center justify-center rounded-sm bg-white px-7 text-base font-black text-neutral-950 shadow-[0_12px_30px_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5 hover:bg-neutral-200 sm:px-9">
-              Bekijk het aanbod
-            </Link>
-            <Link href="/#contact" className="inline-flex h-14 items-center justify-center rounded-sm border border-white/35 bg-black/20 px-7 text-base font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white hover:text-white sm:px-9">
-              Neem contact op
-            </Link>
+          <motion.div {...reveal(0.34)} className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Link href="/aanbod" className="inline-flex h-12 items-center justify-center gap-5 rounded-md bg-white px-6 text-sm font-bold text-neutral-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-neutral-100">Bekijk het aanbod <ArrowRight className="h-4 w-4" /></Link>
+            <Link href="/auto-verkopen" className="inline-flex h-12 items-center justify-center rounded-md border border-white/70 bg-black/20 px-6 text-sm font-semibold text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white hover:text-black">Verkoop uw wagen</Link>
           </motion.div>
         </div>
       </div>
-    </section>);
+    </section>
+  );
 }

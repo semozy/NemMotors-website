@@ -25,6 +25,15 @@ const sharedConfig = {
             },
         ];
     },
+    async redirects() {
+        return [
+            {
+                source: "/voorraad/:path*",
+                destination: "/aanbod/:path*",
+                permanent: true,
+            },
+        ];
+    },
 };
 export default function nextConfig(phase) {
     return {
