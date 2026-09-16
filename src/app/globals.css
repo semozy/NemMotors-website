@@ -17,6 +17,10 @@ section[id] {
   scroll-margin-top: 6rem;
 }
 
+.chevron-motion {
+  transition: transform 200ms ease-out;
+}
+
 @keyframes review-marquee {
   from {
     transform: translateX(0);
@@ -37,6 +41,10 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .chevron-motion {
+    transition: none;
+  }
+
   .review-marquee-track {
     animation: none;
   }

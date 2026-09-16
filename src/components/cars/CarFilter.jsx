@@ -35,7 +35,7 @@ function PriceField({ value, onChange }) {
           aria-expanded={open}
           className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-neutral-500 hover:text-neutral-950"
         >
-          <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+          <ChevronDown className={`chevron-motion h-4 w-4 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
         </button>
         <div className={`absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-md border border-neutral-200 bg-white shadow-lg transition-all ${open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox" aria-label="Maximumprijs kiezen">
           {options.map((option) => (
@@ -70,7 +70,7 @@ function SelectField({ label, value, onChange, placeholder, options, disabled = 
           className="flex h-11 w-full items-center justify-between rounded-md border border-neutral-200 bg-white px-3 text-left text-xs font-normal text-neutral-600 outline-none transition hover:border-neutral-400 focus:border-neutral-500 focus:ring-2 focus:ring-neutral-200 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-400"
         >
           <span>{value || placeholder}</span>
-          <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+          <ChevronDown className={`chevron-motion h-4 w-4 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
         </button>
         <div className={`absolute left-0 right-0 top-full z-30 mt-1 max-h-56 overflow-y-auto rounded-md border border-neutral-200 bg-white shadow-lg transition-all ${open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox" aria-label={`${label} kiezen`}>
           <button type="button" onClick={() => { onChange(""); setOpen(false); }} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950">{placeholder}</button>
@@ -125,20 +125,20 @@ export function InventoryFilters({ cars, filters, onChange, onReset, priceLimit 
   const models = [...new Set(cars.filter((car) => !filters.brand || car.brand === filters.brand).map((car) => car.model).filter(Boolean))].sort();
   const bodies = [...new Set(cars.map((car) => car.body || car.vehicleType).filter(Boolean))].sort();
   const transmissions = [...new Set(cars.map((car) => car.transmission).filter(Boolean))].sort();
-  const selectClass = "mt-2 h-10 w-full rounded border border-neutral-200 bg-white px-3 text-xs font-normal text-neutral-600 outline-none focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/10";
+  const selectClass = "mt-1.5 h-9 w-full rounded border border-neutral-300 bg-white px-2.5 text-[11px] font-normal text-neutral-700 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950/10";
 
   const selectField = (name, label, options, placeholder) => (
-    <label className="block text-xs font-bold text-neutral-800">
-      {label}
-      <select value={filters[name]} onChange={(event) => onChange(name, event.target.value)} className={selectClass}>
-        <option value="">{placeholder}</option>
-        {options.map((value) => <option key={value} value={value}>{value}</option>)}
-      </select>
-    </label>
+    <SelectField
+      label={label}
+      value={filters[name]}
+      onChange={(value) => onChange(name, value)}
+      placeholder={placeholder}
+      options={options}
+    />
   );
 
   const numberField = (name, label, placeholder) => (
-    <label className="block text-xs font-bold text-neutral-800">
+    <label className="block text-[11px] font-bold text-neutral-800">
       {label}
       <input type="text" inputMode="numeric" value={filters[name]} onChange={(event) => onChange(name, event.target.value.replace(/[^0-9]/g, ""))} placeholder={placeholder} className={selectClass} />
     </label>
@@ -146,26 +146,26 @@ export function InventoryFilters({ cars, filters, onChange, onReset, priceLimit 
 
   const checkboxGroup = (name, label, values) => (
     <fieldset>
-      <legend className="mb-3 text-xs font-bold text-neutral-800">{label}</legend>
-      <div className="space-y-2.5">
+      <legend className="mb-2 text-[11px] font-bold text-neutral-800">{label}</legend>
+      <div className="space-y-1.5">
         {values.map((value) => {
           const checked = filters[name].includes(value);
-          return <label key={value} className="flex items-center gap-2 text-xs text-neutral-600"><input type="checkbox" checked={checked} onChange={() => onChange(name, checked ? filters[name].filter((item) => item !== value) : [...filters[name], value])} className="h-3.5 w-3.5 accent-neutral-950" />{value}</label>;
+          return <label key={value} className="flex items-center gap-2 text-[11px] text-neutral-700"><input type="checkbox" checked={checked} onChange={() => onChange(name, checked ? filters[name].filter((item) => item !== value) : [...filters[name], value])} className="h-3.5 w-3.5 accent-neutral-950" />{value}</label>;
         })}
       </div>
     </fieldset>
   );
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
-      <div className="mb-6 flex items-center justify-between gap-2"><h2 className="text-sm font-black text-neutral-950">Filters</h2><button type="button" onClick={onReset} className="text-[11px] font-semibold text-neutral-500 hover:text-neutral-950 hover:underline">Filters wissen</button></div>
-      <div className="space-y-5">
+    <div className="rounded-md bg-white p-4 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+      <div className="mb-4 flex items-center justify-between gap-2"><h2 className="text-sm font-black text-neutral-950">Filters</h2><button type="button" onClick={onReset} className="text-[9px] font-medium text-neutral-500 underline hover:text-neutral-950">Wis alles</button></div>
+      <div className="space-y-3.5">
         {selectField("brand", "Merk", brands, "Alle merken")}
         {selectField("model", "Model", models, "Alle modellen")}
         {selectField("body", "Carrosserietype", bodies, "Alle types")}
-        <label className="block text-xs font-bold text-neutral-800">Maximale prijs<input type="range" min="0" max={priceLimit} step="500" value={filters.price || priceLimit} onChange={(event) => onChange("price", event.target.value)} className="mt-4 block w-full accent-neutral-950" /><span className="mt-2 flex justify-between text-[10px] font-normal text-neutral-500"><span>€ 0</span><span>€ {Number(filters.price || priceLimit).toLocaleString("nl-BE")}</span></span></label>
-        <fieldset><legend className="text-xs font-bold text-neutral-800">Bouwjaar</legend><div className="mt-2 grid grid-cols-2 gap-2">{numberField("yearFrom", "Van", "Vanaf")}{numberField("yearTo", "Tot", "Tot")}</div></fieldset>
-        <fieldset><legend className="text-xs font-bold text-neutral-800">Kilometerstand</legend><div className="mt-2 grid grid-cols-2 gap-2">{numberField("kmFrom", "Van", "Vanaf")}{numberField("kmTo", "Tot", "Tot")}</div></fieldset>
+        <label className="block text-[11px] font-bold text-neutral-800">Maximumprijs<input type="range" min="0" max={priceLimit} step="500" value={filters.price || priceLimit} onChange={(event) => onChange("price", event.target.value)} className="mt-3 block w-full accent-neutral-950" /><span className="mt-2 block rounded border border-neutral-300 px-2.5 py-2 text-[10px] font-normal">€ {Number(filters.price || priceLimit).toLocaleString("nl-BE")}</span></label>
+        <fieldset><legend className="text-[11px] font-bold text-neutral-800">Bouwjaar</legend><div className="mt-1.5 grid grid-cols-2 gap-2">{numberField("yearFrom", "Van", "Van")}{numberField("yearTo", "Tot", "Tot")}</div></fieldset>
+        <fieldset><legend className="text-[11px] font-bold text-neutral-800">Kilometerstand</legend><div className="mt-1.5 grid grid-cols-2 gap-2">{numberField("kmFrom", "Van", "Van")}{numberField("kmTo", "Tot", "Tot")}</div></fieldset>
         {checkboxGroup("fuel", "Brandstof", ["Benzine", "Diesel", "Hybride", "Elektrisch"])}
         {checkboxGroup("transmission", "Transmissie", transmissions)}
       </div>
