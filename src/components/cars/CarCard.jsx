@@ -1,20 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowUpRight,
   CalendarDays,
   Fuel,
   Gauge,
-  Heart,
   Settings2,
 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import CompareButton from "./CompareButton";
+import FavoriteButton from "./FavoriteButton";
 
 export default function CarCard({ car }) {
-  const [favorite, setFavorite] = useState(false);
   const name = `${car.brand} ${car.model}`;
   const image = car.images?.[0];
   const specs = [
@@ -45,15 +43,7 @@ export default function CarCard({ car }) {
           </span>
         )}
 
-        <button
-          type="button"
-          onClick={() => setFavorite((current) => !current)}
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 shadow-sm transition hover:scale-105"
-          aria-label={favorite ? `${name} verwijderen uit favorieten` : `${name} toevoegen aan favorieten`}
-          aria-pressed={favorite}
-        >
-          <Heart className={`h-[18px] w-[18px] ${favorite ? "fill-neutral-950" : "fill-white"}`} aria-hidden="true" />
-        </button>
+        <div className="absolute right-3 top-3"><FavoriteButton carId={car.id} name={name} /></div>
       </div>
 
       <div className="px-4 pb-4 pt-3">
@@ -82,9 +72,7 @@ export default function CarCard({ car }) {
           <p className="text-xl font-black tracking-[-0.035em] text-neutral-950">
             {car.price > 0 ? formatPrice(car.price) : "Prijs op aanvraag"}
           </p>
-          <Link href={`/aanbod/${car.id}`} className="inline-flex items-center gap-1.5 text-[11px] font-bold text-neutral-950 hover:underline">
-            Bekijk wagen <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </Link>
+          <CompareButton carId={car.id} name={name} card />
         </div>
       </div>
     </article>

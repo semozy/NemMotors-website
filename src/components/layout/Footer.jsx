@@ -15,6 +15,7 @@ export const siteGegevens = {
 };
 import Container from "@/components/ui/Container";
 import { navigation as quickLinks } from "@/constants/navigation";
+import { CookieSettingsButton } from "@/components/privacy/CookieConsent";
 export default function Footer() {
     return (<footer className="border-t border-white/10 bg-neutral-950">
       <Container className="py-12">
@@ -64,6 +65,7 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} NEM Motors. Alle rechten voorbehouden.
           </p>
+          <CookieSettingsButton />
         </div>
       </Container>
     </footer>);

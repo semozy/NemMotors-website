@@ -4,6 +4,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/utils";
+import ComparisonTray from "@/components/cars/ComparisonTray";
+import CookieConsent from "@/components/privacy/CookieConsent";
 export const metadata = {
     icons: { icon: "/favicon.ico" },
     metadataBase: new URL(siteGegevens.websiteUrl),
@@ -58,7 +60,9 @@ export default function RootLayout({ children, }) {
         }}/>
         <Header />
         <main>{children}</main>
+        <ComparisonTray />
         <WhatsAppButton />
+        <CookieConsent />
         <Footer />
       </body>
     </html>);

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, Menu } from "lucide-react";
 import Navbar from "./Navbar";
 import { navigation } from "@/constants/navigation";
+import FavoriteIndicator from "@/components/cars/FavoriteIndicator";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,12 +45,15 @@ export default function Header() {
               );
             })}
           </div>
-          <Link href="/contact" className="hidden h-11 items-center gap-4 rounded-md bg-neutral-950 px-6 text-[13px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-neutral-800 lg:inline-flex">
-            Contact opnemen <ArrowRight className="h-4 w-4" />
-          </Link>
-          <button type="button" className="rounded-md border border-neutral-200 p-2.5 lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Menu openen" aria-expanded={menuOpen} aria-controls="mobile-navigation">
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <FavoriteIndicator />
+            <Link href="/contact" className="hidden h-11 items-center gap-4 rounded-md bg-neutral-950 px-6 text-[13px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-neutral-800 lg:inline-flex">
+              Contact opnemen <ArrowRight className="h-4 w-4" />
+            </Link>
+            <button type="button" className="rounded-md border border-neutral-200 p-2.5 lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Menu openen" aria-expanded={menuOpen} aria-controls="mobile-navigation">
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </nav>
       </header>
       <Navbar isOpen={menuOpen} onClose={() => setMenuOpen(false)} nav={navigation} />

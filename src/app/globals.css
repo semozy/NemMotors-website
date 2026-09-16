@@ -18,7 +18,8 @@ section[id] {
 }
 
 .chevron-motion {
-  transition: transform 200ms ease-out;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 @keyframes review-marquee {
@@ -43,6 +44,7 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   .chevron-motion {
     transition: none;
+    will-change: auto;
   }
 
   .review-marquee-track {

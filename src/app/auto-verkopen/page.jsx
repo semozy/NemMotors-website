@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check, ChevronDown, Phone } from "lucide-react";
 import SellForm from "@/components/sell/SellForm";
 
 export const metadata = {
@@ -13,6 +14,33 @@ const steps = [
   ["01", "Deel uw wagen", "Vul de gegevens in en voeg foto’s toe."],
   ["02", "Persoonlijk voorstel", "We bespreken uw wagen en de mogelijkheden."],
   ["03", "Afspraak en afhandeling", "Samen regelen we de volgende stappen."],
+];
+
+const faqs = [
+  [
+    "Is mijn aanvraag vrijblijvend?",
+    "Ja. U kunt uw wagen vrijblijvend aanbieden. We bekijken de gegevens en nemen persoonlijk contact met u op om de mogelijkheden te bespreken.",
+  ],
+  [
+    "Kan ik een wagen met schade aanbieden?",
+    "Ja. Vermeld de schade zo duidelijk mogelijk en voeg indien mogelijk enkele foto’s toe. Zo kunnen we uw aanvraag beter beoordelen voordat we contact opnemen.",
+  ],
+  [
+    "Welke documenten heb ik nodig?",
+    "Voor een eerste aanvraag volstaan de gegevens van uw wagen. Bij een verdere afhandeling bespreken we welke voertuigdocumenten, onderhoudsgegevens en sleutels u moet meenemen.",
+  ],
+  [
+    "Moet ik langskomen voor een definitief voorstel?",
+    "Een definitief voorstel volgt nadat we de wagen en de verstrekte informatie hebben kunnen beoordelen. We spreken persoonlijk met u af welke volgende stap daarvoor nodig is.",
+  ],
+  [
+    "Hoe verlopen de betaling en overdracht?",
+    "Na uw akkoord leggen we de betaling, documenten en overdracht duidelijk met u vast. Zo weet u vooraf welke stappen worden doorlopen.",
+  ],
+  [
+    "Kan ik mijn wagen ook inruilen?",
+    "Ja. Wilt u een andere wagen bij NEM Motors kopen, dan kunnen we de inruilmogelijkheden samen met u bespreken.",
+  ],
 ];
 
 export default function AutoVerkopenPage() {
@@ -68,6 +96,41 @@ export default function AutoVerkopenPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto w-full max-w-[920px] px-5 py-14 sm:px-7 lg:py-20">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Veelgestelde vragen</p>
+          <h2 className="mt-3 text-[28px] font-black tracking-[-0.035em] sm:text-[34px]">Goed om te weten</h2>
+          <div className="mt-7 border-t border-neutral-200">
+            {faqs.map(([question, answer]) => (
+              <details key={question} className="group border-b border-neutral-200">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-sm font-bold outline-none marker:hidden focus-visible:ring-2 focus-visible:ring-neutral-400 [&::-webkit-details-marker]:hidden">
+                  {question}
+                  <ChevronDown className="chevron-motion h-4 w-4 shrink-0 text-neutral-500 group-open:rotate-180" aria-hidden="true" />
+                </summary>
+                <p className="max-w-3xl pb-5 pr-10 text-sm leading-6 text-neutral-600">{answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-neutral-200 bg-[#f7f7f6]">
+        <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-6 px-5 py-9 sm:px-7 md:flex-row md:items-center md:justify-between lg:px-8">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Persoonlijk contact</p>
+            <h2 className="mt-2 text-2xl font-black tracking-[-0.025em] sm:text-[28px]">Nog een vraag over de verkoop van uw wagen?</h2>
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <a href="tel:+32473563404" className="inline-flex h-11 items-center gap-2 rounded-md bg-neutral-950 px-6 text-xs font-bold text-white transition hover:bg-neutral-800">
+              <Phone className="h-4 w-4" aria-hidden="true" /> Bel ons
+            </a>
+            <Link href="/contact" className="group inline-flex items-center gap-2 text-xs font-bold underline decoration-neutral-400 underline-offset-4">
+              Neem contact op <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>

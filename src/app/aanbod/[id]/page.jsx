@@ -9,8 +9,6 @@ import {
   CalendarDays,
   Fuel,
   Gauge,
-  GitCompareArrows,
-  Heart,
   Mail,
   MapPin,
   Settings2,
@@ -18,6 +16,8 @@ import {
 import CarGallery from "@/components/cars/CarGallery";
 import CarDetailTabs from "@/components/cars/CarDetailTabs";
 import CarCard from "@/components/cars/CarCard";
+import FavoriteButton from "@/components/cars/FavoriteButton";
+import TestDriveModal from "@/components/cars/TestDriveModal";
 import { siteGegevens } from "@/components/layout/Footer";
 import { getCarById, getCars } from "@/lib/cars";
 import { formatPrice } from "@/lib/utils";
@@ -90,7 +90,6 @@ export default async function AutoPage({ params }) {
   ].filter(([, , value]) => hasValue(value));
 
   const interestLink = `mailto:${siteGegevens.email}?subject=${encodeURIComponent(`Interesse in ${name}`)}`;
-  const testDriveLink = `mailto:${siteGegevens.email}?subject=${encodeURIComponent(`Proefrit aanvragen voor ${name}`)}`;
 
   return (
     <div className="bg-[#fafaf9] text-neutral-950">
@@ -120,18 +119,7 @@ export default async function AutoPage({ params }) {
                 <p className="mt-1 text-base font-semibold text-neutral-500">{car.trim || car.model}</p>
               </div>
               <div className="flex gap-2">
-                <label className="cursor-pointer">
-                  <input type="checkbox" className="peer sr-only" aria-label={`${name} markeren als favoriet`} />
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 peer-checked:bg-neutral-950 peer-checked:text-white peer-checked:[&>svg]:fill-current">
-                    <Heart className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                </label>
-                <label className="cursor-pointer">
-                  <input type="checkbox" className="peer sr-only" aria-label={`${name} vergelijken`} />
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 text-neutral-700 peer-checked:bg-neutral-950 peer-checked:text-white">
-                    <GitCompareArrows className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                </label>
+                <FavoriteButton carId={car.id} name={name} compact />
               </div>
             </div>
 
@@ -159,11 +147,7 @@ export default async function AutoPage({ params }) {
             </dl>
 
             <div className="grid gap-2">
-              <a href={testDriveLink} className="flex h-11 items-center justify-center gap-3 rounded-md bg-neutral-950 text-xs font-bold text-white transition hover:bg-neutral-800">
-                <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                Plan een proefrit
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+              <TestDriveModal car={car} />
               <a href={interestLink} className="flex h-11 items-center justify-center gap-3 rounded-md border border-neutral-300 bg-white text-xs font-bold transition hover:border-neutral-950">
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Ik heb interesse

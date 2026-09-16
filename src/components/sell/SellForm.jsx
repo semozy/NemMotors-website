@@ -15,17 +15,34 @@ function Field({ label, name, placeholder, type = "text", required = false, clas
 }
 
 function SelectField({ label, name, placeholder, options }) {
+  const [value, setValue] = useState("");
+
+  function choose(event, option) {
+    setValue(option);
+    event.currentTarget.closest("details")?.removeAttribute("open");
+  }
+
   return (
-    <label className="block text-[11px] font-medium text-neutral-700">
+    <div className="block text-[11px] font-medium text-neutral-700">
       <span className="mb-1.5 block">{label}</span>
-      <span className="relative block">
-        <select className={`${inputClass} appearance-none pr-8 text-neutral-500`} name={name} defaultValue="" required>
+      <select className="sr-only" name={name} value={value} onChange={() => {}} required tabIndex={-1} aria-hidden="true">
           <option value="" disabled>{placeholder}</option>
           {options.map((option) => <option key={option} value={option}>{option}</option>)}
-        </select>
-        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-neutral-700 transition-transform duration-200" aria-hidden="true" />
-      </span>
-    </label>
+      </select>
+      <details className="group relative">
+        <summary className={`${inputClass} flex cursor-pointer list-none items-center justify-between pr-3 text-neutral-500 marker:hidden [&::-webkit-details-marker]:hidden`}>
+          <span className={value ? "text-neutral-900" : ""}>{value || placeholder}</span>
+          <ChevronDown className="chevron-motion h-3.5 w-3.5 shrink-0 text-neutral-700 group-open:rotate-180" aria-hidden="true" />
+        </summary>
+        <div className="absolute inset-x-0 top-full z-30 mt-1 max-h-48 overflow-y-auto rounded-md border border-neutral-200 bg-white py-1 shadow-lg">
+          {options.map((option) => (
+            <button key={option} type="button" onClick={(event) => choose(event, option)} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100">
+              {option}
+            </button>
+          ))}
+        </div>
+      </details>
+    </div>
   );
 }
 
