@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
-import { getCars } from "@/lib/cars";
 
 const priceOptions = [5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000];
 
@@ -83,9 +82,8 @@ function SelectField({ label, value, onChange, placeholder, options, disabled = 
   );
 }
 
-export default function CarFilter() {
+export default function CarFilter({ cars = [] }) {
   const router = useRouter();
-  const cars = getCars();
   const [filters, setFilters] = useState({ brand: "", model: "", price: "", body: "" });
   const brands = useMemo(() => [...new Set(cars.map((car) => car.brand).filter(Boolean))].sort(), [cars]);
   const models = useMemo(() => filters.brand ? [...new Set(cars.filter((car) => car.brand === filters.brand).map((car) => car.model).filter(Boolean))].sort() : [], [cars, filters.brand]);

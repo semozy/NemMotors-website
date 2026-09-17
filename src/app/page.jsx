@@ -14,13 +14,16 @@ const sterkePunten = [
 
 import Hero from "@/components/home/Hero";
 import CarFilter from "@/components/cars/CarFilter";
+import { getCars } from "@/lib/cars";
+export const dynamic = "force-dynamic";
 
 
-export default function HomePage() {
+export default async function HomePage() {
+    const cars = await getCars();
     return (<>
       <Hero />
       <div className="bg-white text-neutral-950">
-        <CarFilter />
+        <CarFilter cars={cars} />
         <CarCategories />
       </div>
       <div className="bg-white text-neutral-950">

@@ -3,10 +3,10 @@ export const siteGegevens = {
     name: "NEM Motors",
     description: "Betrouwbare tweedehandswagens met ervaring en passie",
     whatsappNumber: "32470000000",
-    phoneNumber: "+32 470 00 00 00",
+    phoneNumber: "+32 473 56 34 04",
     email: "info@nemmotors.be",
     address: "Ambachtslaan 5/10, 3665 As",
-    openingHours: "Bezoek en proefrit op afspraak.",
+    openingHours: "Ma – za: 10:00 – 18:00\nZo: 10:00 – 15:00",
     websiteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be",
     enterpriseNumber: "",
     vatNumber: "",
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold">Openingsuren</h4>
-            <p className="mt-4 text-sm text-neutral-400">
+            <p className="mt-4 whitespace-pre-line text-sm text-neutral-400">
               {siteGegevens.openingHours}
             </p>
             {(siteGegevens.facebookUrl || siteGegevens.instagramUrl) && (<div className="mt-5 flex gap-3">

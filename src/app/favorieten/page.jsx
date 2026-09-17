@@ -5,8 +5,9 @@ export const metadata = {
   title: "Favoriete wagens",
   description: "Bekijk uw favoriete wagens bij NEM Motors.",
 };
+export const dynamic = "force-dynamic";
 
-export default function FavoritesPage() {
+export default async function FavoritesPage() {
   return (
     <main className="min-h-[calc(100vh-70px)] bg-[#f8f8f7] text-neutral-950">
       <section className="relative isolate overflow-hidden bg-[#17191a] text-white">
@@ -18,7 +19,7 @@ export default function FavoritesPage() {
           <p className="mt-3 text-sm text-white/65">Bewaar uw favorieten, vergelijk de verschillen en vind uw volgende wagen.</p>
         </div>
       </section>
-      <FavoritesContent cars={getCars().filter((car) => car.status !== "verkocht")} />
+      <FavoritesContent cars={(await getCars()).filter((car) => car.status !== "verkocht")} />
     </main>
   );
 }

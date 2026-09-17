@@ -83,3 +83,37 @@ Er zijn daarom geen losse PostCSS- of Tailwind-configuratiebestanden.
 De mappen `.git`, `node_modules`, `.next` en `.next-dev` zijn beheer- of gegenereerde mappen,
 geen bronbestanden. Next.js kan tijdens `next dev` automatisch `AGENTS.md` en `CLAUDE.md`
 aanmaken. Lege afbeeldingsmappen worden niet door Git bewaard.
+
+## Wagenaanbod met Supabase
+
+Zonder Supabase-configuratie gebruikt de website `src/data/cars.js` als lokale ontwikkelfallback.
+Zodra de drie Supabase-variabelen zijn ingesteld, wordt het publieke aanbod uit PostgreSQL en
+Supabase Storage gelezen.
+
+1. Maak een Supabase-project aan.
+2. Pas alle migraties in `supabase/migrations` op volgorde toe via de Supabase CLI.
+3. Kopieer `.env.example` naar `.env.local` en vul de Supabase URL, publishable key en secret key in.
+4. Herstart de ontwikkelserver.
+
+Publiek lezen gebruikt uitsluitend de publishable key en RLS. Schrijfbewerkingen lopen via beveiligde serverroutes,
+gebruiken de secret key uitsluitend op de server en vereisen een geldige beheeraccount. De oudere
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` en `SUPABASE_SERVICE_ROLE_KEY` blijven als tijdelijke fallback ondersteund.
+
+- `GET /api/admin/vehicles`: alle wagens voor beheer ophalen.
+- `POST /api/admin/vehicles`: wagen toevoegen.
+- `PATCH /api/admin/vehicles/:id`: wagen, prijs, kenmerken of status aanpassen.
+- `DELETE /api/admin/vehicles/:id`: wagen en gekoppelde afbeeldingen verwijderen.
+- `POST /api/admin/vehicles/:id/images`: afbeelding als multipart uploaden (`file`, optioneel `position` en `altText`).
+- `DELETE /api/admin/vehicles/:id/images/:imageId`: afbeelding verwijderen.
+
+Gebruik voor `status`: `concept`, `beschikbaar`, `gereserveerd` of `verkocht`. Conceptwagens zijn
+door RLS nooit publiek zichtbaar.
+
+### Beheerdashboard
+
+Open `/beheer/login` en log in met een actieve Supabase Auth-beheeraccount. Na een correcte login
+wordt een HttpOnly, SameSite Strict sessie van maximaal één uur geplaatst. Het toegangstoken wordt
+niet in localStorage of browser-JavaScript bewaard. Via `/beheer/wagens` kunt u voertuigen toevoegen,
+aanpassen, verwijderen, publiceren en maximaal vijftien foto's uploaden. Na vijf mislukte pogingen
+wordt de combinatie van account en client gedurende vijftien minuten geblokkeerd. Deze blokkering
+wordt centraal in PostgreSQL bijgehouden en blijft daardoor actief na een serverherstart.

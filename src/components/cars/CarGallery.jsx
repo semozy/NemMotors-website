@@ -9,11 +9,23 @@ const views = ["Vooraanzicht", "Achteraanzicht", "Interieur", "Dashboard"];
 export default function CarGallery({ images = [], name = "Wagen" }) {
   const [selected, setSelected] = useState(0);
   const [failed, setFailed] = useState([]);
+  const [thumbnailStart, setThumbnailStart] = useState(0);
   const available = images.filter((src) => !failed.includes(src));
   const active = Math.min(selected, Math.max(0, available.length - 1));
-  const thumbnails = available.slice(0, 4);
+  const thumbnailCount = 4;
+  const maxThumbnailStart = Math.max(0, available.length - thumbnailCount);
+  const visibleThumbnailStart = Math.min(thumbnailStart, maxThumbnailStart);
+  const thumbnails = available.slice(visibleThumbnailStart, visibleThumbnailStart + thumbnailCount);
+
   const changePhoto = (step) => {
-    setSelected((current) => (current + step + available.length) % available.length);
+    const next = (active + step + available.length) % available.length;
+    setSelected(next);
+    setThumbnailStart((current) => {
+      const visibleStart = Math.min(current, maxThumbnailStart);
+      if (next < visibleStart) return next;
+      if (next >= visibleStart + thumbnailCount) return Math.min(next - thumbnailCount + 1, maxThumbnailStart);
+      return visibleStart;
+    });
   };
 
   return (
@@ -70,24 +82,52 @@ export default function CarGallery({ images = [], name = "Wagen" }) {
         )}
       </div>
 
-      <div className="mt-2.5 grid grid-cols-4 gap-2.5">
-        {thumbnails.length ? thumbnails.map((src, index) => (
+      <div className="relative mt-2.5">
+        <div className="grid grid-cols-4 gap-2.5">
+        {thumbnails.length ? thumbnails.map((src, index) => {
+          const photoIndex = visibleThumbnailStart + index;
+          return (
           <button
             type="button"
             key={src}
-            onClick={() => setSelected(index)}
-            aria-label={`Toon foto ${index + 1} van ${name}`}
-            aria-pressed={index === active}
-            className={`relative aspect-[1.75/1] overflow-hidden rounded-md border-2 bg-neutral-200 transition ${index === active ? "border-neutral-950" : "border-transparent hover:border-neutral-400"}`}
+            onClick={() => setSelected(photoIndex)}
+            aria-label={`Toon foto ${photoIndex + 1} van ${name}`}
+            aria-pressed={photoIndex === active}
+            className={`relative aspect-[1.75/1] overflow-hidden rounded-md border-2 bg-neutral-200 transition ${photoIndex === active ? "border-neutral-950" : "border-transparent hover:border-neutral-400"}`}
           >
             <Image src={src} alt="" fill sizes="(min-width: 1024px) 160px, 25vw" className="object-cover" onError={() => setFailed((previous) => [...previous, src])} />
           </button>
-        )) : views.map((view) => (
+          );
+        }) : views.map((view) => (
           <div key={view} className="flex aspect-[1.75/1] flex-col items-center justify-center gap-1.5 rounded border border-dashed border-neutral-300 bg-neutral-100 text-neutral-400">
             <Camera className="h-4 w-4 stroke-1" aria-hidden="true" />
             <span className="text-[9px] font-medium">{view}</span>
           </div>
         ))}
+        </div>
+
+        {available.length > thumbnailCount && (
+          <>
+            <button
+              type="button"
+              onClick={() => setThumbnailStart((current) => Math.max(0, current - 1))}
+              disabled={visibleThumbnailStart === 0}
+              aria-label="Vorige kleine foto's"
+              className="group absolute left-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-neutral-950 shadow-md transition hover:bg-white disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronLeft className="chevron-motion h-4 w-4 group-hover:-translate-x-0.5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setThumbnailStart((current) => Math.min(maxThumbnailStart, current + 1))}
+              disabled={visibleThumbnailStart === maxThumbnailStart}
+              aria-label="Volgende kleine foto's"
+              className="group absolute right-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-neutral-950 shadow-md transition hover:bg-white disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronRight className="chevron-motion h-4 w-4 group-hover:translate-x-0.5" aria-hidden="true" />
+            </button>
+          </>
+        )}
       </div>
     </section>
   );

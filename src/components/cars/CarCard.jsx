@@ -11,6 +11,7 @@ import {
 import { formatPrice } from "@/lib/utils";
 import CompareButton from "./CompareButton";
 import FavoriteButton from "./FavoriteButton";
+import VehicleStatusBadge from "./VehicleStatusBadge";
 
 export default function CarCard({ car }) {
   const name = `${car.brand} ${car.model}`;
@@ -37,11 +38,12 @@ export default function CarCard({ car }) {
           ) : null}
         </Link>
 
-        {car.featured && (
-          <span className="absolute left-3 top-3 rounded bg-neutral-900 px-2.5 py-1.5 text-[10px] font-semibold text-white">
-            Nieuw binnen
-          </span>
-        )}
+        <div className="absolute left-3 top-3 flex flex-col items-start gap-2">
+          {car.newArrival && (
+            <span className="rounded bg-neutral-900 px-2.5 py-1.5 text-[10px] font-semibold text-white">Nieuw binnen</span>
+          )}
+          <VehicleStatusBadge status={car.status} compact />
+        </div>
 
         <div className="absolute right-3 top-3"><FavoriteButton carId={car.id} name={name} /></div>
       </div>

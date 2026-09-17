@@ -1,11 +1,74 @@
-import { cars } from "@/data/cars";
+import { cars as fallbackCars } from "@/data/cars";
+import { createPublicSupabaseClient, hasSupabaseConfig } from "@/lib/supabase";
 
-export function getCars() {
-  return cars;
+function mapVehicle(row) {
+  const images = [...(row.vehicle_images || [])]
+    .sort((a, b) => a.position - b.position)
+    .map((image) => image.public_url);
+  return {
+    id: row.id,
+    brand: row.brand,
+    model: row.model,
+    title: row.title,
+    trim: row.trim,
+    year: row.year,
+    firstRegistration: row.first_registration,
+    price: Number(row.price || 0),
+    mileage: row.mileage,
+    fuel: row.fuel,
+    transmission: row.transmission,
+    power: row.power,
+    powerKw: row.power_kw,
+    body: row.body,
+    vehicleType: row.vehicle_type,
+    drivetrain: row.drivetrain,
+    seats: row.seats,
+    doors: row.doors,
+    batteryCapacity: row.battery_capacity == null ? null : Number(row.battery_capacity),
+    range: row.range_km,
+    engineCapacity: row.engine_capacity,
+    cylinders: row.cylinders,
+    emissionClass: row.emission_class,
+    co2Emission: row.co2_emission == null ? null : Number(row.co2_emission),
+    energyLabel: row.energy_label,
+    color: row.color,
+    paintType: row.paint_type,
+    interiorColor: row.interior_color,
+    upholstery: row.upholstery,
+    serviceHistory: row.service_history,
+    nonSmoker: row.non_smoker,
+    description: row.description,
+    options: row.options || [],
+    vatLabel: row.vat_label,
+    status: row.status,
+    featured: row.featured,
+    newArrival: row.new_arrival,
+    images,
+  };
 }
 
-export function getCarById(id) {
-  return cars.find((car) => String(car.id) === String(id));
+export async function getCars() {
+  if (!hasSupabaseConfig()) return fallbackCars;
+  const supabase = createPublicSupabaseClient();
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, vehicle_images(*)")
+    .order("featured", { ascending: false })
+    .order("published_at", { ascending: false });
+  if (error) throw new Error(`Wagenaanbod ophalen mislukt: ${error.message}`);
+  return (data || []).map(mapVehicle);
+}
+
+export async function getCarById(id) {
+  if (!hasSupabaseConfig()) return fallbackCars.find((car) => String(car.id) === String(id));
+  const supabase = createPublicSupabaseClient();
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, vehicle_images(*)")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(`Wagen ophalen mislukt: ${error.message}`);
+  return data ? mapVehicle(data) : null;
 }
 
 export function filterCars(cars, filters, query = "", sort = "relevant") {

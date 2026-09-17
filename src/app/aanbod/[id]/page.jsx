@@ -18,6 +18,7 @@ import CarDetailTabs from "@/components/cars/CarDetailTabs";
 import CarCard from "@/components/cars/CarCard";
 import FavoriteButton from "@/components/cars/FavoriteButton";
 import TestDriveModal from "@/components/cars/TestDriveModal";
+import VehicleStatusBadge from "@/components/cars/VehicleStatusBadge";
 import { siteGegevens } from "@/components/layout/Footer";
 import { getCarById, getCars } from "@/lib/cars";
 import { formatPrice } from "@/lib/utils";
@@ -27,16 +28,16 @@ const withUnit = (value, unit) => hasValue(value) ? `${Number(value).toLocaleStr
 const yesNo = (value) => typeof value === "boolean" ? (value ? "Ja" : "Nee") : value;
 
 export async function generateMetadata({ params }) {
-  const car = getCarById((await params).id);
+  const car = await getCarById((await params).id);
   return { title: car ? `${car.brand} ${car.model}` : "Wagen niet gevonden" };
 }
 
 export default async function AutoPage({ params }) {
-  const car = getCarById((await params).id);
+  const car = await getCarById((await params).id);
   if (!car) notFound();
 
   const name = `${car.brand} ${car.model}`;
-  const relatedCars = getCars()
+  const relatedCars = (await getCars())
     .filter((other) => other.id !== car.id && other.status !== "verkocht")
     .sort((a, b) => {
       const brandDifference = Number(b.brand === car.brand) - Number(a.brand === car.brand);
@@ -46,9 +47,17 @@ export default async function AutoPage({ params }) {
     .slice(0, 4);
   const publicRoot = path.resolve("public");
   const images = (car.images || (car.image ? [car.image] : [])).filter((src) => {
-    if (!src.startsWith("/images/cars/")) return false;
-    const file = path.resolve(publicRoot, `.${src}`);
-    return file.startsWith(publicRoot + path.sep) && existsSync(file);
+    if (src.startsWith("/images/cars/")) {
+      const file = path.resolve(publicRoot, `.${src}`);
+      return file.startsWith(publicRoot + path.sep) && existsSync(file);
+    }
+    try {
+      const imageUrl = new URL(src);
+      const supabaseUrl = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL);
+      return imageUrl.origin === supabaseUrl.origin && imageUrl.pathname.startsWith("/storage/v1/object/public/vehicle-images/");
+    } catch {
+      return false;
+    }
   });
 
   const power = [withUnit(car.powerKw, "kW"), withUnit(car.power, "pk")].filter(Boolean).join(" / ");
@@ -114,7 +123,7 @@ export default async function AutoPage({ params }) {
           <aside className="rounded-lg border border-neutral-200 bg-white p-5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] lg:sticky lg:top-[86px]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{car.brand}</p>
+                <div className="flex flex-wrap items-center gap-2"><p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{car.brand}</p><VehicleStatusBadge status={car.status} compact /></div>
                 <h1 className="mt-2 text-3xl font-black leading-none tracking-[-0.045em]">{car.title || name}</h1>
                 <p className="mt-1 text-base font-semibold text-neutral-500">{car.trim || car.model}</p>
               </div>

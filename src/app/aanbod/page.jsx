@@ -21,5 +21,5 @@ export default async function AanbodPage({ searchParams }) {
     transmission: [],
   };
 
-  return <CarList cars={getCars()} catalog initialFilters={initialFilters} initialQuery={params?.q || ""} />;
+  return <CarList cars={await getCars()} catalog initialFilters={initialFilters} initialQuery={params?.q || ""} />;
 }
