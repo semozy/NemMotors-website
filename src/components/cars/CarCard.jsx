@@ -24,9 +24,9 @@ export default function CarCard({ car }) {
   ];
 
   return (
-    <article className="group overflow-hidden rounded-md bg-white shadow-[0_1px_8px_rgba(0,0,0,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-md bg-white shadow-[0_1px_8px_rgba(0,0,0,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
       <div className="relative aspect-[16/10] overflow-hidden bg-neutral-200">
-        <Link href={`/aanbod/${car.id}`} aria-label={`Bekijk ${name}`}>
+        <Link href={`/aanbod/${car.id}`} aria-label={`Bekijk ${name}`} className="absolute inset-0">
           {image ? (
             <Image
               src={image}
@@ -48,7 +48,7 @@ export default function CarCard({ car }) {
         <div className="absolute right-3 top-3"><FavoriteButton carId={car.id} name={name} /></div>
       </div>
 
-      <div className="px-4 pb-4 pt-3">
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
         <h2 className="text-[17px] font-black leading-tight tracking-[-0.02em] text-neutral-950">
           <Link href={`/aanbod/${car.id}`} className="hover:text-neutral-600">
             {name}
@@ -70,7 +70,7 @@ export default function CarCard({ car }) {
           ))}
         </dl>
 
-        <div className="mt-4 flex items-center justify-between gap-3 border-t border-neutral-200 pt-4">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-neutral-200 pt-4">
           <p className="text-xl font-black tracking-[-0.035em] text-neutral-950">
             {car.price > 0 ? formatPrice(car.price) : "Prijs op aanvraag"}
           </p>

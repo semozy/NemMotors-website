@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, Check, Trash2, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
@@ -46,14 +47,33 @@ export default function CompareTable({ initialCars }) {
     }),
   })).filter((group) => group.rows.length > 0), [cars, differencesOnly]);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   // Ensure that if a user visits a shared URL directly, local storage is updated.
+  // And if they visit without URL parameters, load from local storage.
   useEffect(() => {
     if (initialCars.length > 0) {
       const ids = initialCars.map(c => String(c.id));
       window.localStorage.setItem("nem-motors-comparison", JSON.stringify(ids));
       window.dispatchEvent(new CustomEvent("nem-comparison-change", { detail: ids }));
+    } else {
+      if (searchParams.has("autos")) {
+        // The URL had autos, but they were all invalid/ghosts. Clean up!
+        window.localStorage.removeItem("nem-motors-comparison");
+        window.dispatchEvent(new CustomEvent("nem-comparison-change", { detail: [] }));
+      } else {
+        // No autos in URL, load from local storage
+        try {
+          const ids = JSON.parse(window.localStorage.getItem("nem-motors-comparison") || "[]");
+          if (ids.length > 0) {
+            router.replace(`/vergelijken?autos=${ids.join(",")}`);
+          }
+        } catch {}
+      }
     }
-  }, [initialCars]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function syncUrl(nextCars) {
     const ids = nextCars.map((car) => car.id).join(",");

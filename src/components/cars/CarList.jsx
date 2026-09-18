@@ -17,7 +17,7 @@ import { filterCars } from "@/lib/cars";
 import { InventoryFilters } from "./CarFilter";
 
 const defaultFilters = { brand: "", model: "", price: "", body: "", yearFrom: "", yearTo: "", kmFrom: "", kmTo: "", fuel: [], transmission: [] };
-const pageSize = 6;
+const pageSize = 20;
 const sortOptions = [
   ["year", "Nieuwste eerst"],
   ["relevant", "Meest relevant"],

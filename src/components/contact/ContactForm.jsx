@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 const initialValues = { name: "", email: "", message: "" };
@@ -62,7 +63,7 @@ export default function ContactForm() {
       <label className="sr-only" htmlFor="contact-message">Bericht</label>
       <textarea id="contact-message" className={`${inputClass} mt-4 min-h-[92px] resize-y py-3`} name="message" value={values.message} onChange={update} placeholder="Bericht" required />
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="text-[10px] text-neutral-500 underline decoration-neutral-400 underline-offset-4">Ons privacybeleid</span>
+        <Link href="/privacybeleid" className="text-[10px] text-neutral-500 underline decoration-neutral-400 underline-offset-4 hover:text-neutral-900 transition">Ons privacybeleid</Link>
         <button type="submit" className="group flex h-10 items-center justify-center gap-3 rounded-md bg-neutral-950 px-6 text-xs font-bold text-white transition hover:bg-neutral-800">
           Verstuur bericht <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
         </button>

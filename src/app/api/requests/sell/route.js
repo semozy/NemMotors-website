@@ -29,9 +29,10 @@ export async function POST(request) {
     const message = formData.get("message") || "";
     
     // registration is 'MM / JJJJ' or 'YYYY', let's just parse the last 4 digits as year
-    const yearMatch = registration ? registration.match(/\d{4}$/) : null;
+    const yearMatch = registration ? registration.match(/(?:19|20)\d{2}/) : null;
     const year = yearMatch ? Number(yearMatch[0]) : new Date().getFullYear();
     const mileage = mileageStr ? Number(mileageStr.replace(/[^0-9]/g, "")) : 0;
+    const parsedPrice = price ? Number(price.replace(/[^0-9]/g, "")) : null;
 
     if (!name || !email || !phone || !brand || !model || !registration || !mileageStr) {
       return NextResponse.json({ error: "Vul alle verplichte velden in." }, { status: 400 });
@@ -44,7 +45,7 @@ export async function POST(request) {
         name, email, phone, brand, model,
         year: Number(year),
         mileage: Number(mileage),
-        price: price ? Number(price) : null,
+        price: parsedPrice,
         message
       })
       .select()
@@ -55,15 +56,27 @@ export async function POST(request) {
       return NextResponse.json({ error: "Er is een fout opgetreden." }, { status: 500 });
     }
 
-    const files = formData.getAll("files");
+    const files = formData.getAll("photos");
+    const uploadedUrls = [];
+    const attachments = [];
+
     for (const file of files) {
       if (file && file.size > 0) {
         const ext = file.name.split(".").pop();
         const filename = `${requestData.id}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${ext}`;
         
+        let buffer;
+        try {
+          buffer = Buffer.from(await file.arrayBuffer());
+          attachments.push({ filename: file.name, content: buffer });
+        } catch (e) {
+          console.error("Failed to parse file for attachment", e);
+          continue;
+        }
+        
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from("sell-images")
-          .upload(filename, file, { contentType: file.type });
+          .upload(filename, buffer, { contentType: file.type });
         
         if (!uploadError && uploadData) {
           const { data: publicUrlData } = supabase.storage
@@ -75,12 +88,16 @@ export async function POST(request) {
             storage_path: uploadData.path,
             public_url: publicUrlData.publicUrl
           });
+          uploadedUrls.push(publicUrlData.publicUrl);
+        } else {
+          console.error("Supabase upload error:", uploadError);
         }
       }
     }
     
     await sendAdminNotification({
       subject: `Verkoopaanvraag van ${name} (${brand} ${model})`,
+      attachments,
       content: `
         <strong>Naam:</strong> ${name}<br>
         <strong>E-mailadres:</strong> ${email}<br>
@@ -88,7 +105,7 @@ export async function POST(request) {
         <strong>Inruilwagen:</strong> ${brand} ${model}<br>
         <strong>Bouwjaar:</strong> ${year}<br>
         <strong>Kilometerstand:</strong> ${mileage.toLocaleString("nl-BE")} km<br>
-        <strong>Gewenste prijs:</strong> ${price ? `€ ${price.toLocaleString("nl-BE")}` : "Niet opgegeven"}<br><br>
+        <strong>Gewenste prijs:</strong> ${parsedPrice ? "€ " + parsedPrice.toLocaleString("nl-BE") : "Niet opgegeven"}<br><br>
         <strong>Opmerking:</strong><br>
         ${message ? message.replace(/\n/g, "<br>") : "Geen"}
       `

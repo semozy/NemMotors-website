@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ComparePage({ searchParams }) {
   const params = await searchParams;
-  const availableCars = (await getCars()).filter((car) => car.status !== "verkocht");
+  const availableCars = await getCars();
   const requestedIds = String(params?.autos || "").split(",").filter(Boolean).slice(0, 3);
   const selectedCars = requestedIds.map((id) => availableCars.find((car) => String(car.id) === id)).filter(Boolean);
 

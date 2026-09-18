@@ -22,9 +22,13 @@ export default function FavoriteIndicator() {
     readFavorites();
     window.addEventListener("nem-favorites-change", readFavorites);
     window.addEventListener("storage", readFavorites);
+    window.addEventListener("pageshow", readFavorites);
+    document.addEventListener("visibilitychange", readFavorites);
     return () => {
       window.removeEventListener("nem-favorites-change", readFavorites);
       window.removeEventListener("storage", readFavorites);
+      window.removeEventListener("pageshow", readFavorites);
+      document.removeEventListener("visibilitychange", readFavorites);
     };
   }, []);
 

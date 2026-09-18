@@ -38,6 +38,18 @@ export default function FavoritesContent({ cars }) {
     };
   }, []);
 
+  // Automatische opkuis van spook-auto's (bijv. na database wissel)
+  useEffect(() => {
+    if (favoriteIds.length > 0 && cars.length > 0) {
+      const validIds = favoriteIds.filter((id) => cars.some((car) => String(car.id) === id));
+      if (validIds.length !== favoriteIds.length) {
+        window.localStorage.setItem(storageKey, JSON.stringify(validIds));
+        window.dispatchEvent(new CustomEvent("nem-favorites-change", { detail: validIds }));
+        setFavoriteIds(validIds);
+      }
+    }
+  }, [cars, favoriteIds]);
+
   const favorites = useMemo(() => {
     const selected = favoriteIds.map((id) => cars.find((car) => String(car.id) === id)).filter(Boolean);
     if (sort === "price-low") return [...selected].sort((a, b) => a.price - b.price);

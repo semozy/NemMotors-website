@@ -176,6 +176,7 @@ export default function RequestsManager() {
           <h1 className="mt-2 text-3xl font-black tracking-[-0.04em]">Aanvragen beheren</h1>
         </div>
         <div className="flex gap-2">
+          <Link href="/beheer" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50">Dashboard</Link>
           <Link href="/beheer/wagens" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><Car className="h-4 w-4" />Wagens</Link>
           <button type="button" onClick={() => loadRequests()} className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><RefreshCw className="h-4 w-4" />Vernieuwen</button>
           <button type="button" onClick={logout} className="flex h-10 items-center gap-2 rounded-md bg-neutral-950 px-4 text-xs font-bold text-white"><LogOut className="h-4 w-4" />Uitloggen</button>

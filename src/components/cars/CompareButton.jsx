@@ -21,9 +21,13 @@ export default function CompareButton({ carId, name, compact = false, card = fal
     readSelection();
     window.addEventListener("nem-comparison-change", readSelection);
     window.addEventListener("storage", readSelection);
+    window.addEventListener("pageshow", readSelection);
+    document.addEventListener("visibilitychange", readSelection);
     return () => {
       window.removeEventListener("nem-comparison-change", readSelection);
       window.removeEventListener("storage", readSelection);
+      window.removeEventListener("pageshow", readSelection);
+      document.removeEventListener("visibilitychange", readSelection);
     };
   }, [carId]);
 

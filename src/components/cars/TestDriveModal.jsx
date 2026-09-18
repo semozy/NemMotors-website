@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, CalendarDays, Check, Clock3, Info, LockKeyhole, Mail, MessageSquare, Phone, UserRound, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
@@ -132,7 +133,7 @@ export default function TestDriveModal({ car }) {
                     <label className="mt-3 block text-[11px] font-medium">Opmerking <span className="text-neutral-400">(optioneel)</span><span className="relative mt-1.5 block"><MessageSquare className="absolute left-3 top-3 h-4 w-4 text-neutral-500" /><textarea name="message" rows="2" placeholder="Heeft u een vraag of een specifieke wens?" className={`${inputClass} h-auto min-h-[64px] resize-y py-3`} /></span></label>
                   </fieldset>
 
-                  <p className="mt-3 flex items-center gap-2 text-[10px] text-neutral-500"><LockKeyhole className="h-4 w-4" />We gebruiken uw gegevens om uw proefrit te plannen. <span className="underline underline-offset-2">Privacybeleid</span></p>
+                  <p className="mt-3 flex items-center gap-2 text-[10px] text-neutral-500"><LockKeyhole className="h-4 w-4" />We gebruiken uw gegevens om uw proefrit te plannen. <Link href="/privacybeleid" className="underline underline-offset-2 hover:text-neutral-900 transition">Privacybeleid</Link></p>
 
                   <div className="mt-5 flex items-center justify-between gap-4 border-t border-neutral-200 pt-5">
                     <button type="button" onClick={closeModal} className="h-11 rounded-md border border-neutral-300 px-7 text-xs font-bold transition hover:border-neutral-950">Annuleren</button>

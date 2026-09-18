@@ -7,7 +7,7 @@ import { optimizeVehicleImage, vehicleImageSettings } from "@/lib/vehicle-image"
 
 export const runtime = "nodejs";
 const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
-const maximumImagesPerVehicle = 15;
+const maximumImagesPerVehicle = 30;
 
 export async function POST(request, { params }) {
   if (!(await isAuthorizedAdminRequest(request))) return NextResponse.json({ error: "Niet gemachtigd." }, { status: 401 });
