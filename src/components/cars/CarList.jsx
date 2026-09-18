@@ -168,8 +168,7 @@ export default function CarList({ cars = [], catalog = false, initialFilters = d
           )}
 
           {results.length > 0 && (
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 pt-5">
-              <p className="text-[11px] text-neutral-500">Resultaten {(currentPage - 1) * pageSize + 1} – {Math.min(currentPage * pageSize, results.length)} van {results.length}</p>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-4 border-t border-neutral-200 pt-5">
               <nav aria-label="Paginering" className="flex gap-1.5">
                 <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1} aria-label="Vorige pagina" className="group flex h-8 w-8 items-center justify-center rounded border border-neutral-200 bg-white disabled:opacity-30"><ChevronLeft className="chevron-motion h-4 w-4 group-hover:-translate-x-0.5" /></button>
                 <span aria-current="page" aria-label={`Pagina ${currentPage} van ${pageCount}`} className="flex h-8 min-w-8 items-center justify-center rounded bg-neutral-950 px-2 text-xs font-bold text-white">{currentPage}</span>
