@@ -49,13 +49,34 @@ function SelectField({ label, name, placeholder, options }) {
 export default function SellForm() {
   const [submitted, setSubmitted] = useState(false);
 
-  function submit(event) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(event) {
     event.preventDefault();
-    if (!event.currentTarget.checkValidity()) {
-      event.currentTarget.reportValidity();
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
-    setSubmitted(true);
+    
+    setSubmitting(true);
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/requests/sell", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Er is iets misgegaan bij het verzenden.");
+      }
+    } catch (error) {
+      alert("Er is een netwerkfout opgetreden.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -71,6 +92,7 @@ export default function SellForm() {
 
   return (
     <form onSubmit={submit} className="self-stretch rounded-lg border border-neutral-200 bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.035)] sm:p-6">
+      <input type="text" name="bot_field" className="hidden" tabIndex="-1" autoComplete="off" />
       <h2 className="text-[23px] font-black leading-tight tracking-[-0.035em]">Wat wilt u verkopen?</h2>
       <p className="mt-1 text-xs text-neutral-500">Vul de gegevens van uw wagen in.</p>
 
@@ -103,8 +125,8 @@ export default function SellForm() {
         We gebruiken uw gegevens om uw aanvraag te behandelen.
       </p>
 
-      <button type="submit" className="group mt-4 flex h-10 w-full items-center justify-center gap-3 rounded-md bg-neutral-950 px-5 text-xs font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2">
-        Vraag een voorstel aan
+      <button type="submit" disabled={submitting} className="group mt-4 flex h-10 w-full items-center justify-center gap-3 rounded-md bg-neutral-950 px-5 text-xs font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 disabled:opacity-60">
+        {submitting ? "Bezig met verzenden..." : "Vraag een voorstel aan"}
         <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
       </button>
     </form>

@@ -145,7 +145,7 @@ export default function CarList({ cars = [], catalog = false, initialFilters = d
                 </button>
                 <div className={`absolute right-0 top-full z-30 mt-1 min-w-full overflow-hidden rounded border border-neutral-200 bg-white shadow-lg transition ${sortOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox" aria-label="Sorteerresultaten">
                   {sortOptions.map(([value, label]) => (
-                    <button type="button" key={value} onClick={() => { setSort(value); setPage(1); setSortOpen(false); }} className="block w-full whitespace-nowrap px-3 py-2 text-left text-[11px] text-neutral-700 hover:bg-neutral-100">
+                    <button role="option" aria-selected={sort === value} type="button" key={value} onClick={() => { setSort(value); setPage(1); setSortOpen(false); }} className="block w-full whitespace-nowrap px-3 py-2 text-left text-[11px] text-neutral-700 hover:bg-neutral-100">
                       {label}
                     </button>
                   ))}

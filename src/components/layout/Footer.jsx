@@ -61,11 +61,16 @@ export default function Footer() {
               </div>)}
           </div>
         </div>
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-neutral-500 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-neutral-400 md:flex-row md:items-center md:justify-between">
           <p>
             © {new Date().getFullYear()} NEM Motors. Alle rechten voorbehouden.
           </p>
-          <CookieSettingsButton />
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <Link href="/privacybeleid" className="hover:text-white">Privacybeleid</Link>
+            <Link href="/cookiebeleid" className="hover:text-white">Cookiebeleid</Link>
+            <Link href="/algemene-voorwaarden" className="hover:text-white">Algemene Voorwaarden</Link>
+            <CookieSettingsButton />
+          </div>
         </div>
       </Container>
     </footer>);

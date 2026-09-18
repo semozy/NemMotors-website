@@ -13,6 +13,7 @@ const sterkePunten = [
 ];
 
 import Hero from "@/components/home/Hero";
+import FeaturedCars from "@/components/home/FeaturedCars";
 import CarFilter from "@/components/cars/CarFilter";
 import { getCars } from "@/lib/cars";
 export const dynamic = "force-dynamic";
@@ -25,6 +26,7 @@ export default async function HomePage() {
       <div className="bg-white text-neutral-950">
         <CarFilter cars={cars} />
         <CarCategories />
+        <FeaturedCars cars={cars.filter((car) => car.featured && car.status !== "verkocht")} />
       </div>
       <div className="bg-white text-neutral-950">
         <ServicesSection />
@@ -123,7 +125,7 @@ function CarCategories() {
                 <h3 className="text-sm font-black text-neutral-950">
                   {type.label}
                 </h3>
-                <p className="mt-1 text-xs font-medium text-neutral-500">
+                <p className="mt-1 text-xs font-medium text-neutral-600">
                   {type.description}
                 </p>
               </Link>);
@@ -278,7 +280,7 @@ function GarageInfo() {
           {reviewGroups.map((group, groupIndex) => (<div key={groupIndex} className="flex shrink-0 gap-4 pr-4" aria-hidden={groupIndex === 1}>
               {group.map((review) => (<article key={`${groupIndex}-${review.name}-${review.date}`} className="min-w-[300px] rounded-lg border border-neutral-200 bg-neutral-50 p-5 shadow-sm sm:min-w-[360px]">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex gap-1" aria-label={`${review.rating ?? 5} van de 5 sterren`}>
+                    <div className="flex gap-1" role="img" aria-label={`${review.rating ?? 5} van de 5 sterren`}>
                       {Array.from({ length: 5 }, (_, index) => (<Star
                         key={index}
                         className={`h-5 w-5 ${index < (review.rating ?? 5) ? "fill-amber-400 text-amber-400" : "fill-neutral-200 text-neutral-200"}`}

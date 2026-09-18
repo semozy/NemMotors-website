@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X, MessageSquare } from "lucide-react";
 
 const emptyForm = {
   brand: "", model: "", title: "", trim: "", year: "", firstRegistration: "", price: "", mileage: "",
@@ -251,7 +252,11 @@ export default function VehicleManager() {
     <div className="mx-auto max-w-[1440px] px-5 py-7 sm:px-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div><p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-neutral-500">NEM Motors beheer</p><h1 className="mt-2 text-3xl font-black tracking-[-0.04em]">Wagenaanbod beheren</h1></div>
-        <div className="flex gap-2"><button type="button" onClick={loadVehicles} className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold"><RefreshCw className="h-4 w-4" />Vernieuwen</button><button type="button" onClick={logout} className="flex h-10 items-center gap-2 rounded-md bg-neutral-950 px-4 text-xs font-bold text-white"><LogOut className="h-4 w-4" />Uitloggen</button></div>
+        <div className="flex gap-2">
+          <Link href="/beheer/aanvragen" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><MessageSquare className="h-4 w-4" />Aanvragen</Link>
+          <button type="button" onClick={loadVehicles} className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><RefreshCw className="h-4 w-4" />Vernieuwen</button>
+          <button type="button" onClick={logout} className="flex h-10 items-center gap-2 rounded-md bg-neutral-950 px-4 text-xs font-bold text-white hover:bg-neutral-800"><LogOut className="h-4 w-4" />Uitloggen</button>
+        </div>
       </div>
 
       {notice && <p role="status" className="mt-5 flex items-center gap-2 rounded-md bg-emerald-50 px-4 py-3 text-xs font-bold text-emerald-800"><Check className="h-4 w-4" />{notice}</p>}

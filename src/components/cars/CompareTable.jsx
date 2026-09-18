@@ -46,6 +46,15 @@ export default function CompareTable({ initialCars }) {
     }),
   })).filter((group) => group.rows.length > 0), [cars, differencesOnly]);
 
+  // Ensure that if a user visits a shared URL directly, local storage is updated.
+  useEffect(() => {
+    if (initialCars.length > 0) {
+      const ids = initialCars.map(c => String(c.id));
+      window.localStorage.setItem("nem-motors-comparison", JSON.stringify(ids));
+      window.dispatchEvent(new CustomEvent("nem-comparison-change", { detail: ids }));
+    }
+  }, [initialCars]);
+
   function syncUrl(nextCars) {
     const ids = nextCars.map((car) => car.id).join(",");
     const selectedIds = nextCars.map((car) => String(car.id));

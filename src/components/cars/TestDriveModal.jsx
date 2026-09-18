@@ -33,13 +33,45 @@ export default function TestDriveModal({ car }) {
     setSubmitted(false);
   }
 
-  function submit(event) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(event) {
     event.preventDefault();
-    if (!event.currentTarget.checkValidity()) {
-      event.currentTarget.reportValidity();
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
-    setSubmitted(true);
+    
+    setSubmitting(true);
+    try {
+      const formData = new FormData(form);
+      const data = {
+        vehicle_id: car.id,
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        date: formData.get("date"),
+        time: formData.get("time"),
+        message: formData.get("message") || "",
+      };
+
+      const response = await fetch("/api/requests/test-drive", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Er is iets misgegaan bij het aanvragen.");
+      }
+    } catch (error) {
+      alert("Er is een netwerkfout opgetreden.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -80,10 +112,11 @@ export default function TestDriveModal({ car }) {
                 </div>
 
                 <form onSubmit={submit} className="mt-5">
+                  <input type="text" name="bot_field" className="hidden" tabIndex="-1" autoComplete="off" />
                   <fieldset>
                     <legend className="text-base font-black">Wanneer wilt u langskomen?</legend>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
-                      <label className="block text-[11px] font-medium">Voorkeursdatum<span className="relative mt-1.5 block"><CalendarDays className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><input type="date" name="date" required className={inputClass} /></span></label>
+                      <label className="block text-[11px] font-medium">Voorkeursdatum<span className="relative mt-1.5 block"><CalendarDays className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><input type="date" name="date" min={new Date().toISOString().split("T")[0]} required className={inputClass} /></span></label>
                       <label className="block text-[11px] font-medium">Voorkeurstijd<span className="relative mt-1.5 block"><Clock3 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><select name="time" required defaultValue="" className={`${inputClass} appearance-none`}><option value="" disabled>Kies een tijdstip</option><option>09:00 – 11:00</option><option>11:00 – 13:00</option><option>13:00 – 15:00</option><option>15:00 – 18:00</option></select></span></label>
                     </div>
                     <p className="mt-2 flex items-center gap-2 text-[10px] text-neutral-500"><Info className="h-4 w-4" />Uw gekozen moment is een voorkeur, nog geen bevestigde afspraak.</p>
@@ -103,7 +136,7 @@ export default function TestDriveModal({ car }) {
 
                   <div className="mt-5 flex items-center justify-between gap-4 border-t border-neutral-200 pt-5">
                     <button type="button" onClick={closeModal} className="h-11 rounded-md border border-neutral-300 px-7 text-xs font-bold transition hover:border-neutral-950">Annuleren</button>
-                    <button type="submit" className="group flex h-11 items-center gap-3 rounded-md bg-neutral-950 px-7 text-xs font-bold text-white transition hover:bg-neutral-800">Proefrit aanvragen <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" /></button>
+                    <button type="submit" disabled={submitting} className="group flex h-11 items-center gap-3 rounded-md bg-neutral-950 px-7 text-xs font-bold text-white transition hover:bg-neutral-800 disabled:opacity-60">{submitting ? "Even geduld..." : "Proefrit aanvragen"} <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" /></button>
                   </div>
                 </form>
               </>

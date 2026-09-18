@@ -19,7 +19,7 @@ export default async function FavoritesPage() {
           <p className="mt-3 text-sm text-white/65">Bewaar uw favorieten, vergelijk de verschillen en vind uw volgende wagen.</p>
         </div>
       </section>
-      <FavoritesContent cars={(await getCars()).filter((car) => car.status !== "verkocht")} />
+      <FavoritesContent cars={await getCars()} />
     </main>
   );
 }

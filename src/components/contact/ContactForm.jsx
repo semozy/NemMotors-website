@@ -14,14 +14,29 @@ export default function ContactForm() {
     setValues((current) => ({ ...current, [event.target.name]: event.target.value }));
   }
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     if (!event.currentTarget.checkValidity()) {
       event.currentTarget.reportValidity();
       return;
     }
-    setSent(true);
-    setValues(initialValues);
+    
+    try {
+      const response = await fetch("/api/requests/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      
+      if (response.ok) {
+        setSent(true);
+        setValues(initialValues);
+      } else {
+        alert("Er is iets misgegaan. Probeer het later opnieuw.");
+      }
+    } catch (error) {
+      alert("Er is een netwerkfout opgetreden.");
+    }
   }
 
   if (sent) {
@@ -38,6 +53,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={submit} className="mt-4">
       <div className="grid gap-4 sm:grid-cols-2">
+        <input type="text" name="bot_field" className="hidden" tabIndex="-1" autoComplete="off" onChange={update} value={values.bot_field || ""} />
         <label className="sr-only" htmlFor="contact-name">Naam</label>
         <input id="contact-name" className={`${inputClass} h-10`} name="name" value={values.name} onChange={update} placeholder="Naam" autoComplete="name" required />
         <label className="sr-only" htmlFor="contact-email">E-mailadres</label>

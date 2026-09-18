@@ -39,6 +39,8 @@ function PriceField({ value, onChange }) {
         <div className={`absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-md border border-neutral-200 bg-white shadow-lg transition-all ${open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox" aria-label="Maximumprijs kiezen">
           {options.map((option) => (
             <button
+              role="option"
+              aria-selected={value === option.value}
               type="button"
               key={option.value}
               onClick={() => { onChange(option.value); setOpen(false); }}
@@ -72,9 +74,9 @@ function SelectField({ label, value, onChange, placeholder, options, disabled = 
           <ChevronDown className={`chevron-motion h-4 w-4 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
         </button>
         <div className={`absolute left-0 right-0 top-full z-30 mt-1 max-h-56 overflow-y-auto rounded-md border border-neutral-200 bg-white shadow-lg transition-all ${open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox" aria-label={`${label} kiezen`}>
-          <button type="button" onClick={() => { onChange(""); setOpen(false); }} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950">{placeholder}</button>
+          <button role="option" aria-selected={value === ""} type="button" onClick={() => { onChange(""); setOpen(false); }} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950">{placeholder}</button>
           {options.map((option) => (
-            <button type="button" key={option} onClick={() => { onChange(option); setOpen(false); }} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950">{option}</button>
+            <button role="option" aria-selected={value === option} type="button" key={option} onClick={() => { onChange(option); setOpen(false); }} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950">{option}</button>
           ))}
         </div>
       </div>

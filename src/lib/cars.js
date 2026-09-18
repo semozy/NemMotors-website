@@ -48,7 +48,7 @@ function mapVehicle(row) {
 }
 
 export async function getCars() {
-  if (!hasSupabaseConfig()) return fallbackCars;
+  if (!hasSupabaseConfig()) return process.env.NODE_ENV === "production" ? [] : fallbackCars;
   const supabase = createPublicSupabaseClient();
   const { data, error } = await supabase
     .from("vehicles")
@@ -60,7 +60,7 @@ export async function getCars() {
 }
 
 export async function getCarById(id) {
-  if (!hasSupabaseConfig()) return fallbackCars.find((car) => String(car.id) === String(id));
+  if (!hasSupabaseConfig()) return process.env.NODE_ENV === "production" ? null : fallbackCars.find((car) => String(car.id) === String(id));
   const supabase = createPublicSupabaseClient();
   const { data, error } = await supabase
     .from("vehicles")

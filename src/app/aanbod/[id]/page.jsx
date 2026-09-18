@@ -29,7 +29,33 @@ const yesNo = (value) => typeof value === "boolean" ? (value ? "Ja" : "Nee") : v
 
 export async function generateMetadata({ params }) {
   const car = await getCarById((await params).id);
-  return { title: car ? `${car.brand} ${car.model}` : "Wagen niet gevonden" };
+  if (!car) return { title: "Wagen niet gevonden" };
+  
+  const title = `${car.brand} ${car.model} ${car.trim || ""}`.trim();
+  const description = car.description?.substring(0, 160) || `Koop een tweedehands ${title} bij ${siteGegevens.name}. Bekijk alle foto's en specificaties online.`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/aanbod/${car.id}`;
+  const image = car.images?.[0] || car.image || "/images/logo/nemmotors.png";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
 }
 
 export default async function AutoPage({ params }) {
@@ -103,6 +129,31 @@ export default async function AutoPage({ params }) {
   return (
     <div className="bg-[#fafaf9] text-neutral-950">
       <main className="mx-auto max-w-[1440px] px-5 pb-16 pt-4 sm:px-8 lg:px-12">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Car",
+            "name": name,
+            "description": car.description || `Koop een tweedehands ${name} bij ${siteGegevens.name}.`,
+            "image": images[0] || `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo/nemmotors.png`,
+            "brand": { "@type": "Brand", "name": car.brand },
+            "model": car.model,
+            "vehicleConfiguration": car.trim || undefined,
+            "bodyType": car.body,
+            "fuelType": car.fuel,
+            "vehicleTransmission": car.transmission,
+            "productionDate": car.year,
+            "mileageFromOdometer": { "@type": "QuantitativeValue", "value": car.mileage, "unitCode": "KMT" },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "price": car.price,
+              "itemCondition": "https://schema.org/UsedCondition",
+              "availability": car.status === "verkocht" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+              "seller": { "@type": "AutoDealer", "name": siteGegevens.name }
+            }
+          })
+        }} />
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-600">
           <Link href="/aanbod" className="inline-flex items-center gap-2 font-medium hover:text-neutral-950">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
