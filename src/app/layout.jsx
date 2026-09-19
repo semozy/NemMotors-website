@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ComparisonTray from "@/components/cars/ComparisonTray";
 import CookieConsent from "@/components/privacy/CookieConsent";
+import IntroScreen from "@/components/layout/IntroScreen";
 export const metadata = {
     icons: { icon: "/favicon.ico" },
     metadataBase: new URL(siteGegevens.websiteUrl),
@@ -56,6 +57,7 @@ export default function RootLayout({ children, }) {
                 },
             }).replace(/</g, "\\u003c"),
         }}/>
+        <IntroScreen />
         <Header />
         <main>{children}</main>
         <ComparisonTray />
