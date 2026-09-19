@@ -9,12 +9,22 @@ export default function IntroScreen() {
 
   useEffect(() => {
     setIsMounted(true);
-    // Unieke session-key zodat je hem nu direct ziet bij het vernieuwen
-    if (!sessionStorage.getItem("nem_intro_garage_v1")) {
-      setShow(true);
-      sessionStorage.setItem("nem_intro_garage_v1", "true");
+
+    // Remove the SSR black screen to let React take over
+    const ssrScreen = document.getElementById("ssr-black-screen");
+    if (ssrScreen) ssrScreen.remove();
+
+    let hasSeen = false;
+    try {
+      hasSeen = sessionStorage.getItem("nem_intro_garage_final");
+    } catch (e) {}
+
+    if (!hasSeen) {
+      try {
+        sessionStorage.setItem("nem_intro_garage_final", "true");
+      } catch (e) {}
       
-      // Ontkoppel de intro volledig uit de DOM nadat de animatie (3.1s) helemaal klaar is
+      setShow(true);
       const timer = setTimeout(() => setShow(false), 3300);
       return () => clearTimeout(timer);
     }
@@ -26,6 +36,7 @@ export default function IntroScreen() {
     <AnimatePresence>
       {show && (
         <div 
+          id="nem-intro"
           className="fixed inset-0 z-[99999] pointer-events-none overflow-hidden"
           aria-label="Introductiescherm"
         >
@@ -107,7 +118,6 @@ export default function IntroScreen() {
               </motion.p>
             </div>
           </motion.div>
-          
         </div>
       )}
     </AnimatePresence>
