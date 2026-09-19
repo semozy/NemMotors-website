@@ -133,13 +133,13 @@ export default function SellForm() {
       <p className="mt-1 text-xs text-neutral-500">Vul de gegevens van uw wagen in.</p>
 
       <div className="mt-4 grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-2">
-        <Field label="Merk" name="brand" placeholder="Bijvoorbeeld BMW" required />
-        <Field label="Model" name="model" placeholder="Bijvoorbeeld A3" required />
-        <Field label="Bouwjaar" name="registration" placeholder="Bijvoorbeeld 2018" type="number" required min="1900" max={new Date().getFullYear() + 1} />
-        <Field label="Kilometerstand" name="mileage" placeholder="Bijvoorbeeld 110.000" inputMode="numeric" required />
+        <Field label="Merk" name="brand" required />
+        <Field label="Model" name="model" required />
+        <Field label="Bouwjaar" name="registration" type="number" required min="1900" max={new Date().getFullYear() + 1} />
+        <Field label="Kilometerstand" name="mileage" inputMode="numeric" required />
         <SelectField label="Brandstof" name="fuel" placeholder="Selecteer brandstof" options={["Benzine", "Diesel", "Elektrisch/Benzine", "Elektrisch/Diesel", "Elektrisch", "LPG"]} />
         <SelectField label="Transmissie" name="transmission" placeholder="Selecteer transmissie" options={["Automaat", "Manueel"]} />
-        <Field label="Gewenste prijs (€)" name="price" placeholder="Bijvoorbeeld 15.000" inputMode="numeric" className="sm:col-span-2" />
+        <Field label="Gewenste prijs (€)" name="price" inputMode="numeric" className="sm:col-span-2" />
       </div>
 
       <label className="mt-4 block text-[11px] font-medium text-neutral-700">
@@ -170,10 +170,10 @@ export default function SellForm() {
       )}
 
       <div className="mt-4 grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-2">
-        <Field label="Naam" name="name" placeholder="Uw naam" required />
-        <Field label="Telefoon" name="phone" placeholder="Bijvoorbeeld 0471 23 45 67" type="tel" required />
-        <Field label="E-mailadres" name="email" placeholder="Bijvoorbeeld naam@email.be" type="email" required className="sm:col-span-2" />
-        <TextareaField label="Opmerking (optioneel)" name="message" placeholder="Heeft u nog bijzonderheden over de wagen? (bijv. krasjes, schade, recente reparaties)" className="sm:col-span-2" />
+        <Field label="Naam" name="name" required />
+        <Field label="Telefoon" name="phone" type="tel" required />
+        <Field label="E-mailadres" name="email" type="email" required className="sm:col-span-2" />
+        <TextareaField label="Opmerking (optioneel)" name="message" className="sm:col-span-2" />
       </div>
 
       <p className="mt-3 flex items-center gap-2 text-[9px] text-neutral-500">

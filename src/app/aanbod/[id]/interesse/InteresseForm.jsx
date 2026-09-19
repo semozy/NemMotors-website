@@ -125,7 +125,7 @@ ${form.message || "Geen extra bericht."}`;
 
             <label className="block text-xs font-bold text-neutral-800">
               Vragen of opmerkingen
-              <textarea name="message" value={form.message} onChange={update} rows="4" className="mt-2 w-full resize-y rounded-md border border-neutral-300 bg-white p-4 text-xs text-neutral-900 outline-none placeholder:font-normal placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="Bijvoorbeeld: is de wagen nog beschikbaar, kan ik een testrit inplannen, ..."></textarea>
+              <textarea name="message" value={form.message} onChange={update} rows="4" className="mt-2 w-full resize-y rounded-md border border-neutral-300 bg-white p-4 text-xs text-neutral-900 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950"></textarea>
             </label>
 
             <label className="flex cursor-pointer items-start gap-3">
@@ -150,23 +150,23 @@ ${form.message || "Geen extra bericht."}`;
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <label className="block text-xs font-bold text-neutral-800">
               Voornaam <span className="text-red-500">*</span>
-              <input type="text" name="firstName" value={form.firstName} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="Je voornaam" required />
+              <input type="text" name="firstName" value={form.firstName} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" required />
             </label>
             <label className="block text-xs font-bold text-neutral-800">
               Achternaam <span className="text-red-500">*</span>
-              <input type="text" name="lastName" value={form.lastName} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="Je achternaam" required />
+              <input type="text" name="lastName" value={form.lastName} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" required />
             </label>
             <label className="block text-xs font-bold text-neutral-800">
               E-mailadres <span className="text-red-500">*</span>
-              <input type="email" name="email" value={form.email} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="voorbeeld@e-mail.be" required />
+              <input type="email" name="email" value={form.email} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" required />
             </label>
             <label className="block text-xs font-bold text-neutral-800">
               Telefoonnummer <span className="text-red-500">*</span>
-              <input type="tel" name="phone" value={form.phone} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="+32 471 23 45 67" required />
+              <input type="tel" name="phone" value={form.phone} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" required />
             </label>
             <label className="block text-xs font-bold text-neutral-800 sm:col-span-2">
               Bedrijfsnaam (optioneel)
-              <input type="text" name="company" value={form.company} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" placeholder="Je bedrijfsnaam" />
+              <input type="text" name="company" value={form.company} onChange={update} className="mt-2 h-11 w-full rounded-md border border-neutral-300 px-4 font-normal outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950" />
             </label>
           </div>
 
