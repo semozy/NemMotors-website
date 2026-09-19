@@ -113,13 +113,13 @@ ${form.message || "Geen extra bericht."}`;
             <label className="block text-xs font-bold text-neutral-800">
               Waar kunnen we je mee helpen? <span className="text-red-500">*</span>
               <div className="relative mt-2">
-                <select name="subject" value={form.subject} onChange={update} required className="h-11 w-full appearance-none rounded-md border border-neutral-300 bg-white px-4 text-xs font-medium text-neutral-900 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950">
+                <select name="subject" value={form.subject} onChange={(e) => { update(e); e.target.blur(); }} required className="peer h-11 w-full appearance-none rounded-md border border-neutral-300 bg-white px-4 text-xs font-medium text-neutral-900 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950">
                   <option>Meer informatie over deze wagen</option>
                   <option>Proefrit inplannen</option>
                   <option>Overnamevoorstel aanvragen</option>
                   <option>Andere vraag</option>
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 transition-transform duration-200 peer-focus:rotate-180" />
               </div>
             </label>
 

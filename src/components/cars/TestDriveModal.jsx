@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Check, Clock3, Info, LockKeyhole, Mail, MessageSquare, Phone, UserRound, X } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, Clock3, ChevronDown, Info, LockKeyhole, Mail, MessageSquare, Phone, UserRound, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
 const inputClass = "h-11 w-full rounded-md border border-neutral-300 bg-white pl-10 pr-3 text-xs text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-neutral-600 focus:ring-2 focus:ring-neutral-100";
@@ -35,7 +35,8 @@ export default function TestDriveModal({ car }) {
   }
 
   const [submitting, setSubmitting] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
   async function submit(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -74,7 +75,17 @@ export default function TestDriveModal({ car }) {
       setSubmitting(false);
     }
   }
+  const dateObj = selectedDate ? new Date(selectedDate) : null;
+  const isSunday = dateObj?.getDay() === 0;
+  const endHour = isSunday ? 15 : 18;
 
+  const timeSlots = [];
+  for (let hour = 10; hour <= endHour; hour++) {
+    timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+    if (hour < endHour) {
+      timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
+    }
+  }
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} className="flex h-11 w-full items-center justify-center gap-3 rounded-md bg-neutral-950 text-xs font-bold text-white transition hover:bg-neutral-800">
@@ -117,8 +128,42 @@ export default function TestDriveModal({ car }) {
                   <fieldset>
                     <legend className="text-base font-black">Wanneer wilt u langskomen?</legend>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
-                      <label className="block text-[11px] font-medium">Voorkeursdatum<span className="relative mt-1.5 block"><CalendarDays className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><input type="date" name="date" min={new Date().toISOString().split("T")[0]} required className={inputClass} /></span></label>
-                      <label className="block text-[11px] font-medium">Voorkeurstijd<span className="relative mt-1.5 block"><Clock3 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><select name="time" required defaultValue="" className={`${inputClass} appearance-none`}><option value="" disabled>Kies een tijdstip</option><option>09:00 – 11:00</option><option>11:00 – 13:00</option><option>13:00 – 15:00</option><option>15:00 – 18:00</option></select></span></label>
+                      <label className="block text-[11px] font-medium">Voorkeursdatum<span className="relative mt-1.5 block"><CalendarDays className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" /><input type="date" name="date" min={new Date().toISOString().split("T")[0]} required className={inputClass} value={selectedDate} onChange={(e) => { setSelectedDate(e.target.value); setSelectedTime(""); }} /></span></label>
+                      <div className="block text-[11px] font-medium">
+                        Voorkeurstijd
+                        <div className="relative mt-1.5 block">
+                          <select name="time" value={selectedTime} onChange={() => {}} required className="sr-only" tabIndex={-1} aria-hidden="true">
+                            <option value="" disabled>{selectedDate ? "Kies een tijdstip" : "Kies eerst een datum"}</option>
+                            {timeSlots.map((time) => (
+                              <option key={time} value={time}>{time}</option>
+                            ))}
+                          </select>
+                          <details className="group relative">
+                            <summary 
+                              className={`${inputClass} flex cursor-pointer list-none items-center justify-between pr-3 marker:hidden [&::-webkit-details-marker]:hidden ${!selectedDate ? "opacity-60 pointer-events-none" : ""}`}
+                              onClick={(e) => { if (!selectedDate) e.preventDefault(); }}
+                            >
+                              <Clock3 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
+                              <span className={`truncate ${selectedTime ? "text-neutral-900" : "text-neutral-400"}`}>
+                                {selectedTime || (selectedDate ? "Kies een tijdstip" : "Kies eerst een datum")}
+                              </span>
+                              <ChevronDown className="h-4 w-4 shrink-0 text-neutral-500 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+                            </summary>
+                            <div className="absolute inset-x-0 top-full z-30 mt-1 grid grid-cols-2 gap-1 rounded-md border border-neutral-200 bg-white p-1.5 shadow-lg">
+                              {timeSlots.map((time) => (
+                                <button 
+                                  key={time} 
+                                  type="button" 
+                                  onClick={(event) => { setSelectedTime(time); event.currentTarget.closest("details")?.removeAttribute("open"); }} 
+                                  className={`rounded-md px-2 py-2 text-center text-[11px] font-medium transition ${selectedTime === time ? "bg-neutral-950 text-white" : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950"}`}
+                                >
+                                  {time}
+                                </button>
+                              ))}
+                            </div>
+                          </details>
+                        </div>
+                      </div>
                     </div>
                     <p className="mt-2 flex items-center gap-2 text-[10px] text-neutral-500"><Info className="h-4 w-4" />Uw gekozen moment is een voorkeur, nog geen bevestigde afspraak.</p>
                   </fieldset>
