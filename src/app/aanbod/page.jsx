@@ -17,7 +17,7 @@ export default async function AanbodPage({ searchParams }) {
     yearTo: "",
     kmFrom: "",
     kmTo: "",
-    fuel: [],
+    fuel: params?.fuel ? (Array.isArray(params.fuel) ? params.fuel : [params.fuel]) : [],
     transmission: [],
   };
 

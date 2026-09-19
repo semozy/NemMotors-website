@@ -137,8 +137,8 @@ export default function SellForm() {
         <Field label="Model" name="model" placeholder="Bijvoorbeeld A3" required />
         <Field label="Bouwjaar" name="registration" placeholder="Bijvoorbeeld 2018" type="number" required min="1900" max={new Date().getFullYear() + 1} />
         <Field label="Kilometerstand" name="mileage" placeholder="Bijvoorbeeld 110.000" inputMode="numeric" required />
-        <SelectField label="Brandstof" name="fuel" placeholder="Selecteer brandstof" options={["Benzine", "Diesel", "Hybride", "Elektrisch"]} />
-        <SelectField label="Transmissie" name="transmission" placeholder="Selecteer transmissie" options={["Automaat", "Handgeschakeld"]} />
+        <SelectField label="Brandstof" name="fuel" placeholder="Selecteer brandstof" options={["Benzine", "Diesel", "Elektrisch/Benzine", "Elektrisch/Diesel", "Elektrisch", "LPG"]} />
+        <SelectField label="Transmissie" name="transmission" placeholder="Selecteer transmissie" options={["Automaat", "Manueel"]} />
         <Field label="Gewenste prijs (€)" name="price" placeholder="Bijvoorbeeld 15.000" inputMode="numeric" className="sm:col-span-2" />
       </div>
 

@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
 
-const initialValues = { name: "", email: "", message: "" };
 const inputClass = "w-full rounded-md border border-neutral-200 bg-white px-3 text-xs text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-neutral-500 focus:ring-2 focus:ring-neutral-100";
 
-export default function ContactForm() {
+function FormContent() {
+  const searchParams = useSearchParams();
+  const initialValues = { name: "", email: "", message: searchParams.get("subject") || "" };
+  
   const [values, setValues] = useState(initialValues);
   const [sent, setSent] = useState(false);
 
@@ -69,5 +72,13 @@ export default function ContactForm() {
         </button>
       </div>
     </form>
+  );
+}
+
+export default function ContactForm() {
+  return (
+    <Suspense fallback={<div className="h-48 w-full animate-pulse rounded-md bg-neutral-100" />}>
+      <FormContent />
+    </Suspense>
   );
 }

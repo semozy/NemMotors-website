@@ -166,7 +166,7 @@ export function InventoryFilters({ cars, filters, onChange, onReset, priceLimit 
         <label className="block text-[11px] font-bold text-neutral-800">Maximumprijs<input type="range" min="0" max={priceLimit} step="500" value={filters.price || priceLimit} onChange={(event) => onChange("price", event.target.value)} className="mt-3 block w-full accent-neutral-950" /><span className="mt-2 block rounded border border-neutral-300 px-2.5 py-2 text-[10px] font-normal">€ {Number(filters.price || priceLimit).toLocaleString("nl-BE")}</span></label>
         <fieldset><legend className="text-[11px] font-bold text-neutral-800">Bouwjaar</legend><div className="mt-1.5 grid grid-cols-2 gap-2">{numberField("yearFrom", "Van", "Van")}{numberField("yearTo", "Tot", "Tot")}</div></fieldset>
         <fieldset><legend className="text-[11px] font-bold text-neutral-800">Kilometerstand</legend><div className="mt-1.5 grid grid-cols-2 gap-2">{numberField("kmFrom", "Van", "Van")}{numberField("kmTo", "Tot", "Tot")}</div></fieldset>
-        {checkboxGroup("fuel", "Brandstof", ["Benzine", "Diesel", "Hybride", "Elektrisch"])}
+        {checkboxGroup("fuel", "Brandstof", ["Benzine", "Diesel", "Elektrisch/Benzine", "Elektrisch/Diesel", "Elektrisch", "LPG"])}
         {checkboxGroup("transmission", "Transmissie", transmissions)}
       </div>
     </div>

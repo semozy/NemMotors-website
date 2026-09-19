@@ -20,28 +20,28 @@ export default function RequestsManager() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
-  useEffect(() => {
-    let active = true;
-    async function load() {
-      setLoading(true);
-      setError("");
-      try {
-        const response = await fetch(`/api/admin/requests/${activeTab}`, { cache: "no-store" });
-        if (response.status === 401) {
-          router.push("/beheer/login");
-          return;
-        }
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error || "Laden mislukt.");
-        if (active) setRequests(result.data || []);
-      } catch (err) {
-        if (active) setError(err.message);
-      } finally {
-        if (active) setLoading(false);
+  async function loadRequests() {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/admin/requests/${activeTab}`, { cache: "no-store" });
+      if (response.status === 401) {
+        router.push("/beheer/login");
+        return;
       }
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Laden mislukt.");
+      setRequests(result.data || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    load();
-    return () => { active = false; };
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    loadRequests();
   }, [activeTab, router]);
 
   async function updateStatus(id, newStatus) {

@@ -124,7 +124,7 @@ export default async function AutoPage({ params }) {
     [Settings2, "Transmissie", car.transmission],
   ].filter(([, , value]) => hasValue(value));
 
-  const interestLink = `mailto:${siteGegevens.email}?subject=${encodeURIComponent(`Interesse in ${name}`)}`;
+  const interestLink = `/aanbod/${car.id}/interesse`;
 
   return (
     <div className="bg-[#fafaf9] text-neutral-950">
@@ -208,10 +208,10 @@ export default async function AutoPage({ params }) {
 
             <div className="grid gap-2">
               <TestDriveModal car={car} />
-              <a href={interestLink} className="flex h-11 items-center justify-center gap-3 rounded-md border border-neutral-300 bg-white text-xs font-bold transition hover:border-neutral-950">
+              <Link href={interestLink} className="flex h-11 items-center justify-center gap-3 rounded-md border border-neutral-300 bg-white text-xs font-bold transition hover:border-neutral-950">
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Ik heb interesse
-              </a>
+              </Link>
             </div>
 
             <div className="mt-4 border-t border-neutral-200 pt-4 text-[10px] text-neutral-500">

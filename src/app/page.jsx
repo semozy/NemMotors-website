@@ -76,30 +76,35 @@ const autoCategorieen = [
         label: "Elektrisch",
         description: "Duurzaam op weg",
         image: "/images/home/category-electric-transparent.png",
+        url: "/aanbod?fuel=Elektrisch",
     },
     {
         slug: "hybride",
         label: "Hybride",
         description: "Het beste van twee werelden",
         image: "/images/home/category-hybrid-transparent.png",
+        url: "/aanbod?fuel=Elektrisch%2FBenzine&fuel=Elektrisch%2FDiesel",
     },
     {
         slug: "hoge-instap",
         label: "SUV",
         description: "Ruimte voor meer",
         image: "/images/home/category-suv-transparent.png",
+        url: "/aanbod?body=SUV",
     },
     {
         slug: "compact",
         label: "Compact",
         description: "Wendbaar en efficiënt",
         image: "/images/home/category-compact-transparent.png",
+        url: "/aanbod?body=Hatchback",
     },
     {
         slug: "gezinsauto",
         label: "Gezinswagens",
         description: "Comfort voor iedereen",
         image: "/images/home/category-family-transparent.png",
+        url: "/aanbod?body=Break",
     },
 ];
 
@@ -112,7 +117,7 @@ function CarCategories() {
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {autoCategorieen.map((type) => {
-            return (<Link href={`/aanbod?body=${encodeURIComponent(type.label)}`} key={type.slug} className="group overflow-hidden rounded-lg bg-[#f5f5f3] pb-5 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+            return (<Link href={type.url} key={type.slug} className="group overflow-hidden rounded-lg bg-[#f5f5f3] pb-5 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="h-32 overflow-hidden">
                   <Image
                     src={type.image}

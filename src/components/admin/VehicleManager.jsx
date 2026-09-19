@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Children } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X, MessageSquare } from "lucide-react";
+import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X, MessageSquare, ChevronDown } from "lucide-react";
 
 const emptyForm = {
   brand: "", model: "", title: "", trim: "", year: "", firstRegistration: "", price: "", mileage: "",
@@ -24,7 +24,39 @@ function Field({ label, name, value, onChange, type = "text", required = false, 
 }
 
 function SelectField({ label, name, value, onChange, children, required = false }) {
-  return <label className="block text-[11px] font-bold text-neutral-700">{label}<select name={name} value={value} onChange={onChange} required={required} className={inputClass}>{children}</select></label>;
+  const options = Children.toArray(children).map(child => ({
+    value: child.props.value !== undefined ? child.props.value : child.props.children,
+    label: child.props.children
+  }));
+
+  function choose(event, optValue) {
+    onChange({ target: { name, value: optValue, type: "select-one" } });
+    event.currentTarget.closest("details")?.removeAttribute("open");
+  }
+
+  const selectedLabel = options.find(opt => String(opt.value) === String(value))?.label || "Kies een optie...";
+
+  return (
+    <div className="block text-[11px] font-bold text-neutral-700">
+      <span className="mb-0.5 block">{label}{required && <span className="ml-1 text-red-600">*</span>}</span>
+      <select className="sr-only" name={name} value={value} onChange={() => {}} required={required} tabIndex={-1} aria-hidden="true">
+          {children}
+      </select>
+      <details className="group relative">
+        <summary className={`${inputClass} flex cursor-pointer list-none items-center justify-between pr-3 text-neutral-500 marker:hidden [&::-webkit-details-marker]:hidden`}>
+          <span className={value ? "text-neutral-900" : ""}>{selectedLabel}</span>
+          <ChevronDown className="chevron-motion h-3.5 w-3.5 shrink-0 text-neutral-700 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+        </summary>
+        <div className="absolute inset-x-0 top-full z-30 mt-1 max-h-48 overflow-y-auto rounded-md border border-neutral-200 bg-white py-1 shadow-lg">
+          {options.map((opt, i) => (
+            <button key={i} type="button" onClick={(event) => choose(event, opt.value)} className="block w-full px-3 py-2 text-left text-xs font-normal text-neutral-700 hover:bg-neutral-100">
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </details>
+    </div>
+  );
 }
 
 function fromVehicle(vehicle) {
@@ -269,7 +301,7 @@ export default function VehicleManager() {
 
           <fieldset className="mt-6"><legend className="text-sm font-black">Basisgegevens</legend><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><Field label="Merk" name="brand" value={form.brand} onChange={update} required /><Field label="Model" name="model" value={form.model} onChange={update} required /><Field label="Titel (optioneel)" name="title" value={form.title} onChange={update} /><Field label="Uitvoering" name="trim" value={form.trim} onChange={update} /><Field label="Bouwjaar" name="year" value={form.year} onChange={update} type="number" /><Field label="Eerste inschrijving" name="firstRegistration" value={form.firstRegistration} onChange={update} placeholder="Bijv. Maart 2023" /><Field label="Prijs (€)" name="price" value={form.price} onChange={update} type="number" required /><Field label="Kilometerstand" name="mileage" value={form.mileage} onChange={update} type="number" /></div></fieldset>
 
-          <fieldset className="mt-7 border-t border-neutral-200 pt-6"><legend className="text-sm font-black">Techniek en voertuig</legend><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Brandstof" name="fuel" value={form.fuel} onChange={update}><option value="">Niet opgegeven</option>{["Benzine", "Diesel", "Hybride", "Elektrisch", "LPG"].map((value) => <option key={value}>{value}</option>)}</SelectField><SelectField label="Transmissie" name="transmission" value={form.transmission} onChange={update}><option value="">Niet opgegeven</option><option>Automaat</option><option>Handgeschakeld</option></SelectField><Field label="Carrosserie" name="body" value={form.body} onChange={update} /><Field label="Voertuigtype" name="vehicleType" value={form.vehicleType} onChange={update} /><Field label="Vermogen (pk)" name="power" value={form.power} onChange={update} type="number" /><Field label="Vermogen (kW)" name="powerKw" value={form.powerKw} onChange={update} type="number" /><Field label="Aandrijving" name="drivetrain" value={form.drivetrain} onChange={update} /><Field label="Cilinderinhoud (cm³)" name="engineCapacity" value={form.engineCapacity} onChange={update} type="number" /><Field label="Cilinders" name="cylinders" value={form.cylinders} onChange={update} type="number" /><Field label="Deuren" name="doors" value={form.doors} onChange={update} type="number" /><Field label="Zitplaatsen" name="seats" value={form.seats} onChange={update} type="number" /><Field label="Emissieklasse" name="emissionClass" value={form.emissionClass} onChange={update} /></div></fieldset>
+          <fieldset className="mt-7 border-t border-neutral-200 pt-6"><legend className="text-sm font-black">Techniek en voertuig</legend><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Brandstof" name="fuel" value={form.fuel} onChange={update}><option value="">Niet opgegeven</option>{["Benzine", "Diesel", "Elektrisch/Benzine", "Elektrisch/Diesel", "Elektrisch", "LPG"].map((value) => <option key={value}>{value}</option>)}</SelectField><SelectField label="Transmissie" name="transmission" value={form.transmission} onChange={update}><option value="">Niet opgegeven</option><option>Automaat</option><option>Manueel</option></SelectField><SelectField label="Carrosserie" name="body" value={form.body} onChange={update}><option value="">Niet opgegeven</option>{["Hatchback", "Berline", "Break", "SUV", "Crossover", "Coupé", "Cabriolet", "Monovolume", "Bestelwagen", "Pick-up"].map(v => <option key={v}>{v}</option>)}</SelectField><Field label="Voertuigtype" name="vehicleType" value={form.vehicleType} onChange={update} /><Field label="Vermogen (pk)" name="power" value={form.power} onChange={update} type="number" /><Field label="Vermogen (kW)" name="powerKw" value={form.powerKw} onChange={update} type="number" /><SelectField label="Aandrijving" name="drivetrain" value={form.drivetrain} onChange={update}><option value="">Niet opgegeven</option>{["Voorwielaandrijving", "Achterwielaandrijving", "4x4 / Vierwielaandrijving"].map(v => <option key={v}>{v}</option>)}</SelectField><Field label="Cilinderinhoud (cm³)" name="engineCapacity" value={form.engineCapacity} onChange={update} type="number" /><SelectField label="Cilinders" name="cylinders" value={form.cylinders} onChange={update}><option value="">Niet opgegeven</option>{[2, 3, 4, 5, 6, 8, 10, 12, 16].map(v => <option key={v} value={v}>{v}</option>)}</SelectField><SelectField label="Deuren" name="doors" value={form.doors} onChange={update}><option value="">Niet opgegeven</option>{[2, 3, 4, 5, 6].map(v => <option key={v} value={v}>{v}</option>)}</SelectField><SelectField label="Zitplaatsen" name="seats" value={form.seats} onChange={update}><option value="">Niet opgegeven</option>{[2, 3, 4, 5, 6, 7, 8, 9].map(v => <option key={v} value={v}>{v}</option>)}</SelectField><Field label="Emissieklasse" name="emissionClass" value={form.emissionClass} onChange={update} /></div></fieldset>
 
           <fieldset className="mt-7 border-t border-neutral-200 pt-6"><legend className="text-sm font-black">Elektrisch, kleur en interieur</legend><div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><Field label="Accucapaciteit (kWh)" name="batteryCapacity" value={form.batteryCapacity} onChange={update} type="number" /><Field label="Actieradius (km)" name="range" value={form.range} onChange={update} type="number" /><Field label="CO₂-uitstoot" name="co2Emission" value={form.co2Emission} onChange={update} type="number" /><Field label="Energielabel" name="energyLabel" value={form.energyLabel} onChange={update} /><Field label="Kleur" name="color" value={form.color} onChange={update} /><Field label="Laktype" name="paintType" value={form.paintType} onChange={update} /><Field label="Interieurkleur" name="interiorColor" value={form.interiorColor} onChange={update} /><Field label="Bekleding" name="upholstery" value={form.upholstery} onChange={update} /></div></fieldset>
 
