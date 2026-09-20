@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Check, Clock3, ChevronDown, Info, LockKeyhole, Mail, MessageSquare, Phone, UserRound, X } from "lucide-react";
@@ -11,8 +12,13 @@ const inputClass = "h-11 w-full rounded-md border border-neutral-300 bg-white pl
 export default function TestDriveModal({ car }) {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const closeButtonRef = useRef(null);
   const name = `${car.brand} ${car.model}`;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -94,7 +100,7 @@ export default function TestDriveModal({ car }) {
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </button>
 
-      {open && (
+      {mounted && open && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/65 p-4 backdrop-blur-[1px]" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeModal(); }}>
           <section role="dialog" aria-modal="true" aria-labelledby="test-drive-title" className="relative my-auto w-full max-w-[610px] rounded-lg bg-white p-6 text-neutral-950 shadow-2xl sm:p-8">
             <button ref={closeButtonRef} type="button" onClick={closeModal} className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-neutral-100" aria-label="Proefritvenster sluiten">
@@ -188,7 +194,8 @@ export default function TestDriveModal({ car }) {
               </>
             )}
           </section>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
