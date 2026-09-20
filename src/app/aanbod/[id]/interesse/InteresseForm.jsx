@@ -8,6 +8,7 @@ export default function InteresseForm({ car }) {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [subjectOpen, setSubjectOpen] = useState(false);
 
   const carName = `${car.brand} ${car.model} ${car.trim || ""}`.trim();
 
@@ -112,15 +113,35 @@ ${form.message || "Geen extra bericht."}`;
           <div className="mt-6 space-y-5">
             <label className="block text-xs font-bold text-neutral-800">
               Waar kunnen we je mee helpen? <span className="text-red-500">*</span>
-              <div className="relative mt-2">
-                <select name="subject" value={form.subject} onChange={(e) => { update(e); e.target.blur(); }} required className="peer h-11 w-full appearance-none rounded-md border border-neutral-300 bg-white px-4 text-xs font-medium text-neutral-900 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950">
-                  <option>Meer informatie over deze wagen</option>
-                  <option>Proefrit inplannen</option>
-                  <option>Overnamevoorstel aanvragen</option>
-                  <option>Andere vraag</option>
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 transition-transform duration-200 peer-focus:rotate-180" />
-              </div>
+                <div className="relative mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setSubjectOpen((prev) => !prev)}
+                    aria-haspopup="listbox"
+                    aria-expanded={subjectOpen}
+                    className={`flex h-11 w-full items-center justify-between rounded-md border bg-white px-4 text-xs font-medium outline-none transition ${subjectOpen ? 'border-neutral-950 ring-1 ring-neutral-950 text-neutral-900' : 'border-neutral-300 text-neutral-900 hover:border-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950'}`}
+                  >
+                    <span>{form.subject}</span>
+                    <ChevronDown className={`pointer-events-none h-4 w-4 text-neutral-500 transition-transform duration-200 ${subjectOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <div className={`absolute left-0 right-0 top-full z-30 mt-1 max-h-56 overflow-y-auto rounded-md border border-neutral-200 bg-white shadow-lg transition-all ${subjectOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`} role="listbox">
+                    {["Meer informatie over deze wagen", "Overnamevoorstel aanvragen", "Andere vraag"].map((option) => (
+                      <button
+                        key={option}
+                        role="option"
+                        aria-selected={form.subject === option}
+                        type="button"
+                        onClick={() => {
+                          setForm((prev) => ({ ...prev, subject: option }));
+                          setSubjectOpen(false);
+                        }}
+                        className="block w-full px-4 py-3 text-left text-xs font-medium text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-950"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
             </label>
 
             <label className="block text-xs font-bold text-neutral-800">

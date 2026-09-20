@@ -41,7 +41,7 @@ export default async function InteressePage({ params }) {
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">Interesse</p>
             <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Interesse in deze wagen?</h1>
             <p className="mt-4 max-w-xl text-sm leading-6 text-neutral-600">
-              Vul het formulier in en wij nemen zo snel mogelijk contact met je op. Je kan ook direct een proefrit plannen of extra vragen stellen. Wij helpen je graag verder.
+              Vul het formulier in en wij nemen zo snel mogelijk contact met je op. Heb je specifieke vragen? Laat het ons weten, wij helpen je graag verder.
             </p>
 
             <InteresseForm car={car} />
