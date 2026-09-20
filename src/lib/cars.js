@@ -78,7 +78,7 @@ export function filterCars(cars, filters, query = "", sort = "relevant") {
       && (!filters.brand || car.brand === filters.brand)
       && (!filters.model || car.model === filters.model)
       && (!filters.price || (filters.price.endsWith("+") ? car.price >= Number(filters.price.slice(0, -1)) : car.price > 0 && car.price <= Number(filters.price)))
-      && (!filters.body || (car.body || car.vehicleType) === filters.body)
+      && (!filters.body || (car.body || car.vehicleType)?.trim() === filters.body?.trim())
       && (!filters.yearFrom || car.year >= Number(filters.yearFrom))
       && (!filters.yearTo || car.year <= Number(filters.yearTo))
       && (!filters.kmFrom || (car.mileage != null && car.mileage >= Number(filters.kmFrom)))

@@ -93,7 +93,7 @@ export default function CarFilter({ cars = [] }) {
   const [filters, setFilters] = useState({ brand: "", model: "", price: "", body: "" });
   const brands = useMemo(() => [...new Set(cars.map((car) => car.brand).filter(Boolean))].sort(), [cars]);
   const models = useMemo(() => filters.brand ? [...new Set(cars.filter((car) => car.brand === filters.brand).map((car) => car.model).filter(Boolean))].sort() : [], [cars, filters.brand]);
-  const bodies = useMemo(() => [...new Set(cars.map((car) => car.body || car.vehicleType).filter(Boolean))].sort(), [cars]);
+  const bodies = useMemo(() => [...new Set(cars.map((car) => (car.body || car.vehicleType)?.trim()).filter(Boolean))].sort(), [cars]);
 
   function updateFilter(name, value) {
     setFilters((current) => ({ ...current, [name]: value, ...(name === "brand" ? { model: "" } : {}) }));
@@ -127,7 +127,7 @@ export default function CarFilter({ cars = [] }) {
 export function InventoryFilters({ cars, filters, onChange, onReset, priceLimit }) {
   const brands = [...new Set(cars.map((car) => car.brand).filter(Boolean))].sort();
   const models = [...new Set(cars.filter((car) => !filters.brand || car.brand === filters.brand).map((car) => car.model).filter(Boolean))].sort();
-  const bodies = [...new Set(cars.map((car) => car.body || car.vehicleType).filter(Boolean))].sort();
+  const bodies = [...new Set(cars.map((car) => (car.body || car.vehicleType)?.trim()).filter(Boolean))].sort();
   const transmissions = [...new Set(cars.map((car) => car.transmission).filter(Boolean))].sort();
   const selectClass = "mt-1.5 h-9 w-full rounded border border-neutral-300 bg-white px-2.5 text-[11px] font-normal text-neutral-700 outline-none focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950/10";
 

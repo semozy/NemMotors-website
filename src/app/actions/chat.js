@@ -18,7 +18,7 @@ export async function askAssistant(message) {
   // 2. STOCK / BRANDS (Voorraad & Merken)
   const brands = [...new Set(cars.map(c => c.brand.toLowerCase()))];
   
-  // Controleer of de gebruiker naar een specifiek merk vraagt
+  // Controleer of de gebruiker naar een specifiek merk vraagt dat in stock is
   for (const brand of brands) {
     if (text.includes(brand)) {
       const brandCars = cars.filter(c => c.brand.toLowerCase() === brand);
@@ -29,6 +29,14 @@ export async function askAssistant(message) {
         const modelsList = brandCars.map(c => c.model).join(", ");
         return `Zeker weten! We hebben momenteel ${brandCars.length} ${brandCars[0].brand}'s op voorraad. Modellen: ${modelsList}. Neem snel een kijkje bij ons aanbod!`;
       }
+    }
+  }
+
+  // Controleer op populaire merken die NIET in stock zijn
+  const popularBrands = ["audi", "bmw", "mercedes", "volkswagen", "vw", "porsche", "peugeot", "renault", "opel", "ford", "toyota", "volvo"];
+  for (const pBrand of popularBrands) {
+    if (text.includes(pBrand)) {
+      return `Momenteel hebben we helaas geen ${pBrand.toUpperCase()} op voorraad. Ons aanbod wisselt echter snel! Hou onze website in de gaten of neem contact op met je wensen.`;
     }
   }
 
