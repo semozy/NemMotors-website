@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import ComparisonTray from "@/components/cars/ComparisonTray";
 import CookieConsent from "@/components/privacy/CookieConsent";
 import IntroScreen from "@/components/layout/IntroScreen";
+import ChatWidget from "@/components/ui/ChatWidget";
 export const metadata = {
     icons: { icon: "/favicon.ico" },
     metadataBase: new URL(siteGegevens.websiteUrl),
@@ -79,6 +80,7 @@ export default function RootLayout({ children, }) {
         <Header />
         <main>{children}</main>
         <ComparisonTray />
+        <ChatWidget />
         <CookieConsent />
         <Footer />
       </body>
