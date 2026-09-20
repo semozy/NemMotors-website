@@ -13,11 +13,21 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative isolate min-h-[550px] overflow-hidden bg-[#111312] text-white sm:min-h-[575px] lg:min-h-[590px]">
-      <motion.div initial={reduceMotion ? false : { scale: 1.035 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0 bg-[url('/images/home/hero-station-wagon.png')] bg-cover bg-[66%_center] sm:bg-[62%_center] lg:bg-center" />
+    <section className="relative isolate min-h-[650px] overflow-hidden bg-[#111312] text-white sm:min-h-[750px] lg:min-h-[820px]">
+      <motion.div initial={reduceMotion ? false : { scale: 1.035 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="h-full w-full object-cover object-center"
+        >
+          <source src="/images/home/NemMotors.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,9,9,.94)_0%,rgba(7,9,9,.86)_35%,rgba(7,9,9,.3)_61%,rgba(7,9,9,.04)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05)_55%,rgba(0,0,0,.48)_100%)]" />
-      <div className="relative mx-auto flex min-h-[550px] max-w-[1320px] items-center px-5 pb-28 pt-16 sm:min-h-[575px] lg:min-h-[590px] lg:px-8 lg:pb-32">
+      <div className="relative mx-auto flex min-h-[650px] max-w-[1320px] items-center px-5 pb-28 pt-16 sm:min-h-[750px] lg:min-h-[820px] lg:px-8 lg:pb-32">
         <div className="max-w-[570px]">
           <motion.div {...reveal(0.05)} className="mb-7 flex items-center gap-5">
             <span className="h-px w-9 bg-white/80" />
