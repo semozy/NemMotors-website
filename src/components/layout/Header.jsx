@@ -7,6 +7,7 @@ import { ArrowRight, Menu } from "lucide-react";
 import Navbar from "./Navbar";
 import { navigation } from "@/constants/navigation";
 import FavoriteIndicator from "@/components/cars/FavoriteIndicator";
+import Logo from "@/components/ui/Logo";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,9 +20,9 @@ export default function Header() {
           <Link
             href="/"
             aria-label="NEM Motors home"
-            className="shrink-0 text-xl font-black tracking-[-0.04em] text-neutral-950 sm:text-2xl"
+            className="shrink-0 flex items-center"
           >
-            NEM Motors
+            <Logo className="w-[100px] sm:w-[120px] text-neutral-950" />
           </Link>
           <div className="hidden h-full items-center gap-11 lg:flex">
             {navigation.map((item) => {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "@/components/ui/Logo";
 
 export default function IntroScreen() {
   const [show, setShow] = useState(false);
@@ -10,8 +11,8 @@ export default function IntroScreen() {
   useEffect(() => {
     setIsMounted(true);
 
-    // Remove the SSR black screen class to let React take over smoothly
-    document.documentElement.classList.remove('show-ssr-black-screen');
+    // Hide the SSR black screen so the React animation can take over
+    document.documentElement.classList.add('hide-ssr-black-screen');
 
     let hasSeen = false;
     try {
@@ -79,42 +80,11 @@ export default function IntroScreen() {
             animate={{ opacity: 0, scale: 1.1 }} // Licht inzoomen bij het vervagen
             transition={{ delay: 1.8, duration: 0.4, ease: "easeIn" }}
           >
-            <style dangerouslySetInnerHTML={{ __html: `
-              .koplamp-effect {
-                background: linear-gradient(
-                  90deg, 
-                  rgba(255, 255, 255, 0.05) 0%, 
-                  rgba(255, 255, 255, 0.05) 40%, 
-                  rgba(255, 255, 255, 1) 50%, 
-                  rgba(255, 255, 255, 0.05) 60%, 
-                  rgba(255, 255, 255, 0.05) 100%
-                );
-                background-size: 200% auto;
-                color: transparent;
-                -webkit-background-clip: text;
-                background-clip: text;
-                animation: koplampSweep 1.8s ease-in-out forwards;
-              }
-              
-              @keyframes koplampSweep {
-                0% { background-position: 200% center; }
-                100% { background-position: -50% center; }
-              }
-            `}} />
-
-            <div className="relative">
-              <h1 className="koplamp-effect text-4xl sm:text-6xl lg:text-7xl font-black tracking-[-0.04em] uppercase">
-                NEM Motors
-              </h1>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="absolute left-0 right-0 mt-3 text-center text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-500"
-              >
-                Exclusive Cars
-              </motion.p>
+            <div className="relative flex flex-col items-center">
+              {/* Op maat gemaakte brede NEM logo met gaten (SVG) */}
+              <div className="w-[200px] sm:w-[360px] lg:w-[560px]">
+                <Logo className="w-full h-auto" animated={true} />
+              </div>
             </div>
           </motion.div>
         </div>

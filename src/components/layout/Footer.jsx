@@ -14,6 +14,7 @@ export const siteGegevens = {
     instagramUrl: "",
 };
 import Container from "@/components/ui/Container";
+import Logo from "@/components/ui/Logo";
 import { navigation as quickLinks } from "@/constants/navigation";
 import { CookieSettingsButton } from "@/components/privacy/CookieConsent";
 export default function Footer() {
@@ -21,9 +22,7 @@ export default function Footer() {
       <Container className="py-12">
         <div className="grid gap-10 md:grid-cols-4">
           <div>
-            <h3 className="text-2xl font-black tracking-[0.18em]">
-              NEM MOTORS
-            </h3>
+            <Logo className="w-32 text-white" />
             <p className="mt-4 text-sm leading-6 text-neutral-400">
               {siteGegevens.description}.
             </p>
