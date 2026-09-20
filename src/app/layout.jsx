@@ -36,24 +36,23 @@ export const metadata = {
         images: ["/images/logo/nemmotors.png"],
     },
 };
+import Script from "next/script";
+
 export default function RootLayout({ children, }) {
     return (<html lang="nl" suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{ __html: `.show-ssr-black-screen #ssr-black-screen { display: block !important; }` }} />
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (!sessionStorage.getItem('nem_intro_garage_final')) {
-                  document.documentElement.classList.add('show-ssr-black-screen');
-                }
-              } catch(e) {}
-            `,
-          }}
-        />
       </head>
       <body className="min-h-screen bg-neutral-950 font-sans text-white" suppressHydrationWarning>
+        <Script id="nem-intro-fouc" strategy="beforeInteractive">
+          {`
+            try {
+              if (!sessionStorage.getItem('nem_intro_garage_final')) {
+                document.documentElement.classList.add('show-ssr-black-screen');
+              }
+            } catch(e) {}
+          `}
+        </Script>
         <div id="ssr-black-screen" className="fixed inset-0 z-[99998] bg-[#050505] pointer-events-none" style={{ display: 'none' }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({

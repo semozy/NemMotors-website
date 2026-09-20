@@ -30,13 +30,6 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  prefetch={item.href === "/aanbod" ? false : undefined}
-                  onClick={(event) => {
-                    if (item.href === "/aanbod") {
-                      event.preventDefault();
-                      window.location.assign(item.href);
-                    }
-                  }}
                   className={`relative flex h-full items-center text-[13px] font-medium transition-colors hover:text-black ${active ? "text-black" : "text-neutral-600"}`}
                 >
                   {item.name}

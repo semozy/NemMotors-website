@@ -10,9 +10,8 @@ export default function IntroScreen() {
   useEffect(() => {
     setIsMounted(true);
 
-    // Remove the SSR black screen to let React take over
-    const ssrScreen = document.getElementById("ssr-black-screen");
-    if (ssrScreen) ssrScreen.remove();
+    // Remove the SSR black screen class to let React take over smoothly
+    document.documentElement.classList.remove('show-ssr-black-screen');
 
     let hasSeen = false;
     try {
