@@ -52,7 +52,7 @@ export default function Footer() {
             </p>
               <div className="mt-5 flex items-center gap-3">
                 <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black" aria-label="Bekijk ons op AutoScout24">
-                  <img src="/images/home/autoscout.png" alt="AutoScout24" className="h-5 w-5 object-contain" />
+                  <img src="/images/home/autoscout.png" alt="AutoScout24" className="h-7 w-7 object-contain" />
                 </a>
                 <a href="https://www.instagram.com/nemmotors.be/" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black" aria-label="Volg ons op Instagram">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
