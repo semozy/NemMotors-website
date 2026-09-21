@@ -42,7 +42,7 @@ export async function POST(request) {
     return response;
   } catch (err) {
     console.error("Login Error:", err);
-    return NextResponse.json({ error: "Systeemfout. Controleer of alle omgevingsvariabelen (Environment Variables) correct zijn ingesteld op de server." }, { status: 500 });
+    return NextResponse.json({ error: `Systeemfout: ${err.message || JSON.stringify(err)}` }, { status: 500 });
   }
 }
 
