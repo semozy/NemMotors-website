@@ -7,30 +7,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, Check, Trash2, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
-const specificationGroups = [
-  {
-    title: "Belangrijkste gegevens",
-    rows: [
-      ["Bouwjaar", (car) => car.year],
-      ["Kilometerstand", (car) => car.mileage == null ? null : `${Number(car.mileage).toLocaleString("nl-BE")} km`],
-      ["Brandstof", (car) => car.fuel],
-      ["Transmissie", (car) => car.transmission],
-      ["Carrosserie", (car) => car.body],
-    ],
-  },
-  {
-    title: "Comfort & uitrusting",
-    rows: [
-      ["Navigatie", (car) => car.options?.some((option) => option.toLowerCase().includes("navigatie"))],
-      ["Zetelverwarming", (car) => car.options?.some((option) => option.toLowerCase().includes("stoelverwarming"))],
-      ["Parkeerhulp achter", (car) => car.options?.some((option) => /parkeer|achteruitrijcamera/i.test(option))],
-    ],
-  },
-];
-
 function displayValue(value) {
-  if (value === true) return <Check className="mx-auto h-4 w-4" strokeWidth={2} aria-label="Aanwezig" />;
-  if (value === false || value == null || value === "") return <span className="text-neutral-400">—</span>;
+  if (value === true) return <Check className="mx-auto h-4 w-4 text-green-600" strokeWidth={2.5} aria-label="Ja" />;
+  if (value === false) return <X className="mx-auto h-4 w-4 text-red-500" strokeWidth={2.5} aria-label="Nee" />;
+  if (value == null || value === "") return <span className="text-neutral-400">—</span>;
   return value;
 }
 
@@ -38,14 +18,77 @@ export default function CompareTable({ initialCars }) {
   const [cars, setCars] = useState(initialCars);
   const [differencesOnly, setDifferencesOnly] = useState(false);
 
-  const groups = useMemo(() => specificationGroups.map((group) => ({
-    ...group,
-    rows: group.rows.filter(([, read]) => {
-      if (!differencesOnly) return true;
-      const values = cars.map((car) => String(read(car) ?? ""));
-      return new Set(values).size > 1;
-    }),
-  })).filter((group) => group.rows.length > 0), [cars, differencesOnly]);
+  const groups = useMemo(() => {
+    const baseGroups = [
+      {
+        title: "Belangrijkste gegevens",
+        rows: [
+          ["Bouwjaar", (car) => car.year],
+          ["Kilometerstand", (car) => car.mileage == null ? null : `${Number(car.mileage).toLocaleString("nl-BE")} km`],
+          ["Brandstof", (car) => car.fuel],
+          ["Transmissie", (car) => car.transmission],
+          ["Carrosserie", (car) => car.body],
+          ["Vermogen", (car) => [car.powerKw ? `${car.powerKw} kW` : null, car.power ? `${car.power} pk` : null].filter(Boolean).join(" / ") || null],
+          ["Accucapaciteit", (car) => car.batteryCapacity ? `${car.batteryCapacity} kWh` : null],
+          ["Actieradius", (car) => car.range ? `${car.range} km` : null],
+        ],
+      },
+      {
+        title: "Voertuigdetails",
+        rows: [
+          ["Voertuigtype", (car) => car.vehicleType],
+          ["Aandrijving", (car) => car.drivetrain],
+          ["Aantal stoelen", (car) => car.seats],
+          ["Aantal deuren", (car) => car.doors],
+          ["Cilinderinhoud", (car) => car.engineCapacity ? `${car.engineCapacity} cm³` : null],
+          ["Cilinders", (car) => car.cylinders],
+        ],
+      },
+      {
+        title: "Milieu",
+        rows: [
+          ["Emissieklasse", (car) => car.emissionClass],
+          ["CO₂-uitstoot", (car) => car.co2Emission ? `${car.co2Emission} g/km` : null],
+        ],
+      },
+      {
+        title: "Kleur & Interieur",
+        rows: [
+          ["Kleur", (car) => car.color],
+          ["Lakkleur", (car) => car.paintType],
+          ["Interieurkleur", (car) => car.interiorColor],
+          ["Bekleding", (car) => car.upholstery],
+        ],
+      },
+      {
+        title: "Staat",
+        rows: [
+          ["Onderhoudshistoriek", (car) => car.serviceHistory === true ? "Ja" : (car.serviceHistory === false ? "Nee" : null)],
+          ["Niet-rokersauto", (car) => car.nonSmoker === true ? "Ja" : (car.nonSmoker === false ? "Nee" : null)],
+        ],
+      }
+    ];
+
+    const allOptions = Array.from(new Set(cars.flatMap(c => c.options || []))).sort();
+    if (allOptions.length > 0) {
+      baseGroups.push({
+        title: "Uitrusting",
+        rows: allOptions.map(opt => [
+          opt,
+          (car) => car.options?.includes(opt) ? true : false
+        ])
+      });
+    }
+
+    return baseGroups.map((group) => ({
+      ...group,
+      rows: group.rows.filter(([, read]) => {
+        if (!differencesOnly) return true;
+        const values = cars.map((car) => String(read(car) ?? ""));
+        return new Set(values).size > 1;
+      }),
+    })).filter((group) => group.rows.length > 0);
+  }, [cars, differencesOnly]);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -157,13 +200,8 @@ export default function CompareTable({ initialCars }) {
               </div>
             ))}
 
-            <div className="grid" style={{ gridTemplateColumns: columns }}>
-              <div className="border-r border-neutral-200 px-4 py-4 text-[10px] text-neutral-500">— Niet opgegeven</div>
-              {cars.map((car) => (
-                <div key={car.id} className="border-r border-neutral-200 p-3 last:border-r-0">
-                  <a href={`mailto:info@nemmotors.be?subject=${encodeURIComponent(`Proefrit aanvragen voor ${car.brand} ${car.model}`)}`} className="flex h-10 items-center justify-center rounded-md border border-neutral-400 text-xs font-bold transition hover:border-neutral-950 hover:bg-neutral-50">Plan een proefrit</a>
-                </div>
-              ))}
+            <div className="px-4 py-4 text-[10px] text-neutral-500">
+              — Niet opgegeven
             </div>
           </div>
         </div>

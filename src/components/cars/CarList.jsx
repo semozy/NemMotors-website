@@ -61,16 +61,16 @@ export default function CarList({ cars = [], catalog = false, initialFilters = d
 
   return (
     <div className="min-h-screen bg-[#f4f5f5] text-neutral-950">
-      <section className="relative isolate overflow-hidden bg-[#202427] text-white">
+      <section className="relative isolate overflow-hidden bg-[#0a0a0a] text-white">
         <Image
-          src="/images/home/service-verkoop.png"
+          src="/faviconnem.png"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="-z-20 object-cover object-center"
+          className="-z-20 object-contain object-center opacity-30 p-12 sm:p-16 md:p-24"
         />
-        <div className="absolute inset-0 -z-10 bg-neutral-950/75" />
+        <div className="absolute inset-0 -z-10 bg-neutral-950/40" />
 
         <div className="mx-auto grid max-w-[1440px] gap-6 px-6 py-5 sm:px-8 lg:grid-cols-[1fr_470px] lg:items-center lg:px-9 lg:py-6">
           <div>

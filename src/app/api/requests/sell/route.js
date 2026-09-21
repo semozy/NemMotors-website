@@ -26,7 +26,10 @@ export async function POST(request) {
     const registration = formData.get("registration");
     const mileageStr = formData.get("mileage");
     const price = formData.get("price") || null;
-    const message = formData.get("message") || "";
+    const chassis = formData.get("chassis") || "Niet opgegeven";
+    const fuel = formData.get("fuel") || "Niet opgegeven";
+    const transmission = formData.get("transmission") || "Niet opgegeven";
+    const originalMessage = formData.get("message") || "";
     
     // registration is 'MM / JJJJ' or 'YYYY', let's just parse the last 4 digits as year
     const yearMatch = registration ? registration.match(/(?:19|20)\d{2}/) : null;
@@ -34,9 +37,11 @@ export async function POST(request) {
     const mileage = mileageStr ? Number(mileageStr.replace(/[^0-9]/g, "")) : 0;
     const parsedPrice = price ? Number(price.replace(/[^0-9]/g, "")) : null;
 
-    if (!name || !email || !phone || !brand || !model || !registration || !mileageStr) {
-      return NextResponse.json({ error: "Vul alle verplichte velden in." }, { status: 400 });
+    if (!name || !email || !phone || !brand || !model || !registration || !mileageStr || !formData.get("chassis")) {
+      return NextResponse.json({ error: "Vul alle verplichte velden in, inclusief chassisnummer." }, { status: 400 });
     }
+
+    const enrichedMessage = `Brandstof: ${fuel}\nTransmissie: ${transmission}\nChassisnummer: ${chassis}\n\nOpmerking:\n${originalMessage}`;
 
     const supabase = createAdminSupabaseClient();
     const { data: requestData, error: requestError } = await supabase
@@ -46,7 +51,7 @@ export async function POST(request) {
         year: Number(year),
         mileage: Number(mileage),
         price: parsedPrice,
-        message
+        message: enrichedMessage
       })
       .select()
       .single();

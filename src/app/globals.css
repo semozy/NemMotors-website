@@ -22,6 +22,8 @@ section[id] {
   will-change: transform;
 }
 
+
+
 @keyframes review-marquee {
   from {
     transform: translateX(0);
@@ -36,8 +38,7 @@ section[id] {
   animation: review-marquee 42s linear infinite;
 }
 
-.review-marquee-frame:hover .review-marquee-track,
-.review-marquee-frame:focus-within .review-marquee-track {
+.review-marquee-frame:hover .review-marquee-track {
   animation-play-state: paused;
 }
 

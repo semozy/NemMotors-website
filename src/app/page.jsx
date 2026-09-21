@@ -33,7 +33,7 @@ export default async function HomePage() {
         <Container id="over-ons" className="py-10">
           <div className="grid overflow-hidden rounded-lg bg-neutral-100 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="relative min-h-[420px]">
-              <Image src="/images/home/garage.jpeg" alt="Over NEM Motors" fill className="object-cover object-center" />
+              <Image src="/images/home/garage.jpeg" alt="Over NEM Motors" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-center" />
             </div>
             <div className="p-8 md:p-12">
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-950">
@@ -248,7 +248,7 @@ function GarageInfo() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
           {/* Card 01 - Wide, Dark */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-neutral-950 p-8 text-white lg:col-span-7 lg:min-h-[340px]">
-            <Image src="/images/home/begeleiding.png" alt="Persoonlijke begeleiding" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/begeleiding.png" alt="Persoonlijke begeleiding" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">01</span>
             <div className="relative z-10 mt-12 max-w-sm">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Persoonlijke<br />begeleiding</h3>
@@ -258,7 +258,7 @@ function GarageInfo() {
 
           {/* Card 02 - Narrow, Light */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-[#f4f4f4] p-8 text-neutral-950 lg:col-span-5 lg:min-h-[340px]">
-            <Image src="/images/home/info.png" alt="Duidelijke informatie" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/info.png" alt="Duidelijke informatie" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">02</span>
             <div className="relative z-10 mt-12 max-w-xs">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Duidelijke<br />informatie</h3>
@@ -268,7 +268,7 @@ function GarageInfo() {
 
           {/* Card 03 - Narrow, Light */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-[#f4f4f4] p-8 text-neutral-950 lg:col-span-5 lg:min-h-[340px]">
-            <Image src="/images/home/garantie.png" alt="12 maanden garantie" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/garantie.png" alt="12 maanden garantie" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">03</span>
             <div className="relative z-10 mt-12 max-w-xs">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">12 maanden<br />garantie</h3>
@@ -278,7 +278,7 @@ function GarageInfo() {
 
           {/* Card 04 - Wide, Dark */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-neutral-950 p-8 text-white lg:col-span-7 lg:min-h-[340px]">
-            <Image src="/images/home/vlot.png" alt="Vlot geregeld" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/vlot.png" alt="Vlot geregeld" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">04</span>
             <div className="relative z-10 mt-12 max-w-sm">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Vlot geregeld</h3>
@@ -291,27 +291,37 @@ function GarageInfo() {
       <div className="review-marquee-frame mt-6 overflow-hidden pb-2" aria-label="Automatisch scrollende reviews">
         <div className="review-marquee-track flex w-max">
           {reviewGroups.map((group, groupIndex) => (<div key={groupIndex} className="flex shrink-0 gap-4 pr-4" aria-hidden={groupIndex === 1}>
-              {group.map((review) => (<article key={`${groupIndex}-${review.name}-${review.date}`} className="min-w-[300px] rounded-lg border border-neutral-200 bg-neutral-50 p-5 shadow-sm sm:min-w-[360px]">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex gap-1" role="img" aria-label={`${review.rating ?? 5} van de 5 sterren`}>
-                      {Array.from({ length: 5 }, (_, index) => (<Star
-                        key={index}
-                        className={`h-5 w-5 ${index < (review.rating ?? 5) ? "fill-amber-400 text-amber-400" : "fill-neutral-200 text-neutral-200"}`}
-                        aria-hidden="true"
-                      />))}
+              {group.map((review) => (
+                <a
+                  key={`${groupIndex}-${review.name}-${review.date}`}
+                  href="https://www.autoscout24.be/nl/verkopers/nem-motors/over-ons#reviews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block min-w-[300px] sm:min-w-[360px]"
+                >
+                  <article className="h-full rounded-lg border border-neutral-200 bg-neutral-50 p-5 shadow-sm transition group-hover:-translate-y-1 group-hover:border-neutral-300 group-hover:shadow-md">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex gap-1" role="img" aria-label={`${review.rating ?? 5} van de 5 sterren`}>
+                        {Array.from({ length: 5 }, (_, index) => (<Star
+                          key={index}
+                          className={`h-5 w-5 ${index < (review.rating ?? 5) ? "fill-amber-400 text-amber-400" : "fill-neutral-200 text-neutral-200"}`}
+                          aria-hidden="true"
+                        />))}
+                      </div>
+                      <Quote className="h-5 w-5 text-neutral-300" aria-hidden="true"/>
                     </div>
-                    <Quote className="h-5 w-5 text-neutral-300" aria-hidden="true"/>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-700" title={review.text}>
-                    &quot;{verkortReview(review.text)}&quot;
-                  </p>
-                  <div className="mt-4 flex items-end justify-between gap-4 border-t border-neutral-200 pt-3">
-                    <p className="font-black text-neutral-950">{review.name}</p>
-                    <p className="text-right text-xs font-semibold text-neutral-500">
-                      Geschreven op {review.date}
+                    <p className="mt-3 text-sm leading-6 text-neutral-700" title={review.text}>
+                      &quot;{verkortReview(review.text)}&quot;
                     </p>
-                  </div>
-                </article>))}
+                    <div className="mt-4 flex items-end justify-between gap-4 border-t border-neutral-200 pt-3">
+                      <p className="font-black text-neutral-950">{review.name}</p>
+                      <p className="text-right text-xs font-semibold text-neutral-500">
+                        Geschreven op {review.date}
+                      </p>
+                    </div>
+                  </article>
+                </a>
+              ))}
             </div>))}
         </div>
       </div>

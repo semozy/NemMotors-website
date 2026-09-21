@@ -2,6 +2,7 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 const sharedConfig = {
     poweredByHeader: false,
     images: {
+        qualities: [25, 50, 75, 100],
         remotePatterns: [
             {
                 protocol: "https",

@@ -14,11 +14,10 @@ import Container from "@/components/ui/Container";
 const hoofddiensten = [
   {
     title: "Vind uw volgende wagen",
-    description:
-      "Ontdek zorgvuldig geselecteerde tweedehandswagens met duidelijke informatie.",
-    action: "Bekijk het aanbod",
+    description: "Een wisselende voorraad aan betrouwbare, streng gecontroleerde wagens.",
+    action: "Bekijk ons aanbod",
     href: "/aanbod",
-    image: "/images/home/volgende-wagen.JPG",
+    image: "/images/home/volgende-wagen.jpg",
     icon: CarFront,
   },
   {

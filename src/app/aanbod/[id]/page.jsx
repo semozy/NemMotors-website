@@ -12,6 +12,7 @@ import {
   Mail,
   MapPin,
   Settings2,
+  ExternalLink,
 } from "lucide-react";
 import CarGallery from "@/components/cars/CarGallery";
 import CarDetailTabs from "@/components/cars/CarDetailTabs";
@@ -93,6 +94,7 @@ export default async function AutoPage({ params }) {
     ["Vermogen", power],
     ["Brandstof", car.fuel],
     ["Transmissie", car.transmission],
+    ["Garantie", "12 maanden"],
     ["Accucapaciteit", withUnit(car.batteryCapacity, "kWh")],
   ].filter(([, value]) => hasValue(value));
 
@@ -108,7 +110,6 @@ export default async function AutoPage({ params }) {
     ["Cilinders", car.cylinders],
     ["Emissieklasse", car.emissionClass],
     ["CO₂-uitstoot", withUnit(car.co2Emission, "g/km")],
-    ["Energielabel", car.energyLabel],
     ["Kleur", car.color],
     ["Lakkleur", car.paintType],
     ["Interieurkleur", car.interiorColor],
@@ -190,7 +191,12 @@ export default async function AutoPage({ params }) {
                 <h1 className="mt-2 text-3xl font-black leading-none tracking-[-0.045em]">{car.title || name}</h1>
                 <p className="mt-1 text-base font-semibold text-neutral-500">{car.trim || car.model}</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
+                {car.autoscoutUrl && (
+                  <a href={car.autoscoutUrl} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-neutral-200 bg-white p-1.5 shadow-sm transition hover:scale-105" aria-label="Bekijk op Autoscout24">
+                    <img src="/images/home/AutoScout24_Logo_2020.svg.webp" alt="AutoScout24" className="h-full w-full object-contain" />
+                  </a>
+                )}
                 <FavoriteButton carId={car.id} name={name} compact />
               </div>
             </div>

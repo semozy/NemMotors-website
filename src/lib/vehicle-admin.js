@@ -5,7 +5,7 @@ const fieldMap = {
   vehicleType: "vehicle_type", drivetrain: "drivetrain", seats: "seats", doors: "doors",
   batteryCapacity: "battery_capacity", range: "range_km", engineCapacity: "engine_capacity",
   cylinders: "cylinders", emissionClass: "emission_class", co2Emission: "co2_emission",
-  energyLabel: "energy_label", color: "color", paintType: "paint_type",
+  autoscoutUrl: "energy_label", color: "color", paintType: "paint_type",
   interiorColor: "interior_color", upholstery: "upholstery", serviceHistory: "service_history",
   nonSmoker: "non_smoker", description: "description", options: "options", vatLabel: "vat_label",
   status: "status", featured: "featured", newArrival: "new_arrival", publishedAt: "published_at",

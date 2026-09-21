@@ -17,6 +17,11 @@ export default function IntroScreen() {
     let hasSeen = false;
     try {
       hasSeen = sessionStorage.getItem("nem_intro_garage_final");
+      
+      // If opened in a new tab from within the site, skip intro
+      if (!hasSeen && document.referrer && document.referrer.includes(window.location.host)) {
+        hasSeen = true;
+      }
     } catch (e) {}
 
     if (!hasSeen) {

@@ -7,7 +7,7 @@ import CookieConsent from "@/components/privacy/CookieConsent";
 import IntroScreen from "@/components/layout/IntroScreen";
 import ChatWidget from "@/components/ui/ChatWidget";
 export const metadata = {
-    icons: { icon: "/favicon.ico" },
+    icons: { icon: "/faviconnem.png" },
     metadataBase: new URL(siteGegevens.websiteUrl),
     title: {
         default: siteGegevens.name,

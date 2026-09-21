@@ -139,7 +139,8 @@ export default function SellForm() {
         <Field label="Kilometerstand" name="mileage" inputMode="numeric" required />
         <SelectField label="Brandstof" name="fuel" placeholder="Selecteer brandstof" options={["Benzine", "Diesel", "Elektrisch/Benzine", "Elektrisch/Diesel", "Elektrisch", "LPG"]} />
         <SelectField label="Transmissie" name="transmission" placeholder="Selecteer transmissie" options={["Automaat", "Manueel"]} />
-        <Field label="Gewenste prijs (€)" name="price" inputMode="numeric" className="sm:col-span-2" />
+        <Field label="Chassisnummer" name="chassis" required />
+        <Field label="Gewenste prijs (€)" name="price" inputMode="numeric" />
       </div>
 
       <label className="mt-4 block text-[11px] font-medium text-neutral-700">

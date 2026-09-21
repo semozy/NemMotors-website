@@ -30,7 +30,7 @@ function mapVehicle(row) {
     cylinders: row.cylinders,
     emissionClass: row.emission_class,
     co2Emission: row.co2_emission == null ? null : Number(row.co2_emission),
-    energyLabel: row.energy_label,
+    autoscoutUrl: row.energy_label,
     color: row.color,
     paintType: row.paint_type,
     interiorColor: row.interior_color,
