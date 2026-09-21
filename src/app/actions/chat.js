@@ -57,7 +57,7 @@ export async function askAssistant(message) {
 
   // 5. OPENINGSUREN & LOCATIE
   if (text.includes("open") || text.includes("uur") || text.includes("wanneer")) {
-    return `Onze openingsuren zijn:\nMa t/m Za: 10:00 - 18:00\nZondag: 10:00 - 15:00\nKom gerust langs, we zijn open!`;
+    return `Onze openingsuren zijn:\nMa t/m Do: 10:00 - 18:00\nVr t/m Za: 10:00 - 17:00\nZondag: Op afspraak\n\nKom gerust langs, de koffie staat klaar!`;
   }
   
   if (text.includes("waar") || text.includes("locatie") || text.includes("adres")) {
