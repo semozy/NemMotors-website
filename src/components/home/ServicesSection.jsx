@@ -17,7 +17,7 @@ const hoofddiensten = [
     description: "Een wisselende voorraad aan betrouwbare, streng gecontroleerde wagens.",
     action: "Bekijk ons aanbod",
     href: "/aanbod",
-    image: "/images/home/volgende-wagen.jpg",
+    image: "/images/home/volgende-wagen-bg.jpg",
     icon: CarFront,
   },
   {
@@ -35,7 +35,7 @@ const hoofddiensten = [
       "Ontvang een eerlijk voorstel op basis van de staat, kilometerstand en marktwaarde.",
     action: "Vraag een voorstel",
     href: "/auto-verkopen",
-    image: "/images/home/autoverkopen.jpg",
+    image: "/images/home/auto-verkopen-bg.jpg",
     icon: Tag,
   },
 ];
