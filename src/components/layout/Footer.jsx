@@ -50,14 +50,21 @@ export default function Footer() {
             <p className="mt-4 whitespace-pre-line text-sm text-neutral-400">
               {siteGegevens.openingHours}
             </p>
-            {(siteGegevens.facebookUrl || siteGegevens.instagramUrl) && (<div className="mt-5 flex gap-3">
-                {siteGegevens.facebookUrl && (<a href={siteGegevens.facebookUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
-                    Facebook
-                  </a>)}
-                {siteGegevens.instagramUrl && (<a href={siteGegevens.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
-                    Instagram
-                  </a>)}
-              </div>)}
+            <div className="mt-5 flex items-center gap-4">
+              {(siteGegevens.facebookUrl || siteGegevens.instagramUrl) && (
+                <div className="flex gap-3">
+                  {siteGegevens.facebookUrl && (<a href={siteGegevens.facebookUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
+                      Facebook
+                    </a>)}
+                  {siteGegevens.instagramUrl && (<a href={siteGegevens.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
+                      Instagram
+                    </a>)}
+                </div>
+              )}
+              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="block rounded bg-white p-1.5 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
+                <img src="/images/home/AutoScout24_Logo_2020.svg.webp" alt="AutoScout24" className="h-4 w-auto object-contain sm:h-5" />
+              </a>
+            </div>
           </div>
         </div>
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-neutral-400 md:flex-row md:items-center md:justify-between">
