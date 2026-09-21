@@ -50,14 +50,14 @@ export default function Footer() {
             <p className="mt-4 whitespace-pre-line text-sm text-neutral-400">
               {siteGegevens.openingHours}
             </p>
-            <div className="mt-5 flex items-center gap-4">
-              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="flex h-10 items-center rounded bg-black px-2 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
-                <img src="/images/home/AutoScout24_Logo_2020.svg.webp" alt="AutoScout24" className="h-4 w-auto object-contain sm:h-5" />
-              </a>
-              <a href="https://www.instagram.com/nemmotors.be/" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded bg-black text-white transition hover:opacity-80" aria-label="Volg ons op Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              </a>
-            </div>
+              <div className="mt-5 flex items-center gap-3">
+                <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black" aria-label="Bekijk ons op AutoScout24">
+                  <span className="text-[11px] font-black tracking-tighter">AS24</span>
+                </a>
+                <a href="https://www.instagram.com/nemmotors.be/" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black" aria-label="Volg ons op Instagram">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+              </div>
           </div>
         </div>
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-neutral-400 md:flex-row md:items-center md:justify-between">
