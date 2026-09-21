@@ -23,7 +23,6 @@ export async function sendAdminNotification({ subject, content, replyTo, attachm
           <div style="background-color: #f5f5f5; padding: 15px; border-radius: 6px; margin: 20px 0; color: #171717;">
             ${content}
           </div>
-          <p style="color: #525252; font-size: 12px; margin-bottom: 0;">Log in op je <a href="${process.env.NEXT_PUBLIC_SITE_URL}/beheer/aanvragen" style="color: #000;">beheerpaneel</a> om deze te bekijken of af te handelen.</p>
         </div>
       `,
       attachments: attachments.length > 0 ? attachments : undefined,
