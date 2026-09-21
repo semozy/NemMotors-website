@@ -61,7 +61,7 @@ export default function Footer() {
                     </a>)}
                 </div>
               )}
-              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="block rounded bg-white p-1.5 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
+              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="block rounded bg-black p-1.5 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
                 <img src="/images/home/AutoScout24_Logo_2020.svg.webp" alt="AutoScout24" className="h-4 w-auto object-contain sm:h-5" />
               </a>
             </div>
