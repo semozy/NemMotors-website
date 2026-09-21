@@ -82,14 +82,20 @@ export default function TestDriveModal({ car }) {
     }
   }
   const dateObj = selectedDate ? new Date(selectedDate) : null;
-  const isSunday = dateObj?.getDay() === 0;
-  const endHour = isSunday ? 15 : 18;
+  const day = dateObj?.getDay();
 
-  const timeSlots = [];
-  for (let hour = 10; hour <= endHour; hour++) {
-    timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
-    if (hour < endHour) {
-      timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
+  let timeSlots = [];
+  if (day === 0) {
+    timeSlots = ["Op afspraak"];
+  } else if (day >= 1 && day <= 4) {
+    for (let hour = 10; hour <= 18; hour++) {
+      timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+      if (hour < 18) timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
+    }
+  } else if (day === 5 || day === 6) {
+    for (let hour = 10; hour <= 17; hour++) {
+      timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+      if (hour < 17) timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
     }
   }
   return (

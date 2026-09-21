@@ -6,7 +6,7 @@ export const siteGegevens = {
     phoneNumber: "+32 473 56 34 04",
     email: "info@nemmotors.be",
     address: "Ambachtslaan 5/10, 3665 As",
-    openingHours: "Ma - Za: 10:00 - 17:30\nZo: Gesloten",
+    openingHours: "Ma - Do: 10:00 - 18:00\nVr - Za: 10:00 - 17:00\nZo: Op afspraak",
     websiteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be",
     enterpriseNumber: "",
     vatNumber: "",
