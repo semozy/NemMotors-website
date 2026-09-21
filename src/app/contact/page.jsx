@@ -75,8 +75,8 @@ export default function ContactPage() {
 
           <InfoCard icon={Clock3} title="Openingsuren">
             <dl className="mt-2 space-y-3 text-xs">
-              <div className="flex justify-between gap-5"><dt>Ma – za</dt><dd>10:00 – 18:00</dd></div>
-              <div className="flex justify-between gap-5 border-t border-neutral-100 pt-3"><dt>Zo</dt><dd>10:00 – 15:00</dd></div>
+              <div className="flex justify-between gap-5"><dt>Ma - Za</dt><dd>10:00 - 17:30</dd></div>
+              <div className="flex justify-between gap-5 border-t border-neutral-100 pt-3"><dt>Zo</dt><dd>Gesloten</dd></div>
             </dl>
           </InfoCard>
         </section>
