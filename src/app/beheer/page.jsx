@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Car, MessageSquare, TrendingUp, AlertCircle } from "lucide-react";
+import { Car, MessageSquare, TrendingUp, AlertCircle, Users } from "lucide-react";
 import { adminCookieName, isValidAdminSessionToken } from "@/lib/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/supabase";
 import LogoutButton from "@/components/admin/LogoutButton";
@@ -42,6 +42,7 @@ export default async function BeheerPage() {
           <div className="flex gap-2">
             <Link href="/beheer/wagens" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 text-xs font-bold hover:bg-neutral-50"><Car className="h-4 w-4" />Wagenaanbod</Link>
             <Link href="/beheer/aanvragen" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 text-xs font-bold hover:bg-neutral-50"><MessageSquare className="h-4 w-4" />Aanvragen</Link>
+            <Link href="/beheer/accounts" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 text-xs font-bold hover:bg-neutral-50"><Users className="h-4 w-4" />Accounts</Link>
             <LogoutButton />
           </div>
         </div>

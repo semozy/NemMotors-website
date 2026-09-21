@@ -1,0 +1,1 @@
+import { createAdminSupabaseClient } from "./src/lib/supabase.js"; async function run() { const supabase = createAdminSupabaseClient(); const { data, error } = await supabase.from("admin_users").select("*"); console.log(data); } run();

@@ -54,7 +54,7 @@ export default function ContactPage() {
 
           <div className="relative min-h-[310px] lg:min-h-[360px] bg-white p-8">
             <div className="absolute -left-16 top-0 z-10 hidden h-full w-32 -skew-x-[13deg] bg-white lg:block" />
-            <Image src="/images/home/nemlogo2.png" alt="NEM Motors" fill priority quality={100} sizes="(min-width: 1024px) 57vw, 100vw" className="object-contain object-center p-8 lg:object-right" />
+            <Image src="/images/home/nemcontact1.png" alt="NEM Motors" fill priority quality={100} sizes="(min-width: 1024px) 57vw, 100vw" className="object-contain object-center p-8 lg:object-right" />
           </div>
         </div>
       </section>

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, Children } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X, MessageSquare, ChevronDown } from "lucide-react";
+import { ArrowLeft, Check, ImagePlus, LogOut, Pencil, Plus, RefreshCw, Save, Trash2, X, MessageSquare, ChevronDown, Users } from "lucide-react";
 
 const emptyForm = {
   brand: "", model: "", title: "", trim: "", year: "", firstRegistration: "", price: "", mileage: "",
@@ -287,6 +287,7 @@ export default function VehicleManager() {
         <div className="flex gap-2">
           <Link href="/beheer" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50">Dashboard</Link>
           <Link href="/beheer/aanvragen" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><MessageSquare className="h-4 w-4" />Aanvragen</Link>
+          <Link href="/beheer/accounts" className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><Users className="h-4 w-4" />Accounts</Link>
           <button type="button" onClick={loadVehicles} className="flex h-10 items-center gap-2 rounded-md border border-neutral-300 px-4 text-xs font-bold hover:bg-neutral-50"><RefreshCw className="h-4 w-4" />Vernieuwen</button>
           <button type="button" onClick={logout} className="flex h-10 items-center gap-2 rounded-md bg-neutral-950 px-4 text-xs font-bold text-white hover:bg-neutral-800"><LogOut className="h-4 w-4" />Uitloggen</button>
         </div>
