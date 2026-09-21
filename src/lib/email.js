@@ -12,8 +12,7 @@ export async function sendAdminNotification({ subject, content, attachments = []
 
   try {
     const { error } = await resend.emails.send({
-      // We use a default from address, but you can configure a custom domain in Resend later
-      from: "NEM Motors Notificaties <onboarding@resend.dev>",
+      from: "NEM Motors <info@nemmotors.be>",
       to: ["semihozyurek25@gmail.com", "info@nemmotors.be"],
       subject: subject,
       html: `
