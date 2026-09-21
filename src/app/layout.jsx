@@ -6,6 +6,7 @@ import ComparisonTray from "@/components/cars/ComparisonTray";
 import CookieConsent from "@/components/privacy/CookieConsent";
 import IntroScreen from "@/components/layout/IntroScreen";
 import ChatWidget from "@/components/ui/ChatWidget";
+import MobileActionBar from "@/components/layout/MobileActionBar";
 export const metadata = {
     icons: { icon: "/faviconnem.png" },
     metadataBase: new URL(siteGegevens.websiteUrl),
@@ -78,11 +79,12 @@ export default function RootLayout({ children, }) {
         }}/>
         <IntroScreen />
         <Header />
-        <main>{children}</main>
+        <main className="lg:pb-0 pb-16">{children}</main>
         <ComparisonTray />
         <ChatWidget />
         <CookieConsent />
         <Footer />
+        <MobileActionBar />
       </body>
     </html>);
 }

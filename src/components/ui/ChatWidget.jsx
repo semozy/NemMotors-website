@@ -69,7 +69,7 @@ export default function ChatWidget() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-950 text-white shadow-xl transition-transform hover:scale-110 active:scale-95"
+            className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-950 text-white shadow-xl transition-transform hover:scale-110 active:scale-95 lg:bottom-6"
             aria-label="Open chat"
           >
             <MessageSquare className="h-6 w-6" />
@@ -85,7 +85,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-[999999] flex h-[600px] max-h-[80vh] w-[380px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] font-sans"
+            className="fixed bottom-24 right-6 z-[999999] flex h-[600px] max-h-[80vh] w-[380px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] font-sans lg:bottom-6"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-neutral-800 bg-neutral-950 px-5 py-4 text-white">
