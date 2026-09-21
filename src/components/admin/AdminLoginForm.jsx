@@ -21,12 +21,21 @@ export default function AdminLoginForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const result = await response.json();
+      
+      let result;
+      const text = await response.text();
+      try {
+        result = JSON.parse(text);
+      } catch {
+        throw new Error(`Serverfout (Status ${response.status}). Controleer Vercel logs.`);
+      }
+
       if (!response.ok) throw new Error(result.error || "Inloggen mislukt.");
       router.push("/beheer/wagens");
       router.refresh();
     } catch (caughtError) {
       setError(caughtError.message);
+    } finally {
       setLoading(false);
     }
   }
