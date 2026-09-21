@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Instagram } from "lucide-react";
 export const siteGegevens = {
     name: "NEM Motors",
     description: "Betrouwbare tweedehandswagens met ervaring en passie",
@@ -51,18 +52,11 @@ export default function Footer() {
               {siteGegevens.openingHours}
             </p>
             <div className="mt-5 flex items-center gap-4">
-              {(siteGegevens.facebookUrl || siteGegevens.instagramUrl) && (
-                <div className="flex gap-3">
-                  {siteGegevens.facebookUrl && (<a href={siteGegevens.facebookUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
-                      Facebook
-                    </a>)}
-                  {siteGegevens.instagramUrl && (<a href={siteGegevens.instagramUrl} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 px-3 py-2 text-xs hover:border-white">
-                      Instagram
-                    </a>)}
-                </div>
-              )}
-              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="block rounded bg-black p-1.5 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
+              <a href="https://www.autoscout24.be/nl/verkopers/nem-motors" target="_blank" rel="noopener noreferrer" className="flex h-10 items-center rounded bg-black px-2 transition hover:opacity-80" aria-label="Bekijk ons op AutoScout24">
                 <img src="/images/home/AutoScout24_Logo_2020.svg.webp" alt="AutoScout24" className="h-4 w-auto object-contain sm:h-5" />
+              </a>
+              <a href="https://www.instagram.com/nemmotors.be/" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded bg-black text-white transition hover:opacity-80" aria-label="Volg ons op Instagram">
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
