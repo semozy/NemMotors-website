@@ -169,22 +169,14 @@ export default async function AutoPage({ params }) {
           </nav>
         </div>
 
-        <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.85fr)_minmax(320px,1fr)] lg:gap-6">
+        <div className="flex flex-col gap-5 lg:grid lg:items-start lg:grid-cols-[minmax(0,1.85fr)_minmax(320px,1fr)] lg:gap-6">
           
-          {/* Linker kolom (Galerij + Details) */}
-          <div className="flex flex-col gap-5">
+          <div className="order-1 lg:col-start-1 lg:row-start-1">
             <CarGallery images={images} name={name} />
-            
-            <CarDetailTabs
-              overview={overview}
-              specifications={specifications}
-              options={car.options || []}
-              description={car.description || ""}
-            />
           </div>
 
           {/* Rechter kolom (Sticky Info Kaart) */}
-          <aside className="rounded-lg border border-neutral-200 bg-white p-5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] lg:sticky lg:top-[90px]">
+          <aside className="order-2 rounded-lg border border-neutral-200 bg-white p-5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:sticky lg:top-[90px]">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="flex flex-wrap items-center gap-2"><p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{car.brand}</p><VehicleStatusBadge status={car.status} compact /></div>
@@ -237,6 +229,15 @@ export default async function AutoPage({ params }) {
               <p className="mt-2 flex items-center gap-2 text-neutral-700"><MapPin className="h-4 w-4" aria-hidden="true" />{siteGegevens.address}</p>
             </div>
           </aside>
+
+          <div className="order-3 lg:col-start-1 lg:row-start-2">
+            <CarDetailTabs
+              overview={overview}
+              specifications={specifications}
+              options={car.options || []}
+              description={car.description || ""}
+            />
+          </div>
         </div>
 
         {relatedCars.length > 0 && (
