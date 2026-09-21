@@ -37,6 +37,7 @@ export async function POST(request) {
 
     await sendAdminNotification({
       subject: `Contactaanvraag van ${name}`,
+      replyTo: email,
       content: `
         <strong>Naam:</strong> ${name}<br>
         <strong>E-mailadres:</strong> ${email}<br><br>

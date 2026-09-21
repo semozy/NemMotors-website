@@ -56,6 +56,7 @@ export async function POST(request) {
     // Bericht naar NEM Motors (Admin)
     await sendAdminNotification({
       subject: `Nieuwe proefrit aanvraag: ${name} (${carName})`,
+      replyTo: email,
       content: `
         <strong>Naam:</strong> ${name}<br>
         <strong>E-mailadres:</strong> ${email}<br>
@@ -72,7 +73,7 @@ export async function POST(request) {
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "NEM Motors <onboarding@resend.dev>", // TODO: Verander naar eigen domein
+        from: "NEM Motors <info@nemmotors.be>",
         to: email,
         subject: "Bevestiging proefrit aanvraag - NEM Motors",
         html: `

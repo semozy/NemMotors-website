@@ -102,6 +102,7 @@ export async function POST(request) {
     
     await sendAdminNotification({
       subject: `Verkoopaanvraag van ${name} (${brand} ${model})`,
+      replyTo: email,
       attachments,
       content: `
         <strong>Naam:</strong> ${name}<br>
@@ -111,8 +112,8 @@ export async function POST(request) {
         <strong>Bouwjaar:</strong> ${year}<br>
         <strong>Kilometerstand:</strong> ${mileage.toLocaleString("nl-BE")} km<br>
         <strong>Gewenste prijs:</strong> ${parsedPrice ? "€ " + parsedPrice.toLocaleString("nl-BE") : "Niet opgegeven"}<br><br>
-        <strong>Opmerking:</strong><br>
-        ${message ? message.replace(/\n/g, "<br>") : "Geen"}
+        <strong>Opmerking / Extra's:</strong><br>
+        ${enrichedMessage.replace(/\n/g, "<br>")}
       `
     });
 

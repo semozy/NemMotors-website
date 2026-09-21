@@ -4,7 +4,7 @@ import { siteGegevens } from "@/components/layout/Footer";
 // Initialize Resend only if the API key is provided
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-export async function sendAdminNotification({ subject, content, attachments = [] }) {
+export async function sendAdminNotification({ subject, content, replyTo, attachments = [] }) {
   if (!resend) {
     console.log("No RESEND_API_KEY found, skipping email notification. Content was:", subject);
     return;
@@ -14,6 +14,7 @@ export async function sendAdminNotification({ subject, content, attachments = []
     const { error } = await resend.emails.send({
       from: "NEM Motors <info@nemmotors.be>",
       to: ["semihozyurek25@gmail.com", "info@nemmotors.be"],
+      replyTo: replyTo,
       subject: subject,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e5e5; border-radius: 8px;">
