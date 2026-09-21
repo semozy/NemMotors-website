@@ -8,7 +8,7 @@ import IntroScreen from "@/components/layout/IntroScreen";
 import ChatWidget from "@/components/ui/ChatWidget";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 export const metadata = {
-    icons: { icon: "/faviconnem.png" },
+    icons: { icon: "/iconnem.png" },
     metadataBase: new URL(siteGegevens.websiteUrl),
     title: {
         default: siteGegevens.name,
