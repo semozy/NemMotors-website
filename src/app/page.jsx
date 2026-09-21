@@ -32,7 +32,9 @@ export default async function HomePage() {
         <ServicesSection />
         <Container id="over-ons" className="py-10">
           <div className="grid overflow-hidden rounded-lg bg-neutral-100 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="min-h-[420px] bg-[url('https://images.unsplash.com/photo-1562141961-b5d92de784a3?auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center"/>
+            <div className="relative min-h-[420px]">
+              <Image src="/images/home/garage.jpeg" alt="Over NEM Motors" fill className="object-cover object-center" />
+            </div>
             <div className="p-8 md:p-12">
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-950">
                 Over NEM Motors
@@ -246,7 +248,7 @@ function GarageInfo() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
           {/* Card 01 - Wide, Dark */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-neutral-950 p-8 text-white lg:col-span-7 lg:min-h-[340px]">
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 to-neutral-900 transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/begeleiding.png" alt="Persoonlijke begeleiding" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">01</span>
             <div className="relative z-10 mt-12 max-w-sm">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Persoonlijke<br />begeleiding</h3>
@@ -256,7 +258,7 @@ function GarageInfo() {
 
           {/* Card 02 - Narrow, Light */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-[#f4f4f4] p-8 text-neutral-950 lg:col-span-5 lg:min-h-[340px]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#f4f4f4] to-[#ebebeb] transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/info.png" alt="Duidelijke informatie" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">02</span>
             <div className="relative z-10 mt-12 max-w-xs">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Duidelijke<br />informatie</h3>
@@ -266,17 +268,17 @@ function GarageInfo() {
 
           {/* Card 03 - Narrow, Light */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-[#f4f4f4] p-8 text-neutral-950 lg:col-span-5 lg:min-h-[340px]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#f4f4f4] to-[#ebebeb] transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/garantie.png" alt="12 maanden garantie" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">03</span>
             <div className="relative z-10 mt-12 max-w-xs">
-              <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Zorgvuldig<br />geselecteerd</h3>
-              <p className="mt-4 text-lg text-neutral-600">Aandacht voor kwaliteit,<br/>bij elke wagen.</p>
+              <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">12 maanden<br />garantie</h3>
+              <p className="mt-4 text-lg text-neutral-600">Na elke aankoop<br/>van een wagen.</p>
             </div>
           </div>
 
           {/* Card 04 - Wide, Dark */}
           <div className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[20px] bg-neutral-950 p-8 text-white lg:col-span-7 lg:min-h-[340px]">
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 to-neutral-900 transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/images/home/vlot.png" alt="Vlot geregeld" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <span className="relative z-10 text-sm font-semibold opacity-50">04</span>
             <div className="relative z-10 mt-12 max-w-sm">
               <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Vlot geregeld</h3>

@@ -18,7 +18,7 @@ const hoofddiensten = [
       "Ontdek zorgvuldig geselecteerde tweedehandswagens met duidelijke informatie.",
     action: "Bekijk het aanbod",
     href: "/aanbod",
-    image: "/images/home/service-aanbod.png",
+    image: "/images/home/volgende-wagen.JPG",
     icon: CarFront,
   },
   {
@@ -36,7 +36,7 @@ const hoofddiensten = [
       "Ontvang een eerlijk voorstel op basis van de staat, kilometerstand en marktwaarde.",
     action: "Vraag een voorstel",
     href: "/auto-verkopen",
-    image: "/images/home/service-verkoop.png",
+    image: "/images/home/autoverkopen.jpg",
     icon: Tag,
   },
 ];

@@ -70,8 +70,8 @@ export default function AutoVerkopenPage() {
 
           <div className="relative mt-6 min-h-[280px] flex-1 overflow-hidden rounded-md sm:min-h-[330px] lg:min-h-0">
             <Image
-              src="/images/sell/sell-your-car.png"
-              alt="Een autosleutel voor een wagen bij de showroom van NEM Motors"
+              src="/images/home/verkopen.png"
+              alt="Auto verkopen bij NEM Motors"
               fill
               priority
               sizes="(min-width: 1024px) 58vw, 100vw"
