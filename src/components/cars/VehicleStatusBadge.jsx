@@ -18,7 +18,7 @@ export default function VehicleStatusBadge({ status, compact = false }) {
     : (compact ? "px-2.5 py-1 text-[9px] font-bold tracking-[0.08em]" : "px-3 py-1.5 text-[10px] font-bold tracking-[0.08em]");
 
   return (
-    <span className={inline-flex w-fit items-center rounded-full uppercase \ \}>
+    <span className={`inline-flex w-fit items-center rounded-full uppercase ${sizeClasses} ${styles[normalizedStatus]}`}>
       {labels[normalizedStatus]}
     </span>
   );
