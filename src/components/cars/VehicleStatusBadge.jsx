@@ -5,7 +5,7 @@ const labels = {
 
 const styles = {
   gereserveerd: "bg-amber-100 text-amber-900 ring-1 ring-inset ring-amber-300",
-  verkocht: "bg-neutral-950 text-white ring-1 ring-inset ring-white/10",
+  verkocht: "bg-red-600 text-white ring-1 ring-inset ring-red-700 shadow-sm",
 };
 
 export default function VehicleStatusBadge({ status, compact = false }) {
