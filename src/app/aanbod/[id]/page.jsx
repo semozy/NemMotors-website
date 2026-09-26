@@ -44,7 +44,7 @@ export async function generateMetadata({ params }) {
   const dynamicDesc = `${title} ${specs.join(". ")}. Bekijk alle foto's en details online bij NEM Motors in As.`;
   const description = dynamicDesc.length > 155 ? dynamicDesc.substring(0, 155) + "..." : dynamicDesc;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/aanbod/${car.id}`;
-  const image = car.images?.[0] || car.image || "/images/home/nemlogofull.png";
+  const image = car.images?.[0] || car.image || "/iconnem.png";
 
   return {
     title,
@@ -145,7 +145,7 @@ export default async function AutoPage({ params }) {
             "@type": "Car",
             "name": name,
             "description": car.description || `Koop een tweedehands ${name} bij ${siteGegevens.name}.`,
-            "image": images[0] || `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/images/home/nemlogofull.png`,
+            "image": images[0] || `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/iconnem.png`,
             "brand": { "@type": "Brand", "name": car.brand },
             "model": car.model,
             "vehicleConfiguration": car.trim || undefined,

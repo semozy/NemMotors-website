@@ -28,9 +28,9 @@ export const metadata = {
         description: siteGegevens.description,
         images: [
             {
-                url: "/images/home/nemlogofull.png",
-                width: 1200,
-                height: 630,
+                url: "/iconnem.png",
+                width: 1254,
+                height: 1254,
                 alt: "NEM Motors - Tweedehandswagens in As",
             },
         ],
@@ -39,7 +39,7 @@ export const metadata = {
         card: "summary_large_image",
         title: "NEM Motors | Tweedehandswagens in As, Limburg",
         description: siteGegevens.description,
-        images: ["/images/home/nemlogofull.png"],
+        images: ["/iconnem.png"],
     },
 };
 import Script from "next/script";
@@ -71,7 +71,7 @@ export default function RootLayout({ children, }) {
                 name: siteGegevens.name,
                 url: siteGegevens.websiteUrl,
                 logo: `${siteGegevens.websiteUrl}/iconnem.png`,
-                image: `${siteGegevens.websiteUrl}/images/home/nemlogofull.png`,
+                image: `${siteGegevens.websiteUrl}/iconnem.png`,
                 description: siteGegevens.description,
                 telephone: siteGegevens.phoneNumber,
                 email: siteGegevens.email,
