@@ -26,6 +26,7 @@ export default function Hero() {
                 muted 
                 playsinline 
                 preload="auto"
+                poster="/images/home/volgende-wagen-bg.jpg"
                 class="h-full w-full object-cover object-center"
               >
                 <source src="/images/home/NemMotors.mp4" type="video/mp4" />
