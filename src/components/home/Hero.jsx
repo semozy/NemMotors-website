@@ -34,7 +34,7 @@ export default function Hero() {
             <span className="text-[10px] font-medium uppercase tracking-[0.38em] text-white/55">Premium occasions</span>
           </motion.div>
           <motion.h1 {...reveal(0.12)} className="text-[44px] font-black leading-[0.98] tracking-[-0.045em] sm:text-6xl lg:text-[64px]">
-            Sterke wagens.<br />Sterke service.
+            NEM Motors:<br />Sterke tweedehandswagens.
           </motion.h1>
           <motion.p {...reveal(0.2)} className="mt-4 text-lg font-semibold sm:text-xl">Uw vertrouwen is onze motor.</motion.p>
           <motion.p {...reveal(0.27)} className="mt-2 max-w-[500px] text-sm leading-6 text-white/80 sm:text-base">

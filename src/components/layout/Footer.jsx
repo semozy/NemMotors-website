@@ -1,13 +1,16 @@
 import Link from "next/link";
 export const siteGegevens = {
     name: "NEM Motors",
-    description: "Betrouwbare tweedehandswagens met ervaring en passie",
+    description:
+        "NEM Motors is uw autodealer in As, Limburg voor zorgvuldig geselecteerde tweedehandswagens. Bekijk ons actuele aanbod, plan een proefrit of verkoop uw wagen.",
     whatsappNumber: "32470000000",
     phoneNumber: "+32 473 56 34 04",
     email: "info@nemmotors.be",
     address: "Ambachtslaan 5/10, 3665 As",
-    openingHours: "Ma - Do: 10:00 - 18:00\nVr - Za: 10:00 - 17:00\nZo: Op afspraak",
-    websiteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be",
+    openingHours:
+        "Ma - Do: 10:00 - 18:00\nVr - Za: 10:00 - 17:00\nZo: Op afspraak",
+    websiteUrl:
+        process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be",
     enterpriseNumber: "",
     vatNumber: "",
     facebookUrl: "",

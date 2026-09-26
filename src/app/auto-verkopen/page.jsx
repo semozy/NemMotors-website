@@ -4,8 +4,11 @@ import { ArrowRight, Check, ChevronDown, Phone } from "lucide-react";
 import SellForm from "@/components/sell/SellForm";
 
 export const metadata = {
-  title: "Auto verkopen",
-  description: "Vraag vrijblijvend een persoonlijk voorstel aan voor uw auto.",
+  title: "Uw auto verkopen",
+  description: "Verkoop uw wagen aan NEM Motors. Bezorg ons de gegevens van uw auto en ontvang eenvoudig meer informatie over de verkoop.",
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/auto-verkopen`,
+  }
 };
 
 const benefits = ["Persoonlijk contact", "Vrijblijvend voorstel", "Inruil mogelijk"];

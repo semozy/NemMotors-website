@@ -6,6 +6,7 @@ import { getCars } from "@/lib/cars";
 export const metadata = {
   title: "Wagens vergelijken",
   description: "Vergelijk uw favoriete wagens bij NEM Motors.",
+  robots: { index: false, follow: true },
 };
 export const dynamic = "force-dynamic";
 

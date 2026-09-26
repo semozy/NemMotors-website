@@ -10,32 +10,36 @@ import MobileActionBar from "@/components/layout/MobileActionBar";
 export const metadata = {
     icons: { icon: "/iconnem.png" },
     metadataBase: new URL(siteGegevens.websiteUrl),
+    alternates: {
+        canonical: "/",
+    },
     title: {
-        default: siteGegevens.name,
-        template: `%s | ${siteGegevens.name}`,
+        default: "NEM Motors | Tweedehandswagens in As, Limburg",
+        template: "%s | NEM Motors",
     },
     description: siteGegevens.description,
     applicationName: siteGegevens.name,
     openGraph: {
         type: "website",
         locale: "nl_BE",
-        siteName: siteGegevens.name,
-        title: siteGegevens.name,
+        url: "/",
+        siteName: "NEM Motors",
+        title: "NEM Motors | Tweedehandswagens in As, Limburg",
         description: siteGegevens.description,
         images: [
             {
-                url: "/images/logo/nemmotors.png",
+                url: "/images/home/nemlogofull.png",
                 width: 1200,
                 height: 630,
-                alt: siteGegevens.name,
+                alt: "NEM Motors - Tweedehandswagens in As",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: siteGegevens.name,
+        title: "NEM Motors | Tweedehandswagens in As, Limburg",
         description: siteGegevens.description,
-        images: ["/images/logo/nemmotors.png"],
+        images: ["/images/home/nemlogofull.png"],
     },
 };
 import Script from "next/script";
@@ -63,9 +67,12 @@ export default function RootLayout({ children, }) {
             __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "AutoDealer",
+                "@id": `${siteGegevens.websiteUrl}/#autodealer`,
                 name: siteGegevens.name,
                 url: siteGegevens.websiteUrl,
-                image: `${siteGegevens.websiteUrl}/images/logo/nemmotors.png`,
+                logo: `${siteGegevens.websiteUrl}/iconnem.png`,
+                image: `${siteGegevens.websiteUrl}/images/home/nemlogofull.png`,
+                description: siteGegevens.description,
                 telephone: siteGegevens.phoneNumber,
                 email: siteGegevens.email,
                 address: {
@@ -73,6 +80,7 @@ export default function RootLayout({ children, }) {
                     streetAddress: "Ambachtslaan 5/10",
                     postalCode: "3665",
                     addressLocality: "As",
+                    addressRegion: "Limburg",
                     addressCountry: "BE",
                 },
             }).replace(/</g, "\\u003c"),

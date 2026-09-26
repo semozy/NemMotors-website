@@ -2,8 +2,11 @@ import CarList from "@/components/cars/CarList";
 import { getCars } from "@/lib/cars";
 
 export const metadata = {
-  title: "Ons aanbod",
-  description: "Ontdek het aanbod tweedehandswagens van NEM Motors. Zoek op merk, prijs en uitvoering en vind de wagen die bij u past.",
+  title: "Tweedehandswagens te koop",
+  description: "Bekijk het actuele aanbod tweedehandswagens van NEM Motors in As, Limburg. Ontdek beschikbare wagens en bekijk prijzen, specificaties en details.",
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/aanbod`,
+  }
 };
 
 export default async function AanbodPage({ searchParams }) {

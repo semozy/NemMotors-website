@@ -5,7 +5,10 @@ import GoogleMapEmbed from "@/components/privacy/GoogleMapEmbed";
 
 export const metadata = {
   title: "Contact",
-  description: "Neem contact op met NEM Motors of plan een bezoek aan onze showroom.",
+  description: "Neem contact op met NEM Motors in As voor vragen over onze tweedehandswagens, proefritten, verkoop of andere informatie.",
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/contact`,
+  }
 };
 
 const phone = "+32 473 56 34 04";

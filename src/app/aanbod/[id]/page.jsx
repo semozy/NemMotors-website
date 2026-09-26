@@ -32,10 +32,19 @@ export async function generateMetadata({ params }) {
   const car = await getCarById((await params).id);
   if (!car) return { title: "Wagen niet gevonden" };
   
-  const title = `${car.brand} ${car.model} ${car.trim || ""}`.trim();
-  const description = car.description?.substring(0, 160) || `Koop een tweedehands ${title} bij ${siteGegevens.name}. Bekijk alle foto's en specificaties online.`;
+  const title = `${car.brand || ""} ${car.model || ""} ${car.trim || ""}`.trim();
+  
+  const specs = [];
+  if (car.year) specs.push(`uit ${car.year}`);
+  if (car.mileage) specs.push(`met ${Number(car.mileage).toLocaleString("nl-BE")} km`);
+  if (car.fuel) specs.push(`Brandstof: ${car.fuel}`);
+  if (car.transmission) specs.push(`Transmissie: ${car.transmission}`);
+  if (car.price > 0) specs.push(`Prijs: ${formatPrice(car.price)}`);
+  
+  const dynamicDesc = `${title} ${specs.join(". ")}. Bekijk alle foto's en details online bij NEM Motors in As.`;
+  const description = dynamicDesc.length > 155 ? dynamicDesc.substring(0, 155) + "..." : dynamicDesc;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/aanbod/${car.id}`;
-  const image = car.images?.[0] || car.image || "/images/logo/nemmotors.png";
+  const image = car.images?.[0] || car.image || "/images/home/nemlogofull.png";
 
   return {
     title,
@@ -136,7 +145,7 @@ export default async function AutoPage({ params }) {
             "@type": "Car",
             "name": name,
             "description": car.description || `Koop een tweedehands ${name} bij ${siteGegevens.name}.`,
-            "image": images[0] || `${process.env.NEXT_PUBLIC_SITE_URL}/images/logo/nemmotors.png`,
+            "image": images[0] || `${process.env.NEXT_PUBLIC_SITE_URL || "https://nemmotors.be"}/images/home/nemlogofull.png`,
             "brand": { "@type": "Brand", "name": car.brand },
             "model": car.model,
             "vehicleConfiguration": car.trim || undefined,

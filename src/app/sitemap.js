@@ -8,13 +8,9 @@ export default async function sitemap() {
     "",
     "/aanbod",
     "/contact",
-    "/auto-verkopen",
-    "/favorieten",
-    "/vergelijken",
-    "/diensten",
+    "/auto-verkopen"
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
     changeFrequency: route === "/aanbod" ? "daily" : "weekly",
     priority: route === "" ? 1 : 0.8,
   }));
@@ -26,7 +22,7 @@ export default async function sitemap() {
       .filter((car) => car.status !== "verkocht")
       .map((car) => ({
         url: `${baseUrl}/aanbod/${car.id}`,
-        lastModified: new Date(), // Ideally this would be car.updated_at
+        ...(car.updated_at || car.created_at ? { lastModified: new Date(car.updated_at || car.created_at) } : {}),
         changeFrequency: "weekly",
         priority: 0.6,
       }));
