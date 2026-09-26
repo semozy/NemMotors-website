@@ -13,12 +13,20 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const handleLogoClick = (e) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-black/5 bg-white/95 text-neutral-950 backdrop-blur-xl">
         <nav className="mx-auto flex h-[70px] max-w-[1320px] items-center justify-between px-5 lg:px-8">
           <Link
             href="/"
+            onClick={handleLogoClick}
             aria-label="NEM Motors home"
             className="shrink-0 flex items-center"
           >
