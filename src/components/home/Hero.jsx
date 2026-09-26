@@ -12,6 +12,8 @@ export default function Hero() {
   useEffect(() => {
     // Forceren van autoplay op mobiele browsers (zoals iOS Safari)
     if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.defaultMuted = true;
       videoRef.current.play().catch((error) => {
         console.warn("Autoplay was prevented by browser:", error);
       });
@@ -32,7 +34,8 @@ export default function Hero() {
           autoPlay 
           loop 
           muted 
-          playsInline 
+          playsInline
+          preload="auto"
           className="h-full w-full object-cover object-center"
         >
           <source src="/images/home/NemMotors.mp4" type="video/mp4" />
