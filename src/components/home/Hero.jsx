@@ -3,9 +3,21 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    // Forceren van autoplay op mobiele browsers (zoals iOS Safari)
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.warn("Autoplay was prevented by browser:", error);
+      });
+    }
+  }, []);
+
   const reveal = (delay) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
@@ -16,6 +28,7 @@ export default function Hero() {
     <section className="relative isolate min-h-[650px] overflow-hidden bg-[#111312] text-white sm:min-h-[750px] lg:min-h-[820px]">
       <motion.div initial={reduceMotion ? false : { scale: 1.035 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
         <video 
+          ref={videoRef}
           autoPlay 
           loop 
           muted 
